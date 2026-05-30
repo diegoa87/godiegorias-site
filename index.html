@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <title>Diego Arias — Transformando el talento tech en Latinoamérica</title>
+  <meta name="description" content="Fundador de Desafío Latam. Formando y empleando talento digital para cerrar la brecha de US$13.000M en Chile.">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Diego Arias — Transformando el talento tech en Latinoamérica">
+  <meta property="og:description" content="Fundador de Desafío Latam. Formando y empleando talento digital.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://godiegoarias.com">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      /* Colores Principales */
+      --bronce: #C9A66B;
+      --charcoal: #363636;
+      --negro-profundo: #0D0D0D;
+      --azul-tech: #5B8DEF;
+      
+      /* Colores Neutros */
+      --blanco: #FFFFFF;
+      --crema: #F5F0E8;
+      --gris-frio: #6B7280;
+      --grafito: #1A1A1A;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--crema);
+      color: var(--grafito);
+      line-height: 1.7;
+    }
+    
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* Reset global anti-overflow */
+    *, *::before, *::after { box-sizing: border-box; }
+    img { max-width: 100%; height: auto; display: block; }
+    html, body { overflow-x: hidden; max-width: 100%; }
+    
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(13, 13, 13, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      padding: 16px 0;
+    }
+    
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 6px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--blanco);
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+    
+    .logo img {
+      height: 56px;
+      width: auto;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      color: var(--blanco);
+      text-decoration: none;
+      font-size: 0.9rem;
+      opacity: 0.8;
+      transition: opacity 0.3s;
+    }
+    
+    .nav-links a:hover { opacity: 1; }
+    
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--negro-profundo) 0%, var(--charcoal) 100%);
+      color: var(--blanco);
+      display: flex;
+      align-items: center;
+      padding: 120px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero .container {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 60px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .hero-image {
+      width: 100%;
+      max-width: 380px;
+      border-radius: 16px;
+      box-shadow: -20px 0 40px rgba(0,0,0,0.4);
+      display: block;
+      justify-self: end;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 768px) {
+      .hero .container {
+        grid-template-columns: 1fr;
+      }
+      .hero-image {
+        max-width: 280px;
+        margin: 0 auto;
+        justify-self: center;
+      }
+    }
+    
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      letter-spacing: -2px;
+    }
+    
+    .hero h1 span {
+      color: var(--bronce);
+    }
+    
+    .hero .tagline {
+      font-size: 1.3rem;
+      opacity: 0.9;
+      margin-bottom: 16px;
+    }
+    
+    .hero .bio {
+      font-size: 1.1rem;
+      opacity: 0.7;
+      max-width: 500px;
+      margin-bottom: 32px;
+    }
+    
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary {
+      background: var(--bronce);
+      color: var(--negro-profundo);
+    }
+    
+    .btn-primary:hover {
+      background: #d4b57a;
+      transform: translateY(-2px);
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: var(--blanco);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    
+    .btn-secondary:hover {
+      border-color: var(--bronce);
+      color: var(--bronce);
+    }
+    
+    /* Stats */
+    .stats {
+      background: var(--negro-profundo);
+      padding: 60px 0;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .stat-item {
+      text-align: center;
+    }
+    
+    .stat-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--bronce);
+      display: block;
+    }
+    
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--gris-frio);
+      margin-top: 8px;
+    }
+    
+    /* About */
+    .about {
+      padding: 100px 0;
+      background: var(--blanco);
+    }
+    
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    
+    .about h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      margin-bottom: 24px;
+      color: var(--charcoal);
+    }
+    
+    .about h2 span {
+      color: var(--bronce);
+    }
+    
+    .about p {
+      color: var(--gris-frio);
+      margin-bottom: 20px;
+      font-size: 1.05rem;
+    }
+    
+    .about-highlights {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 30px;
+    }
+    
+    .highlight-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    
+    .highlight-item::before {
+      content: '→';
+      color: var(--azul-tech);
+      font-weight: 600;
+    }
+    
+    /* Mission */
+    .mission {
+      background: var(--charcoal);
+      color: var(--blanco);
+      padding: 100px 0;
+      text-align: center;
+    }
+    
+    .mission h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      margin-bottom: 24px;
+    }
+    
+    .mission-quote {
+      font-size: 1.5rem;
+      max-width: 800px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+    
+    .mission-quote span {
+      color: var(--bronce);
+    }
+    
+    /* Modelo */
+    .modelo {
+      padding: 100px 0;
+      background: var(--blanco);
+    }
+    
+    .modelo h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    .modelo h2 span { color: var(--bronce); }
+    
+    .modelo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .modelo-card {
+      background: var(--crema);
+      padding: 32px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+    }
+    
+    .modelo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    }
+    
+    .modelo-card .icon {
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+    
+    .modelo-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+      color: var(--charcoal);
+    }
+    
+    .modelo-card p {
+      font-size: 0.95rem;
+      color: var(--gris-frio);
+    }
+    
+    /* Casos */
+    .casos {
+      background: var(--negro-profundo);
+      color: var(--blanco);
+      padding: 100px 0;
+    }
+    
+    .casos h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    .casos h2 span { color: var(--bronce); }
+    
+    .casos-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .caso-card {
+      background: var(--charcoal);
+      padding: 32px;
+      border-radius: 12px;
+    }
+    
+    .caso-card .company {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--azul-tech);
+      margin-bottom: 8px;
+    }
+    
+    .caso-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+    }
+    
+    .caso-card .description {
+      color: var(--gris-frio);
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+    }
+    
+    .caso-card .metric {
+      display: inline-block;
+      background: rgba(201, 166, 107, 0.15);
+      color: var(--bronce);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    
+    /* Contact */
+    .contact {
+      padding: 100px 0;
+      background: var(--crema);
+      text-align: center;
+    }
+    
+    .contact h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+    }
+    
+    .contact p {
+      color: var(--gris-frio);
+      margin-bottom: 32px;
+      font-size: 1.1rem;
+    }
+    
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: var(--blanco);
+      color: var(--charcoal);
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 500;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+    }
+    
+    .contact-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    
+    /* Footer */
+    footer {
+      background: var(--grafito);
+      color: var(--gris-frio);
+      padding: 40px 0;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    
+    footer a {
+      color: var(--bronce);
+      text-decoration: none;
+    }
+    
+    /* ── COMUNIDAD CARDS ── */
+    .comunidad-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 20px 28px;
+      text-align: left;
+      flex: 1 1 160px;
+      max-width: 200px;
+    }
+
+    /* ── RESPONSIVE MÓVIL ── */
+    @media (max-width: 900px) {
+      /* Nav: ocultar links, mostrar hamburguesa (desde tablet) */
+      .nav-links { display: none; flex-direction: column; gap: 0; position: absolute; top: 64px; left: 0; right: 0; background: var(--negro-profundo); padding: 16px 0; z-index: 999; border-top: 1px solid rgba(255,255,255,0.1); }
+      .nav-links.open { display: flex; }
+      .nav-links li a { display: block; padding: 12px 24px; font-size: 1rem; }
+      .hamburger { display: flex !important; }
+    }
+
+    @media (max-width: 768px) {
+
+      /* Hero */
+      .hero { padding: 90px 0 40px; }
+      .hero h1 { font-size: 2rem !important; letter-spacing: -1px; }
+      .hero .tagline { font-size: 0.95rem; }
+      .hero .bio { font-size: 0.88rem; }
+      .hero-cta { flex-direction: column; gap: 12px; }
+      .hero-cta .btn { text-align: center; }
+
+      /* Stats */
+      .stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px; }
+
+      /* About / Modelo / Casos */
+      .about-grid { grid-template-columns: 1fr !important; }
+      .modelo-grid { grid-template-columns: 1fr !important; }
+      .casos-grid { grid-template-columns: 1fr !important; }
+
+      /* Comunidad */
+      .comunidad-cards { flex-direction: column !important; align-items: stretch !important; }
+      .comunidad-card { max-width: 100% !important; flex: none !important; }
+      #comunidad h2 { font-size: 1.5rem !important; }
+
+      /* General */
+      section { padding: 44px 0 !important; }
+      .container { padding: 0 16px !important; }
+
+      /* Texto general más legible */
+      body { font-size: 15px; }
+    }
+  </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BRHLG62B50"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-BRHLG62B50");
+</script>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <div class="container">
+    <a href="/" class="logo"><img src="go-logo.png" alt="GO — Diego Arias"></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about" onclick="closeNav()">Sobre Mí</a></li>
+      <li><a href="#modelo" onclick="closeNav()">Modelo</a></li>
+      <li><a href="#casos" onclick="closeNav()">Casos</a></li>
+      <li><a href="#comunidad" onclick="closeNav()">Comunidad</a></li>
+      <li><a href="#contact" onclick="closeNav()">Contacto</a></li>
+      <li><a href="/recursos-que-yo-uso-de-ia/" onclick="closeNav()">Recursos IA</a></li>
+      <li><a href="/manual-marca/" target="_blank" onclick="closeNav()">Manual de Marca</a></li>
+      <li><a href="https://linkedin.com/in/godiegoarias" target="_blank" onclick="closeNav()">LinkedIn</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menú" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<script>
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  function closeNav() {
+    document.getElementById('navLinks').classList.remove('open');
+  }
+</script>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1>Diego <span>Arias</span></h1>
+      <p class="tagline">Transformando economías latinoamericanas a través del talento tech</p>
+      <p class="bio">Fundador de Desafío Latam. Builder, conectador y constructeur de ecosistemas donde empresas, personas y Estado ganan juntos.</p>
+      <div class="hero-cta">
+        <a href="https://wa.me/56990240620?text=CONVERSEMOS%20%F0%9F%91%8B%20Vi%20tu%20perfil%20y%20me%20interesa%20saber%20m%C3%A1s" target="_blank" class="btn btn-primary">Hablemos por WhatsApp</a>
+        <a href="#casos" class="btn btn-secondary">Ver Casos</a>
+      </div>
+    </div>
+    <img src="https://godiegoarias.com/diego-foto.jpg" alt="Diego Arias" class="hero-image">
+  </div>
+</section>
+
+<!-- Stats -->
+<section class="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="stat-number">+500K</span>
+        <span class="stat-label">Personas impactadas</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">15</span>
+        <span class="stat-label">Países</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">+10</span>
+        <span class="stat-label">Años de experiencia</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div>
+        <h2>Sobre <span>Diego Arias</span></h2>
+        <p>Soy fundador de <strong>Desafío Latam</strong>, una empresa de formación tech/digital que opera bajo un modelo único: ejecución masiva llave en mano.</p>
+        <p>No solo diseñamos programas de formación — los operamos end-to-end, rápido y a escala. Nuestro diferenciador es la gestión integral: Franquicia SENCE, formación pre-contrato, impacto ESG y cero fricción para el cliente.</p>
+        <div class="about-highlights">
+          <div class="highlight-item">Formando +500K personas</div>
+          <div class="highlight-item">Presencia en 15 países</div>
+          <div class="highlight-item">Alianzas con BHP, Globant, Accenture</div>
+          <div class="highlight-item">Meta: 100K en 5 años</div>
+        </div>
+        
+        <!-- Podcasts -->
+        <div style="margin-top: 40px;">
+          <img src="/podcast-studio.jpg" alt="Diego Arias en el estudio de podcast"
+               style="width: 100%; border-radius: 12px; margin-bottom: 20px; object-fit: cover; max-height: 320px;">
+          <h3 style="font-size: 1.2rem; color: var(--charcoal); margin-bottom: 16px;">🎙 Podcasts</h3>
+          <div style="display: grid; gap: 16px;">
+            <div style="background: var(--crema); padding: 20px; border-radius: 12px;">
+              <strong style="color: var(--bronce);">🎙 Oportunidad País</strong>
+              <p style="font-size: 0.9rem; color: var(--gris-frio); margin-top: 8px;">IA, productividad y economía en Chile. Conversaciones sobre tecnología y el futuro del talento digital.</p>
+              <a href="https://desafiolatam.com/oportunidad-pais/" target="_blank" style="color: var(--azul-tech); font-size: 0.85rem; text-decoration: none;">Escuchar →
+            </a>
+            </div>
+            <div style="background: var(--crema); padding: 20px; border-radius: 12px;">
+              <strong style="color: var(--bronce);">🎙 Es la Hora de Aprender</strong>
+              <p style="font-size: 0.9rem; color: var(--gris-frio); margin-top: 8px;">Tecnología, IA y automatización. En conjunto con Rodrigo Rojo, exploramos cómo los agentes IA están transformando las empresas.</p>
+              <a href="https://eslahoradeaprender.com/" target="_blank" style="color: var(--azul-tech); font-size: 0.85rem; text-decoration: none;">Escuchar →
+            </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="background: var(--charcoal); padding: 40px; border-radius: 16px; color: white;">
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 20px; color: var(--bronce);">Audiencia Objetivo</h3>
+        <ul style="list-style: none; color: var(--gris-frio);">
+          <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">🏢 Gerentes ESG / Sustentabilidad</li>
+          <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">👥 CHROs / Directores de Talento</li>
+          <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">💻 CTOs de empresas +1.000 empleados</li>
+          <li style="padding: 8px 0;">🏛️ Entidades públicas</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Mission -->
+<section class="mission" id="mission">
+  <div class="container">
+    <h2>Mi Misión</h2>
+    <p class="mission-quote">"Cerrar la brecha de <span>US$13.000M</span> en talento digital que Chile enfrentará en 2030, formando y empleando a <span>100.000 personas</span> en TI en los próximos 5 años."</p>
+  </div>
+</section>
+
+<!-- Modelo -->
+<section class="modelo" id="modelo">
+  <div class="container">
+    <h2>Modelo de <span>Negocio</span></h2>
+    <p style="text-align: center; max-width: 700px; margin: 0 auto 40px; color: var(--gris-frio); font-size: 1.05rem; line-height: 1.7;">Apalancamos recursos de franquicias tributarias para hacer formaciones tanto internas como externas — con especial foco en temas de <strong>Inteligencia Artificial</strong>.</p>
+    <div class="modelo-grid">
+      <div class="modelo-card">
+        <div class="icon">💰</div>
+        <h3>$0 para la Empresa</h3>
+        <p>Costo cero para la empresa. Apalancamos franquicias tributarias para que la formación no cueste nada.</p>
+      </div>
+      <div class="modelo-card">
+        <div class="icon">🚀</div>
+        <h3>Formación a Gran Escala</h3>
+        <p>+1.000 personas por programa. Empresas acceden a más talento y potencian su marca empleadora. Personas se forman en lo que el mercado necesita — todos ganan.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Casos -->
+<section class="casos" id="casos">
+  <div class="container">
+    <h2>Casos de <span>Éxito</span></h2>
+    <div class="casos-grid">
+      <div class="caso-card">
+        <div class="company">PYMES + CORFO — PANDEMIA</div>
+        <h3>+100.000 Personas Impactadas</h3>
+        <p class="description">Más de 100 mil personas para potenciar sus pymes junto a Corfo, tanto en cursos self-paced como en vivo.</p>
+        <span class="metric">Online</span>
+      </div>
+      <div class="caso-card">
+        <div class="company">IMPACTO LATAM</div>
+        <h3>500 mil+ Personas Impactadas</h3>
+        <p class="description">Más de 500 mil personas de +15 países impactadas en talleres y cursos tech e IA.</p>
+        <span class="metric">Internacional</span>
+      </div>
+      <div class="caso-card">
+        <div class="company">NODO — ACTI</div>
+        <h3>Teletón del Talento Digital</h3>
+        <p class="description">Iniciativa co-creada con Globant, Accenture y otras empresas.</p>
+        <span class="metric">B2B</span>
+      </div>
+      <div class="caso-card">
+        <div class="company">BHP FOUNDATION + PAÍS DIGITAL</div>
+        <h3>Formación para la Colocación en Minería</h3>
+        <p class="description">+600 personas formadas y preparadas para insertarse laboralmente en la industria minera.</p>
+        <span class="metric">Presencial</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Comunidad -->
+<section id="comunidad" style="padding: 80px 0; background: #0a0a0a;">
+  <div class="container" style="max-width: 860px; margin: 0 auto; padding: 0 24px; text-align: center;">
+    <div style="display: inline-block; background: #1a2a1a; color: #4ade80; font-size: 0.75rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 6px 16px; border-radius: 20px; margin-bottom: 24px;">
+      💬 Comunidad WhatsApp
+    </div>
+    <h2 style="font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); color: #fff; margin-bottom: 20px; line-height: 1.2;">
+      Agentes IA, recursos y aprendizajes reales
+    </h2>
+    <p style="font-size: 1.1rem; color: rgba(255,255,255,0.65); max-width: 580px; margin: 0 auto 40px; line-height: 1.7;">
+      Un espacio para hablar de inteligencia artificial con foco en <strong style="color: rgba(255,255,255,0.9);">agentes IA</strong> — cómo funcionan, cómo implementarlos y qué está pasando en el mundo. Compartimos recursos, casos reales y aprendizajes concretos.
+    </p>
+    <div class="comunidad-cards" style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 48px;">
+      <div class="comunidad-card">
+        <div style="font-size: 1.5rem; margin-bottom: 8px;">🤖</div>
+        <div style="font-size: 0.95rem; font-weight: 600; color: #fff; margin-bottom: 4px;">Agentes IA</div>
+        <div style="font-size: 0.82rem; color: rgba(255,255,255,0.5);">Casos de uso y tutoriales</div>
+      </div>
+      <div class="comunidad-card">
+        <div style="font-size: 1.5rem; margin-bottom: 8px;">📚</div>
+        <div style="font-size: 0.95rem; font-weight: 600; color: #fff; margin-bottom: 4px;">Recursos</div>
+        <div style="font-size: 0.82rem; color: rgba(255,255,255,0.5);">Herramientas y prompts</div>
+      </div>
+      <div class="comunidad-card">
+        <div style="font-size: 1.5rem; margin-bottom: 8px;">🌎</div>
+        <div style="font-size: 0.95rem; font-weight: 600; color: #fff; margin-bottom: 4px;">LATAM</div>
+        <div style="font-size: 0.82rem; color: rgba(255,255,255,0.5);">Contexto regional</div>
+      </div>
+    </div>
+    <a href="https://chat.whatsapp.com/GOEvAs7j7fe5vbPguziR4R" target="_blank"
+       style="display: inline-flex; align-items: center; gap: 12px; background: #25D366; color: #fff; font-weight: 700; font-size: 1rem; padding: 16px 36px; border-radius: 50px; text-decoration: none; transition: opacity 0.2s; box-shadow: 0 4px 24px rgba(37,211,102,0.3);">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Unirme a la comunidad
+    </a>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="contact" id="contact">
+  <div class="container">
+    <h2>¿Hablamos?</h2>
+    <p>Si necesitás cerrar la brecha de talento digital en tu organización, conversemos. Escríbeme directamente por WhatsApp.</p>
+    <div class="contact-links">
+      <a href="https://wa.me/56990240620?text=CONVERSEMOS%20%F0%9F%91%8B%20Vi%20tu%20perfil%20y%20me%20interesa%20saber%20m%C3%A1s" target="_blank" class="contact-link" style="background:#25D366; color:#fff; border-color:#25D366;">
+        💬 WhatsApp
+      </a>
+      <a href="https://linkedin.com/in/godiegoarias" target="_blank" class="contact-link">
+        LinkedIn
+      </a>
+      <a href="mailto:diego@desafiolatam.com" class="contact-link">
+        Email
+      </a>
+      <a href="https://desafiolatam.com" target="_blank" class="contact-link">
+        Desafío Latam
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <p>&copy; 2026 Diego Arias — <a href="https://desafiolatam.com">Desafío Latam</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

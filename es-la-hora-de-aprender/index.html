@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Es la Hora de Aprender — Podcast | Diego Arias</title>
+  <meta name="description" content="Podcast de tecnología, IA y automatización. 14 episodios con Cristian Tala, Diego Arias y Rodrigo Rojo. Conversaciones sobre agentes IA, automatización y el futuro del trabajo.">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root { --bronce: #C9A66B; --charcoal: #363636; --negro-profundo: #0D0D0D; --azul-tech: #5B8DEF; --blanco: #FFFFFF; --crema: #F5F0E8; --gris-frio: #6B7280; --grafito: #1A1A1A; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: var(--crema); color: var(--grafito); line-height: 1.7; }
+    img { max-width: 100%; height: auto; display: block; }
+    html, body { overflow-x: hidden; max-width: 100%; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(13,13,13,0.95); backdrop-filter: blur(10px); z-index: 1000; padding: 16px 0; }
+    nav .container { display: flex; justify-content: space-between; align-items: center; }
+    .logo { text-decoration: none; display: flex; align-items: center; }
+    .logo img { height: 56px; width: auto; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { color: var(--blanco); text-decoration: none; font-size: 0.9rem; opacity: 0.8; transition: opacity 0.3s; }
+    .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--bronce); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 6px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--blanco); border-radius: 2px; transition: all 0.2s; }
+    .hero { background: linear-gradient(135deg, var(--negro-profundo) 0%, var(--charcoal) 100%); color: var(--blanco); padding: 140px 0 60px; position: relative; overflow: hidden; }
+    .hero .container { display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; }
+    .hero-badge { display: inline-block; background: rgba(201,166,107,0.15); color: var(--bronce); font-size: 0.75rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 6px 16px; border-radius: 20px; border: 1px solid rgba(201,166,107,0.3); margin-bottom: 20px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; margin-bottom: 12px; line-height: 1.1; }
+    .hero h1 span { color: var(--bronce); }
+    .hero-sub { font-size: 1.1rem; color: rgba(255,255,255,0.6); max-width: 600px; margin-bottom: 24px; line-height: 1.6; }
+    .hero-meta { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 32px; }
+    .hero-meta-item { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: rgba(255,255,255,0.5); }
+    .hero-meta-item strong { color: var(--bronce); font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; }
+    .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: all 0.3s ease; }
+    .btn-primary { background: var(--bronce); color: var(--negro-profundo); }
+    .btn-primary:hover { background: #d4b57a; transform: translateY(-2px); }
+    .btn-secondary { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.3); }
+    .btn-secondary:hover { border-color: var(--bronce); color: var(--bronce); }
+    .hero-hosts { display: flex; gap: 12px; align-items: center; margin-top: 24px; }
+    .hero-hosts span { font-size: 0.8rem; color: rgba(255,255,255,0.4); }
+    .host-tag { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.1); }
+    .podcast-icon { background: rgba(201,166,107,0.1); border: 2px solid rgba(201,166,107,0.3); border-radius: 24px; padding: 28px 24px; text-align: center; flex-shrink: 0; }
+    .podcast-icon .icon { font-size: 3.5rem; margin-bottom: 8px; }
+    .podcast-icon .label { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--bronce); }
+    .podcast-icon .ep-label { font-size: 0.78rem; color: rgba(255,255,255,0.5); margin-top: 4px; }
+    .stats-bar { background: var(--charcoal); padding: 40px 0; }
+    .stats-bar .container { display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; }
+    .stat-item { text-align: center; }
+    .stat-number { font-family: 'JetBrains Mono', monospace; font-size: 2.2rem; font-weight: 700; color: var(--bronce); display: block; }
+    .stat-label { font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-top: 4px; }
+    .episodes-section { padding: 80px 0; background: var(--blanco); }
+    .section-header { margin-bottom: 48px; }
+    .section-header h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--charcoal); margin-bottom: 12px; }
+    .section-header h2 span { color: var(--bronce); }
+    .section-header p { color: var(--gris-frio); font-size: 1rem; max-width: 600px; }
+    .episodes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+    .ep-card { background: var(--crema); border-radius: 16px; overflow: hidden; border: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease; }
+    .ep-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+    .ep-thumb { position: relative; height: 140px; background: linear-gradient(135deg, var(--negro-profundo) 0%, var(--charcoal) 100%); display: flex; align-items: center; justify-content: center; }
+    .ep-num { font-family: 'JetBrains Mono', monospace; font-size: 2.5rem; font-weight: 700; padding: 8px 16px; border-radius: 8px; }
+    .ep-dur { position: absolute; bottom: 10px; right: 12px; background: rgba(0,0,0,0.6); color: white; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; padding: 3px 8px; border-radius: 4px; }
+    .ep-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 48px; height: 48px; background: rgba(201,166,107,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; opacity: 0.8; }
+    .ep-play svg { width: 20px; height: 20px; }
+    .ep-info { padding: 20px 24px 24px; }
+    .ep-title { font-size: 1.05rem; font-weight: 600; color: var(--charcoal); margin-bottom: 10px; line-height: 1.4; }
+    .ep-desc { font-size: 0.875rem; color: var(--gris-frio); line-height: 1.6; margin-bottom: 16px; }
+    .ep-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn-ep-primary { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; background: var(--charcoal); color: white; text-decoration: none; border-radius: 6px; font-size: 0.8rem; font-weight: 600; transition: all 0.2s; }
+    .btn-ep-primary:hover { background: var(--bronce); color: var(--negro-profundo); }
+    .btn-ep-spotify, .btn-ep-yt { display: inline-flex; align-items: center; gap: 5px; padding: 8px 14px; border-radius: 6px; text-decoration: none; font-size: 0.78rem; font-weight: 600; transition: all 0.2s; background: rgba(0,0,0,0.05); color: var(--grafito); border: 1px solid rgba(0,0,0,0.08); }
+    .btn-ep-spotify:hover, .btn-ep-yt:hover { background: rgba(201,166,107,0.2); color: var(--charcoal); }
+    .platforms { padding: 60px 0; background: var(--crema); text-align: center; }
+    .platforms p { font-size: 0.85rem; color: var(--gris-frio); margin-bottom: 20px; }
+    .platform-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    .plat-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
+    .plat-spotify { background: #1DB954; color: white; }
+    .plat-spotify:hover { opacity: 0.85; transform: translateY(-2px); }
+    .plat-yt { background: #FF0000; color: white; }
+    .plat-yt:hover { opacity: 0.85; transform: translateY(-2px); }
+    .plat-apple { background: var(--charcoal); color: white; }
+    .plat-apple:hover { background: var(--negro-profundo); transform: translateY(-2px); }
+    footer { background: var(--grafito); color: var(--gris-frio); padding: 40px 0; text-align: center; font-size: 0.9rem; }
+    footer a { color: var(--bronce); text-decoration: none; }
+    @media (max-width: 900px) {
+      .nav-links { display: none; flex-direction: column; gap: 0; position: absolute; top: 64px; left: 0; right: 0; background: var(--negro-profundo); padding: 16px 0; z-index: 999; border-top: 1px solid rgba(255,255,255,0.1); }
+      .nav-links.open { display: flex; }
+      .nav-links li a { display: block; padding: 12px 24px; font-size: 1rem; }
+      .hamburger { display: flex !important; }
+      .hero .container { grid-template-columns: 1fr; }
+      .podcast-icon { display: none; }
+      .episodes-grid { grid-template-columns: 1fr; }
+      .stats-bar .container { gap: 30px; }
+    }
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 1.8rem; }
+      .hero-cta { flex-direction: column; }
+      .stats-bar .container { flex-direction: column; align-items: center; gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <div class="container">
+    <a href="/" class="logo"><img src="/go-logo.png" alt="Diego Arias"></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/#about">Sobre Mí</a></li>
+      <li><a href="/#modelo">Modelo</a></li>
+      <li><a href="/#casos">Casos</a></li>
+      <li><a href="/es-la-hora-de-aprender/" class="active">Podcast</a></li>
+      <li><a href="/#contact">Contacto</a></li>
+      <li><a href="/recursos-que-yo-uso-de-ia/">Recursos IA</a></li>
+      <li><a href="https://linkedin.com/in/godiegoarias" target="_blank">LinkedIn</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menú" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<script>function toggleNav(){document.getElementById('navLinks').classList.toggle('open');}</script>
+
+<section class="hero">
+  <div class="container">
+    <div>
+      <div class="hero-badge">🎙 Podcast</div>
+      <h1>Es la Hora de <span>Aprender</span></h1>
+      <p class="hero-sub">Tecnología, IA y automatización analizados por quienes están en la cancha. Junto a Cristian Tala y Rodrigo Rojo, exploramos cómo los agentes IA están transformando las empresas.</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item"><strong>14</strong> episodios</div>
+        <div class="hero-meta-item"><strong>+14h</strong> de contenido</div>
+        <div class="hero-meta-item"><strong>2025-2026</strong></div>
+      </div>
+      <div class="hero-cta">
+        <a href="https://open.spotify.com/show/7o7JR0Un1jc6wev0VjNm0C" target="_blank" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2z"/></svg>
+          Escuchar en Spotify
+        </a>
+        <a href="https://www.youtube.com/playlist?list=PL_E2SAAkYgxgT5y" target="_blank" class="btn btn-secondary">
+          <svg width="16" height="11" viewBox="0 0 68 48" fill="currentColor"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"/></svg>
+          Ver en YouTube
+        </a>
+      </div>
+      <div class="hero-hosts">
+        <span>Hosts:</span>
+        <span class="host-tag">Cristian Tala</span>
+        <span class="host-tag">Diego Arias</span>
+        <span class="host-tag">Rodrigo Rojo</span>
+      </div>
+    </div>
+    <div class="podcast-icon">
+      <div class="icon">🎙</div>
+      <div class="label">Es la Hora</div>
+      <div class="label">de Aprender</div>
+      <div class="ep-label">14 episodios</div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="container">
+    <div class="stat-item"><span class="stat-number">14</span><span class="stat-label">Episodios</span></div>
+    <div class="stat-item"><span class="stat-number">+14h</span><span class="stat-label">de contenido</span></div>
+    <div class="stat-item"><span class="stat-number">3</span><span class="stat-label">Hosts</span></div>
+    <div class="stat-item"><span class="stat-number">2026</span><span class="stat-label">En curso</span></div>
+  </div>
+</div>
+
+<section class="episodes-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Todos los <span>Episodios</span></h2>
+      <p>Desde OpenClaw hasta agentes corporativos: todas las conversaciones sobre IA, automatización y el futuro del trabajo.</p>
+    </div>
+    <div class="episodes-grid">
+<article class="ep-card">
+  <div class="ep-thumb">
+    <div class="ep-num" style="background:#363636;color:#fff">14</div>
+    <div class="ep-dur">1:07:52</div>
+    <div class="ep-play"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+  </div>
+  <div class="ep-info">
+    <h3 class="ep-title">Agentes IA en la empresa: ¿uno por persona o uno por equipo?</h3>
+    <p class="ep-desc">Cristian, Diego y Rodrigo debaten: ¿cada persona con su propio agente de IA, o agentes temáticos compartidos? Por qué el agente personal no escala, cómo Cristian bajó el costo de adquisición a medio dólar con agentes de marketing.</p>
+    <div class="ep-actions">
+      <a href="https://eslahoradeaprender.com/episodios/14-agentes-ia-empresa-uno-por-persona-o-equipo/" target="_blank" class="btn-ep-primary">Ver Episodio</a>
+      <a href="https://open.spotify.com/show/7o7JR0Un1jc6wev0VjNm0C" target="_blank" class="btn-ep-spotify">Spotify</a>
+      <a href="https://www.youtube.com/playlist?list=PL_E2SAAkYgxgT5y" target="_blank" class="btn-ep-yt">YouTube</a>
+    </div>
+  </div>
+</article>
+<article class="ep-card">
+  <div class="ep-thumb">
+    <div class="ep-num" style="background:#363636;color:#fff">13</div>
+    <div class="ep-dur">1:03:00</div>
+    <div class="ep-play"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+  </div>
+  <div class="ep-info">
+    <h3 class="ep-title">Karpathy a Anthropic: el fichaje que rompe la IA</h3>
+    <p class="ep-desc">El fichaje de Andrej Karpathy por Anthropic y por qué un solo tweet hizo más ruido que los 100+ anuncios del Google I/O 2026. Gemini Spark, la suite Antigravity, migración de KPMG y PwC desde Anthropic a Gemini.</p>
+    <div class="ep-actions">
+      <a href="https://eslahoradeaprender.com/episodios/13-karpathy-anthropic-fichaje-rompe-ia/" target="_blank" class="btn-ep-primary">Ver Episodio</a>
+      <a href="https://open.spotify.com/show/7o7JR0Un1jc6wev0VjNm0C" target="_blank" class="btn-ep-spotify">Spotify</a>
+      <a href="https://www.youtube.com/playlist?list=PL_E2SAAkYgxgT5y" target="_blank" class="btn-ep-yt">YouTube</a>
+    </div>
+  </div>
+</article>
+<article class="ep-card">
+  <div class="ep-thumb">
+    <div class="ep-num" style="background:#363636;color:#fff">12</div>
+    <div class="ep-dur">1:02:30</div>
+    <div class="ep-play"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+  </div>
+  <div class="ep-info">
+    <h3 class="ep-title">Ley de IA, agentes autónomos y el 80% que no cambia el modelo</h3>
+    <p class="ep-desc">La indicación de IA en la mega reforma chilena, el GDPR europeo y por qué Mistral es la salida limpia. El 80% de la gente que usa IA jamás cambia el modelo por defecto.</p>
+    <div class="ep-actions">
+      <a href="https://eslahoradeaprender.com/episodios/12-ley-ia-agentes-autonomos-modelo-default/" target="_blank" class="btn-ep-primary">Ver Episodio</a>
+      <a href="https://open.spotify.com/show/7o7JR0Un1jc6wev0VjNm0C" target="_blank" class="btn-ep-spotify">Spotify</a>
+      <a href="https://www.youtube.com/playlist?list=PL_E2SAAkYgxgT5y" target="_blank" class="btn-ep-yt">YouTube</a>
+    </div>
+  </div>
+</article>
+<article class="ep-card">
+  <div class="ep-thumb">
+    <div class="ep-num" style="background:#363636;color:#fff">11</div>
+    <div class="ep-dur">1:01:30</div>
+    <div class="ep-play"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+  </div>
+  <div class="ep-info">
+    <h3 class="ep-title">Coinbase echó 7000 por IA, robots en aeropuertos y la ventana LATAM</h3>
+    <p class="ep-desc">Despidos masivos por IA, robots en aeropuertos de Japón, la ventana LATAM (250% más contrataciones desde EE.UU.). Multi-agentes locales con CrewAI + NVIDIA Spark, Nemotron, Gemma y Qwen 3.6.</p>
+    <div class="ep-actions">
+      <a href="https://eslahoradeaprender.com/episodios/11-coinbase-robots-ventana-latam-emprender/" target="_blank" class="btn-ep-primary">Ver Episodio</a>
+      <a href="https://open.spotify.com/show/7o7JR0Un1jc6wev0VjNm0C" target="_blank" class="btn-ep-spotify">Spotify</a>
+      <a href="https://www.youtube.com/playlist?list=PL_E2SAAkYgxgT5y" target="_blank" class="btn-ep-yt">YouTube</a>
+    </div>
+  </div>
+</article>
+<article class="ep-card">
+  <div class="ep-thumb">
+    <div class="ep-num" style="background:#363636;color:#fff">10</div>
+    <div class="ep-dur">1:03:18</div>
+    <div class="ep-play"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+  </div>
+  <div class="ep-info">
+    <h3 class="ep-title">¿Para qué servimos los humanos si la IA es tan buena?</h3>
+    <p class="ep-desc">Power skills vs hard skills, educación universitaria obsoleta, la aristocracia digital, YC Request for Startups verano 2026. Opus 4.7 vs MiniMax, Llama 4 Scout, MiMo de Xiaomi.</p>
+    <div class="ep-actions">
+      <a href="https://eslahoradeaprender.com/episodios/10-humanos-era-ia-power-skills/" target="_blank" class="btn-ep-primary">Ver Episodio</a>
+      <a href="https://open.spotify.com/show/7o7JR0Un1jc6wev0VjNm0C" target="_blank" class="btn-ep-spotify">Spotify</a>
+      <a href="https://www.youtube.com/playlist?list=PL_E2SAAkYgxgT5y" target="_blank" class="btn-ep-yt">YouTube</a>
+    </div>
+  </div>
+</article>
+<article class="ep-card">
+  <div class="ep-thumb">
+    <div class="ep-num" style="background:#363636;color:#fff">9</div>
+    <div class="ep-dur">55:30</div>
+    <div class="ep-play"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+  </div>
+  <div class="ep-info">
+    <h3 class="ep-title">Estrategia de IA según el tamaño de tu empresa</h3>
+    <p class="ep-desc">¿Qué herramientas de IA debe usar un solo entrepreneur? ¿Y una PYME? ¿Y una empresa de 2.000 personas? Desde OpenClaw local hasta agentes corporativos.</p>
+    <div class="ep-actions">
+      <a href="https://eslahoradeaprender.com/episodios/09-estrategia-ia-tamano-empresa-solo-entrepreneur/" target="_blank" class="btn-ep-primary">Ver Episodio</a>
+      <a href="https://open.spotify.com/show/7o7JR0Un1jc6wev0VjNm0C" target="_blank" class="btn-ep-spotify">Spotify</a>
+      <a href="https://www.youtube.com/playlist?list=PL_E2SAAkYgxgT5y" target="_blank" class="btn-ep-yt">YouTube</a>
+    </div>
+  </div>
+</article>
+<article class="ep-card">
+  <div class="ep-thumb">
+    <div class="ep-num" style="background:#363636;color:#fff">8</div>
+    <div class="ep-dur">1:04:00</div>
+    <div class="ep-play"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+  </div>
+  <div class="ep-info">
+    <h3 class="ep-title">Crisis Anthropic: ¿Qué hacer cuando se cae Claude?</h3>
+    <p class="ep-desc">Anthropic canceló la membresía Max para OpenClaw y los modelos están saturados. Análisis de alternativas: Qwen3.5, Gemini 4, modelos open source, IA local vs APIs.</p>
+    <div class="ep-actions">
+      <a href="https://eslahoradeaprender.com/episodios/08-crisis-anthropic-modelos-alternativos-ia-local/" target="_blank" class="btn-ep-primary">Ver Episodio</a>
+      <a href="https://open.spotify.com/show/7o7JR0Un1jc6wev0VjNm0C" target="_blank" class="btn-ep-spotify">Spotify</a>
+      <a href="https://www.youtube.com/playlist?list=PL_E2SAAkYgxgT5y" target="_blank" class="btn-ep-yt">YouTube</a>
+    </div>
+  </div>
+</article>
+<article class="ep-card">
+  <div class="ep-thumb">
+    <div class="ep-num" style="background:#363636;color:#fff">7</div>
+    <div class="ep-dur">1:04:55</div>
+    <div class="ep-play"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+  </div>
+  <div class="ep-info">
+    <h3 class="ep-title">Se cayó Claude y no pude trabajar: ¿Tienes plan B?</h3>
+    <p class="ep-desc">Planes de contingencia, dependencia de LLMs, la filtración del código de Claude Code, GenSpark Cloud y NemoClaw de NVIDIA.</p>
+    <div class="ep-actions">
+      <a href="https://eslahoradeaprender.com/episodios/07-se-cayo-claude-plan-b-ia/" target="_blank" class="btn-ep-primary">Ver Episodio</a>
+      <a href="https://open.spotify.com/show/7o7JR0Un1jc6wev0VjNm0C" target="_blank" class="btn-ep-spotify">Spotify</a>
+      <a href="https://www.youtube.com/playlist?list=PL_E2SAAkYgxgT5y" target="_blank" class="btn-ep-yt">YouTube</a>
+    </div>
+  </div>
+</article>
+<article class="ep-card">
+  <div class="ep-thumb">
+    <div class="ep-num" style="background:#363636;color:#fff">6</div>
+    <div class="ep-dur">1:01:39</div>
+    <div class="ep-play"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+  </div>
+  <div class="ep-info">
+    <h3 class="ep-title">¿Cuánto invertir en IA? Agentes y el Arte de Construir en Público</h3>
+    <p class="ep-desc">¿Cuánto deberías gastar al mes en herramientas de IA? Plugin SEO de WordPress con Agent Teams de Claude. Delegación vs aumentación.</p>
+    <div class="ep-actions">
+      <a href="https://eslahoradeaprender.com/episodios/06-cuanto-invertir-ia-agentes-construir-publico/" target="_blank" class="btn-ep-primary">Ver Episodio</a>
+      <a href="https://open.spotify.com/show/7o7JR0Un1jc6wev0VjNm0C" target="_blank" class="btn-ep-spotify">Spotify</a>
+      <a href="https://www.youtube.com/playlist?list=PL_E2SAAkYgxgT5y" target="_blank" class="btn-ep-yt">YouTube</a>
+    </div>
+  </div>
+</article>
+<article class="ep-card">
+  <div class="ep-thumb">
+    <div class="ep-num" style="background:#363636;color:#fff">5</div>
+    <div class="ep-dur">1:04:46</div>
+    <div class="ep-play"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+  </div>
+  <div class="ep-info">
+    <h3 class="ep-title">OpenClaw, Agentes IA y Estrategia Empresarial</h3>
+    <p class="ep-desc">Rodrigo Rojo y Diego Arias analizan OpenClaw, agentes IA empresariales, estrategia con contexto, automatización con Cloud Cowork.</p>
+    <div class="ep-actions">
+      <a href="https://eslahoradeaprender.com/episodios/05-openclaw-agentes-estrategia/" target="_blank" class="btn-ep-primary">Ver Episodio</a>
+      <a href="https://open.spotify.com/show/7o7JR0Un1jc6wev0VjNm0C" target="_blank" class="btn-ep-spotify">Spotify</a>
+      <a href="https://www.youtube.com/playlist?list=PL_E2SAAkYgxgT5y" target="_blank" class="btn-ep-yt">YouTube</a>
+    </div>
+  </div>
+</article>
+<article class="ep-card">
+  <div class="ep-thumb">
+    <div class="ep-num" style="background:#363636;color:#fff">4</div>
+    <div class="ep-dur">1:01:45</div>
+    <div class="ep-play"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+  </div>
+  <div class="ep-info">
+    <h3 class="ep-title">Tu empresa va a tener más agentes que empleados</h3>
+    <p class="ep-desc">Claude Opus encontró 22 bugs críticos en Firefox por solo $4.000 vs $500.000 que costaba con humanos. La empresa de un trillón de dólares según Sequoia.</p>
+    <div class="ep-actions">
+      <a href="https://eslahoradeaprender.com/episodios/04-agentes-vs-empleados/" target="_blank" class="btn-ep-primary">Ver Episodio</a>
+      <a href="https://open.spotify.com/show/7o7JR0Un1jc6wev0VjNm0C" target="_blank" class="btn-ep-spotify">Spotify</a>
+      <a href="https://www.youtube.com/playlist?list=PL_E2SAAkYgxgT5y" target="_blank" class="btn-ep-yt">YouTube</a>
+    </div>
+  </div>
+</article>
+<article class="ep-card">
+  <div class="ep-thumb">
+    <div class="ep-num" style="background:#363636;color:#fff">3</div>
+    <div class="ep-dur">1:01:41</div>
+    <div class="ep-play"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+  </div>
+  <div class="ep-info">
+    <h3 class="ep-title">LatamGPT, IA en el Pentágono y el Futuro del Empleo</h3>
+    <p class="ep-desc">El primer LLM latinoamericano, Anthropic rechaza al Pentágono y OpenAI toma el contrato. Block despide el 40% de su equipo por IA.</p>
+    <div class="ep-actions">
+      <a href="https://eslahoradeaprender.com/episodios/03-latamgpt-pentagono-ia-empleo/" target="_blank" class="btn-ep-primary">Ver Episodio</a>
+      <a href="https://open.spotify.com/show/7o7JR0Un1jc6wev0VjNm0C" target="_blank" class="btn-ep-spotify">Spotify</a>
+      <a href="https://www.youtube.com/playlist?list=PL_E2SAAkYgxgT5y" target="_blank" class="btn-ep-yt">YouTube</a>
+    </div>
+  </div>
+</article>
+<article class="ep-card">
+  <div class="ep-thumb">
+    <div class="ep-num" style="background:#0D0D0D;color:#F5F0E8">2</div>
+    <div class="ep-dur">1:06:08</div>
+    <div class="ep-play"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+  </div>
+  <div class="ep-info">
+    <h3 class="ep-title">Herramientas de IA, Build vs Buy y Por Qué los Procesos Importan</h3>
+    <p class="ep-desc">¿Qué herramientas de IA usan realmente los que saben? Stacks reales, debate Build It vs Buy It en 2026, y por qué la IA no arregla tu empresa si no tienes procesos claros.</p>
+    <div class="ep-actions">
+      <a href="https://eslahoradeaprender.com/episodios/02-herramientas-ia-build-vs-buy/" target="_blank" class="btn-ep-primary">Ver Episodio</a>
+      <a href="https://open.spotify.com/show/7o7JR0Un1jc6wev0VjNm0C" target="_blank" class="btn-ep-spotify">Spotify</a>
+      <a href="https://www.youtube.com/playlist?list=PL_E2SAAkYgxgT5y" target="_blank" class="btn-ep-yt">YouTube</a>
+    </div>
+  </div>
+</article>
+<article class="ep-card">
+  <div class="ep-thumb">
+    <div class="ep-num" style="background:#0D0D0D;color:#F5F0E8">1</div>
+    <div class="ep-dur">59:39</div>
+    <div class="ep-play"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+  </div>
+  <div class="ep-info">
+    <h3 class="ep-title">OpenClaw y el Futuro del Trabajo</h3>
+    <p class="ep-desc">Episodio inaugural: OpenClaw, agentes de IA personalizados y cómo la automatización está transformando el mercado laboral. Cristian, Diego y Rodrigo comparten sus experiencias.</p>
+    <div class="ep-actions">
+      <a href="https://eslahoradeaprender.com/episodios/01-openclaw-futuro-trabajo/" target="_blank" class="btn-ep-primary">Ver Episodio</a>
+      <a href="https://open.spotify.com/show/7o7JR0Un1jc6wev0VjNm0C" target="_blank" class="btn-ep-spotify">Spotify</a>
+      <a href="https://www.youtube.com/playlist?list=PL_E2SAAkYgxgT5y" target="_blank" class="btn-ep-yt">YouTube</a>
+    </div>
+  </div>
+</article>
+    </div>
+  </div>
+</section>
+
+<div class="platforms">
+  <div class="container">
+    <p>Escucha donde prefieras:</p>
+    <div class="platform-links">
+      <a href="https://open.spotify.com/show/7o7JR0Un1jc6wev0VjNm0C" target="_blank" class="plat-btn plat-spotify">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2z"/></svg>
+        Spotify
+      </a>
+      <a href="https://www.youtube.com/playlist?list=PL_E2SAAkYgxgT5y" target="_blank" class="plat-btn plat-yt">
+        <svg width="16" height="11" viewBox="0 0 68 48" fill="currentColor"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"/></svg>
+        YouTube
+      </a>
+      <a href="https://podcasts.apple.com/podcast/es-la-hora-de-aprender" target="_blank" class="plat-btn plat-apple">
+        <svg width="14" height="18" viewBox="0 0 384 512" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 46.4 68.9 76.4 68.9 13.6 0 28-7.7 36.2-18 6.8-35.3 34.6-60.3 72-60.3 21.3 0 47.1 9.3 60.2 35.5-36.6 21.5-79.9 16-94.2-9.2-7.6-13.5 2-30 10.3-38.6 24.4-24.9 61.2-19 81.3-3 2.6 2 12.6 13.3 8.2 37.5z"/></svg>
+        Apple Podcasts
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2026 Diego Arias &mdash; <a href="https://desafiolatam.com">Desafio Latam</a> &mdash; <a href="/">godiegoarias.com</a></p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manual de Marca — Diego Arias</title>
+  <meta name="description" content="Manual de marca y comunicación de Diego Arias. Identidad, tono y guías de uso.">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bronce: #C9A66B;
+      --charcoal: #363636;
+      --negro-profundo: #0D0D0D;
+      --azul-tech: #5B8DEF;
+      --blanco: #FFFFFF;
+      --crema: #F5F0E8;
+      --gris-frio: #6B7280;
+      --grafito: #1A1A1A;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: var(--crema); color: var(--grafito); line-height: 1.7; }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+    nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(13,13,13,0.95); backdrop-filter: blur(10px); z-index: 1000; padding: 16px 0; }
+    nav .container { display: flex; justify-content: space-between; align-items: center; }
+    .logo { text-decoration: none; display: flex; align-items: center; }
+    .logo img { height: 56px; width: auto; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { color: var(--blanco); text-decoration: none; font-size: 0.9rem; opacity: 0.8; transition: opacity 0.3s; }
+    .nav-links a:hover { opacity: 1; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 6px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--blanco); border-radius: 2px; }
+    .page-header { background: linear-gradient(135deg, var(--negro-profundo) 0%, var(--charcoal) 100%); color: var(--blanco); padding: 120px 0 60px; text-align: center; }
+    .page-header h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; margin-bottom: 16px; letter-spacing: -1px; }
+    .page-header h1 span { color: var(--bronce); }
+    .page-header p { font-size: 1.1rem; opacity: 0.8; max-width: 600px; margin: 0 auto; }
+    .content { padding: 80px 0; }
+    .brand-card { background: var(--blanco); border-radius: 16px; padding: 32px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    .brand-card h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 20px; color: var(--charcoal); }
+    .brand-card h2 span { color: var(--bronce); }
+    .color-row { display: flex; gap: 16px; margin: 16px 0; flex-wrap: wrap; }
+    .color-swatch { flex: 1; min-width: 120px; border-radius: 12px; overflow: hidden; }
+    .color-swatch .swatch { height: 80px; }
+    .color-swatch .label { padding: 8px 12px; font-size: 0.85rem; background: var(--blanco); }
+    .color-swatch .label strong { display: block; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; }
+    .color-swatch .label span { color: var(--gris-frio); }
+    .typo-item { display: flex; align-items: baseline; gap: 16px; padding: 16px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+    .typo-item:last-child { border-bottom: none; }
+    .typo-item .name { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--azul-tech); min-width: 120px; }
+    .typo-item .example { font-size: 1.3rem; }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .tag { background: var(--crema); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; }
+    footer { background: var(--grafito); color: var(--gris-frio); padding: 40px 0; text-align: center; font-size: 0.9rem; }
+    footer a { color: var(--bronce); text-decoration: none; }
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; gap: 0; position: absolute; top: 64px; left: 0; right: 0; background: var(--negro-profundo); padding: 16px 0; z-index: 999; }
+      .nav-links.open { display: flex; }
+      .nav-links li a { display: block; padding: 12px 24px; font-size: 1rem; }
+      .hamburger { display: flex !important; }
+      .page-header h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <div class="container">
+    <a href="/" class="logo"><img src="/static/go-logo.png" alt="GO — Diego Arias"></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/#about" onclick="closeNav()">Sobre Mí</a></li>
+      <li><a href="/#modelo" onclick="closeNav()">Modelo</a></li>
+      <li><a href="/#casos" onclick="closeNav()">Casos</a></li>
+      <li><a href="/#comunidad" onclick="closeNav()">Comunidad</a></li>
+      <li><a href="/#contact" onclick="closeNav()">Contacto</a></li>
+      <li><a href="/manual-marca/" style="opacity:1;color:var(--bronce)">Manual de Marca</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menú" onclick="toggleNav()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<script>function toggleNav(){document.getElementById('navLinks').classList.toggle('open');}function closeNav(){document.getElementById('navLinks').classList.remove('open');}</script>
+
+<header class="page-header">
+  <div class="container">
+    <h1>Manual de <span>Marca</span></h1>
+    <p>La identidad, el tono y las guías que definen cómo me comunico y cómo me ven.</p>
+  </div>
+</header>
+
+<section class="content">
+  <div class="container">
+
+    <div class="brand-card">
+      <h2>Quién <span>soy</span></h2>
+      <p>Diego Arias, fundador de Desafío Latam. Builder, conectador y constructeur de ecosistemas donde empresas, personas y Estado ganan juntos.</p>
+      <div class="tag-list">
+        <span class="tag">Fundador</span>
+        <span class="tag">Conectador</span>
+        <span class="tag">Ecosystem Builder</span>
+        <span class="tag">Talent Developer</span>
+        <span class="tag">Estratega</span>
+      </div>
+    </div>
+
+    <div class="brand-card">
+      <h2>Paleta de <span>Colores</span></h2>
+      <div class="color-row">
+        <div class="color-swatch"><div class="swatch" style="background:#C9A66B"></div><div class="label"><strong>#C9A66B</strong><span>Bronce — Acento principal</span></div></div>
+        <div class="color-swatch"><div class="swatch" style="background:#0D0D0D"></div><div class="label"><strong>#0D0D0D</strong><span>Negro Profundo — Fondo</span></div></div>
+        <div class="color-swatch"><div class="swatch" style="background:#363636"></div><div class="label"><strong>#363636</strong><span>Charcoal — Textos</span></div></div>
+      </div>
+      <div class="color-row">
+        <div class="color-swatch"><div class="swatch" style="background:#5B8DEF"></div><div class="label"><strong>#5B8DEF</strong><span>Azul Tech — Links</span></div></div>
+        <div class="color-swatch"><div class="swatch" style="background:#F5F0E8"></div><div class="label"><strong>#F5F0E8</strong><span>Crema — Fondo claro</span></div></div>
+        <div class="color-swatch"><div class="swatch" style="background:#FFFFFF"></div><div class="label"><strong>#FFFFFF</strong><span>Blanco</span></div></div>
+      </div>
+    </div>
+
+    <div class="brand-card">
+      <h2>Tipografías</h2>
+      <div class="typo-item"><span class="name">Playfair Display</span><span class="example" style="font-family:'Playfair Display',serif;font-size:1.5rem">Títulos y headlines</span></div>
+      <div class="typo-item"><span class="name">Inter</span><span class="example" style="font-family:'Inter',sans-serif">Texto y cuerpo — legible y moderna</span></div>
+      <div class="typo-item"><span class="name">JetBrains Mono</span><span class="example" style="font-family:'JetBrains Mono',monospace">Datos, métricas y código</span></div>
+    </div>
+
+    <div class="brand-card">
+      <h2>Tono de <span>Voz</span></h2>
+      <p><strong>Directo.</strong> Sin rodeos, con propósito. Hablo de resultados, no de buzzwords.</p>
+      <p style="margin-top:12px"><strong>Estrategico.</strong> Pienso en sistemas, no en tácticas aisladas. Siempre hay un modelo detrás.</p>
+      <p style="margin-top:12px"><strong>Conector.</strong> Mi valor es facilitar conexiones entre personas, recursos y oportunidades.</p>
+      <p style="margin-top:12px"><strong>Optimista con pies en la tierra.</strong> Creo en lo que hago y lo demuestro con datos y casos reales.</p>
+    </div>
+
+    <div class="brand-card">
+      <h2>Misión</h2>
+      <p style="font-size:1.1rem">"Cerrar la brecha de US$13.000M en talento digital que Chile enfrentará en 2030, formando y empleando a 100.000 personas en TI en los próximos 5 años."</p>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2026 Diego Arias — <a href="https://desafiolatam.com">Desafío Latam</a> — hecho por Maya agente de IA</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recursos de IA que uso — Diego Arias</title>
+  <meta name="description" content="Las herramientas de inteligencia artificial que uso a diario para trabajar, crear y construir.">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bronce: #C9A66B;
+      --charcoal: #363636;
+      --negro-profundo: #0D0D0D;
+      --azul-tech: #5B8DEF;
+      --blanco: #FFFFFF;
+      --crema: #F5F0E8;
+      --gris-frio: #6B7280;
+      --grafito: #1A1A1A;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: var(--crema); color: var(--grafito); line-height: 1.7; }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+    nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(13,13,13,0.95); backdrop-filter: blur(10px); z-index: 1000; padding: 16px 0; }
+    nav .container { display: flex; justify-content: space-between; align-items: center; }
+    .logo { text-decoration: none; display: flex; align-items: center; }
+    .logo img { height: 56px; width: auto; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { color: var(--blanco); text-decoration: none; font-size: 0.9rem; opacity: 0.8; transition: opacity 0.3s; }
+    .nav-links a:hover { opacity: 1; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 6px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--blanco); border-radius: 2px; }
+    .page-header { background: linear-gradient(135deg, var(--negro-profundo) 0%, var(--charcoal) 100%); color: var(--blanco); padding: 120px 0 60px; text-align: center; }
+    .page-header h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; margin-bottom: 16px; letter-spacing: -1px; }
+    .page-header h1 span { color: var(--bronce); }
+    .page-header p { font-size: 1.1rem; opacity: 0.8; max-width: 600px; margin: 0 auto; }
+    .content { padding: 80px 0; }
+    .tool-card { background: var(--blanco); border-radius: 16px; padding: 32px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border-left: 4px solid var(--bronce); transition: transform 0.3s; }
+    .tool-card:hover { transform: translateX(4px); }
+    .tool-card .tag { display: inline-block; background: rgba(201,166,107,0.15); color: var(--bronce); font-size: 0.75rem; font-weight: 600; padding: 4px 12px; border-radius: 20px; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
+    .tool-card h2 { font-size: 1.4rem; margin-bottom: 8px; color: var(--charcoal); }
+    .tool-card p { color: var(--gris-frio); font-size: 1rem; }
+    .tool-card .use-case { margin-top: 12px; font-size: 0.9rem; color: var(--azul-tech); font-weight: 500; }
+    .intro-text { background: var(--blanco); border-radius: 16px; padding: 32px; margin-bottom: 40px; text-align: center; }
+    .intro-text p { color: var(--gris-frio); font-size: 1.05rem; }
+    footer { background: var(--grafito); color: var(--gris-frio); padding: 40px 0; text-align: center; font-size: 0.9rem; }
+    footer a { color: var(--bronce); text-decoration: none; }
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; gap: 0; position: absolute; top: 64px; left: 0; right: 0; background: var(--negro-profundo); padding: 16px 0; z-index: 999; }
+      .nav-links.open { display: flex; }
+      .nav-links li a { display: block; padding: 12px 24px; font-size: 1rem; }
+      .hamburger { display: flex !important; }
+      .page-header h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <div class="container">
+    <a href="/" class="logo"><img src="/static/go-logo.png" alt="GO — Diego Arias"></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/#about" onclick="closeNav()">Sobre Mí</a></li>
+      <li><a href="/#modelo" onclick="closeNav()">Modelo</a></li>
+      <li><a href="/#casos" onclick="closeNav()">Casos</a></li>
+      <li><a href="/#comunidad" onclick="closeNav()">Comunidad</a></li>
+      <li><a href="/#contact" onclick="closeNav()">Contacto</a></li>
+      <li><a href="/recursos-que-yo-uso-de-ia/" style="opacity:1;color:var(--bronce)">Recursos IA</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menú" onclick="toggleNav()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<script>function toggleNav(){document.getElementById('navLinks').classList.toggle('open');}function closeNav(){document.getElementById('navLinks').classList.remove('open');}</script>
+
+<header class="page-header">
+  <div class="container">
+    <h1>Recursos de <span>IA</span> que uso</h1>
+    <p>Estas son las herramientas de inteligencia artificial que uso a diario para trabajar, crear y construir.</p>
+  </div>
+</header>
+
+<section class="content">
+  <div class="container">
+    <div class="intro-text">
+      <p>Un stack de IA enfocado en productividad real. Cada herramienta tiene un propósito específico — el poder está en saber cuál usar en cada momento.</p>
+    </div>
+
+    <div class="tool-card">
+      <span class="tag">Agent / Asistente IA</span>
+      <h2>Agent Hermes (Maya)</h2>
+      <p>Mi agente IA personalizado. Me ayuda con investigación, planificación, gestión de tareas, redacción y automatización. Contexto completo de mi negocio y forma de trabajar.</p>
+      <p class="use-case">→ Gestión integral, investigación, automatización y soporte estratégico.</p>
+    </div>
+
+    <div class="tool-card">
+      <span class="tag">Búsqueda</span>
+      <h2>Perplexity</h2>
+      <p>Para búsquedas web inteligentes. Me da respuestas con fuentes citeadas en vez de solo links. Ideal para investigar tendencias, validar datos y explorar temas rápido.</p>
+      <p class="use-case">→ Búsquedas informadas, investigación de mercado, validación de información.</p>
+    </div>
+
+    <div class="tool-card">
+      <span class="tag">Investigación profunda</span>
+      <h2>Gemini</h2>
+      <p>Para investigaciones más profundas y análisis complejos. Buena capacidad de contexto largo y conexión con el ecosistema Google. Lo uso cuando necesito explorar un tema a fondo.</p>
+      <p class="use-case">→ Investigaciones largas, análisis de documentos extensos, conexiones complejas.</p>
+    </div>
+
+    <div class="tool-card">
+      <span class="tag">Creatividad y contenido rápido</span>
+      <h2>ChatGPT</h2>
+      <p>Mi herramienta para creatividad y contenido rápido. Lo uso para brainstorms, primeras versiones de textos, ideas y exploración de conceptos.</p>
+      <p class="use-case">→ Brainstorming, contenido rápido, exploración de ideas, prototipado de mensajes.</p>
+    </div>
+
+    <div class="tool-card">
+      <span class="tag">Trabajo profundo y propuestas</span>
+      <h2>Claude</h2>
+      <p>Para propuestas más elaboradas, documentos largos y trabajo que requiere profundidad analítica. Excelente writing. Lo uso para strategy, propuestas comerciales y documentos formales.</p>
+      <p class="use-case">→ Propuestas comerciales, documentos estratégicos, análisis profundo, redacción cuidada.</p>
+    </div>
+
+    <div class="tool-card">
+      <span class="tag">Clonación de imagen y voz</span>
+      <h2>HeyGen</h2>
+      <p>Para crear contenido con mi imagen y voz clonadas. Lo uso para generar videos personalizados a escala — ideal para contenido de marca, outreach y comunicación en masa.</p>
+      <p class="use-case">→ Videos personalizados, contenido de marca, comunicación escalable.</p>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2026 Diego Arias — <a href="https://desafiolatam.com">Desafío Latam</a> — hecho por Maya agente de IA</p>
+  </div>
+</footer>
+</body>
+</html>

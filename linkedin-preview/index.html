@@ -190,50 +190,7 @@
     }
     .remove-img.visible { display: block; }
 
-    /* Hashtags */
-    .hashtag-input {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      padding: 8px;
-      border: 1.5px solid var(--borde);
-      border-radius: 8px;
-      background: var(--crema);
-      min-height: 46px;
-      align-items: center;
-      cursor: text;
-    }
-    .hashtag-input:focus-within { border-color: var(--bronce); background: var(--blanco); }
-    .hashtag-tag {
-      background: var(--negro-profundo);
-      color: var(--bronce);
-      font-size: 12px;
-      font-weight: 600;
-      padding: 3px 10px;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .hashtag-tag button {
-      background: none;
-      border: none;
-      color: var(--bronce);
-      cursor: pointer;
-      font-size: 14px;
-      line-height: 1;
-      padding: 0;
-    }
-    .hashtag-input input {
-      border: none;
-      outline: none;
-      background: transparent;
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      color: var(--grafito);
-      flex: 1;
-      min-width: 80px;
-    }
+    
 
     /* Preview mode selector */
     .mode-toggle {
@@ -641,14 +598,7 @@ Después de 12 años haciendo esto, tengo claro algo: los negocios se construyen
       <input type="text" id="articleDesc" value="12 años de lecciones aprendidas">
     </div>
 
-    <!-- Hashtags -->
-    <div class="field">
-      <label>Hashtags</label>
-      <div class="hashtag-input" id="hashtagInput" onclick="document.getElementById('hashtagTagInput').focus()">
-        <div id="hashtagTags"></div>
-        <input type="text" id="hashtagTagInput" placeholder="# 添加 hashtag" onkeydown="handleHashtagInput(event)">
-      </div>
-    </div>
+    <button class="generate-btn" onclick="renderPreview()">🔍 Actualizar preview</button>
 
     <!-- Engagement -->
     <div class="field">
@@ -746,36 +696,8 @@ uploadArea.addEventListener('drop', (e) => {
   if (file) { document.getElementById('fileInput').files = e.dataTransfer.files; handleFile(document.getElementById('fileInput')); }
 });
 
-// ── Hashtags ──
-let hashtags = ['#DesafioLatam', '#Chile', '#TalentoTech'];
-renderHashtags();
-
-function handleHashtagInput(e) {
-  if ((e.key === 'Enter' || e.key === ' ') && e.target.value.trim()) {
-    const tag = e.target.value.trim().replace(/^#/, '').replace(/\s/g, '');
-    if (tag && !hashtags.includes('#' + tag)) {
-      hashtags.push('#' + tag);
-      renderHashtags();
-    }
-    e.target.value = '';
-  }
-  if (e.key === 'Backspace' && !e.target.value && hashtags.length) {
-    hashtags.pop();
-    renderHashtags();
-  }
-}
-
-function removeHashtag(tag) {
-  hashtags = hashtags.filter(h => h !== tag);
-  renderHashtags();
-}
-
-function renderHashtags() {
-  const container = document.getElementById('hashtagTags');
-  container.innerHTML = hashtags.map(h =>
-    `<span class="hashtag-tag"><button onclick="removeHashtag('${h}')">✕</button>${h}</span>`
-  ).join('');
-}
+// Init
+renderPreview();
 
 // ── Carousel ──
 function initCarousel() {
@@ -819,7 +741,6 @@ function renderPreview() {
   const reactions = document.getElementById('reactions').value || '0';
   const comments = document.getElementById('comments').value || '0';
   const reposts = document.getElementById('reposts').value || '0';
-  const hashtagsText = hashtags.join(' ');
 
   const reactionsLabel = reactions > 999 ? (reactions/1000).toFixed(1) + 'K' : reactions;
   const commentsLabel = comments > 999 ? (comments/1000).toFixed(1) + 'K' : comments;
@@ -834,7 +755,7 @@ function renderPreview() {
     </div>
   </div>`;
 
-  const content = text ? `<div class="post-content">${escapeHtml(text)}${hashtagsText ? '<br><br>' + hashtagsText : ''}</div>` : '';
+  const content = text ? `<div class="post-content">${escapeHtml(text)}</div>` : '';
 
   const reactionsBar = `
   <div class="post-reactions">

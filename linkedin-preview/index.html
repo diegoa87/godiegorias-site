@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkedIn Preview — Diego Arias</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bronce: #C9A66B;
+      --charcoal: #363636;
+      --negro-profundo: #0D0D0D;
+      --azul-tech: #5B8DEF;
+      --blanco: #FFFFFF;
+      --crema: #F5F0E8;
+      --gris-frio: #6B7280;
+      --grafito: #1A1A1A;
+      --borde: #E5E0D8;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { overflow-x: hidden; }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: var(--azul-tech); }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--crema);
+      color: var(--grafito);
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--negro-profundo);
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    nav .logo img { height: 32px; }
+    nav .logo span { color: var(--blanco); font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; }
+    nav .back { color: var(--bronce); text-decoration: none; font-size: 14px; font-weight: 500; }
+    nav .back:hover { text-decoration: underline; }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--negro-profundo);
+      padding: 56px 24px 48px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 5vw, 44px);
+      color: var(--blanco);
+      margin-bottom: 12px;
+    }
+    .hero h1 span { color: var(--bronce); font-style: italic; }
+    .hero p { color: rgba(255,255,255,0.6); font-size: 16px; max-width: 520px; margin: 0 auto; }
+
+    /* ── MAIN LAYOUT ── */
+    .main-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    @media (max-width: 768px) {
+      .main-container { grid-template-columns: 1fr; }
+    }
+
+    /* ── EDITOR PANEL ── */
+    .editor-panel {
+      background: var(--blanco);
+      border-radius: 16px;
+      padding: 32px;
+      border: 1px solid var(--borde);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    .panel-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: var(--grafito);
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--borde);
+    }
+
+    .field { margin-bottom: 20px; }
+    .field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gris-frio);
+      margin-bottom: 8px;
+    }
+    .field input, .field textarea, .field select {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid var(--borde);
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: var(--grafito);
+      background: var(--crema);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    .field input:focus, .field textarea:focus, .field select:focus {
+      border-color: var(--bronce);
+      background: var(--blanco);
+    }
+    .field textarea { resize: vertical; min-height: 100px; }
+    .field select { cursor: pointer; }
+
+    /* Tab tipo de post */
+    .post-type-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .post-type-tab {
+      flex: 1;
+      padding: 10px;
+      border: 1.5px solid var(--borde);
+      border-radius: 8px;
+      background: var(--crema);
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gris-frio);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .post-type-tab.active {
+      border-color: var(--bronce);
+      background: var(--negro-profundo);
+      color: var(--bronce);
+    }
+    .post-type-tab:hover:not(.active) { border-color: var(--charcoal); }
+
+    /* Upload imagen */
+    .upload-area {
+      border: 2px dashed var(--borde);
+      border-radius: 12px;
+      padding: 28px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .upload-area:hover, .upload-area.dragover {
+      border-color: var(--bronce);
+      background: rgba(201,166,107,0.05);
+    }
+    .upload-area input { display: none; }
+    .upload-icon { font-size: 32px; margin-bottom: 8px; }
+    .upload-text { font-size: 14px; color: var(--gris-frio); }
+    .upload-text strong { color: var(--bronce); }
+    .upload-hint { font-size: 12px; color: var(--gris-frio); margin-top: 4px; }
+    .preview-thumb {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-top: 12px;
+      display: none;
+    }
+    .preview-thumb.visible { display: block; }
+    .remove-img {
+      display: none;
+      margin-top: 8px;
+      font-size: 12px;
+      color: #e53e3e;
+      cursor: pointer;
+      text-align: center;
+    }
+    .remove-img.visible { display: block; }
+
+    /* Hashtags */
+    .hashtag-input {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 8px;
+      border: 1.5px solid var(--borde);
+      border-radius: 8px;
+      background: var(--crema);
+      min-height: 46px;
+      align-items: center;
+      cursor: text;
+    }
+    .hashtag-input:focus-within { border-color: var(--bronce); background: var(--blanco); }
+    .hashtag-tag {
+      background: var(--negro-profundo);
+      color: var(--bronce);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .hashtag-tag button {
+      background: none;
+      border: none;
+      color: var(--bronce);
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 1;
+      padding: 0;
+    }
+    .hashtag-input input {
+      border: none;
+      outline: none;
+      background: transparent;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: var(--grafito);
+      flex: 1;
+      min-width: 80px;
+    }
+
+    /* Preview mode selector */
+    .mode-toggle {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .mode-btn {
+      padding: 8px 16px;
+      border: 1.5px solid var(--borde);
+      border-radius: 8px;
+      background: var(--crema);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gris-frio);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .mode-btn.active {
+      border-color: var(--bronce);
+      background: var(--bronce);
+      color: var(--negro-profundo);
+    }
+
+    /* Generate button */
+    .generate-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--negro-profundo);
+      color: var(--bronce);
+      border: none;
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: background 0.2s;
+      margin-top: 8px;
+    }
+    .generate-btn:hover { background: var(--charcoal); }
+
+    /* ── PREVIEW PANEL ── */
+    .preview-panel {
+      position: sticky;
+      top: 76px;
+    }
+    .preview-device {
+      background: var(--blanco);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--borde);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+    }
+    .device-header {
+      background: var(--negro-profundo);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .device-header .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.2); }
+    .device-header .url-bar {
+      flex: 1;
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .device-header .li-icon {
+      width: 20px;
+      height: 20px;
+      background: #0A66C2;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: white;
+      font-weight: 700;
+    }
+
+    /* Phone frame */
+    .phone-frame {
+      background: #F5F5F5;
+      min-height: 500px;
+    }
+    .post-card {
+      background: var(--blanco);
+      margin: 12px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+
+    /* Post header */
+    .post-header {
+      display: flex;
+      align-items: flex-start;
+      padding: 14px 14px 10px;
+      gap: 10px;
+    }
+    .post-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .post-meta { flex: 1; }
+    .post-author {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--grafito);
+    }
+    .post-title {
+      font-size: 12px;
+      color: var(--gris-frio);
+      margin-top: 1px;
+    }
+    .post-time {
+      font-size: 11px;
+      color: var(--gris-frio);
+      margin-top: 2px;
+    }
+
+    /* Post content */
+    .post-content {
+      padding: 0 14px 12px;
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--grafito);
+      white-space: pre-wrap;
+    }
+
+    /* Post image */
+    .post-image {
+      width: 100%;
+      display: block;
+    }
+    .post-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Reactions bar */
+    .post-reactions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-top: 1px solid var(--borde);
+      font-size: 12px;
+      color: var(--gris-frio);
+    }
+    .reactions-icons { display: flex; align-items: center; gap: 2px; }
+    .reactions-icons .emoji-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      font-size: 11px;
+      margin-left: -3px;
+    }
+    .reactions-icons .emoji-count.first { background: #0A66C2; color: white; font-size: 9px; }
+    .reactions-icons .emoji-count.second { background: #DF704D; color: white; font-size: 9px; }
+    .reactions-icons .emoji-count.third { background: #ECB359; color: white; font-size: 9px; }
+
+    /* Action buttons */
+    .post-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      border-top: 1px solid var(--borde);
+    }
+    .action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 12px 8px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: var(--gris-frio);
+      border-right: 1px solid var(--borde);
+      transition: background 0.15s;
+    }
+    .action-btn:last-child { border-right: none; }
+    .action-btn:hover { background: rgba(0,0,0,0.03); }
+    .action-btn svg { width: 18px; height: 18px; }
+
+    /* Carousel indicator */
+    .carousel-indicator {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      padding: 8px 0;
+    }
+    .carousel-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #C4C4C4;
+    }
+    .carousel-dot.active { background: #0A66C2; width: 18px; border-radius: 3px; }
+
+    /* Article card */
+    .article-card {
+      background: var(--blanco);
+      margin: 12px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--borde);
+      display: grid;
+      grid-template-columns: 140px 1fr;
+    }
+    .article-thumb {
+      width: 140px;
+      height: 140px;
+      object-fit: cover;
+    }
+    .article-info {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .article-tag {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--bronce);
+    }
+    .article-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      color: var(--grafito);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+    .article-meta {
+      font-size: 11px;
+      color: var(--gris-frio);
+      margin-top: 8px;
+    }
+
+    /* CTA card */
+    .cta-card {
+      background: var(--blanco);
+      margin: 12px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--borde);
+      text-align: center;
+    }
+    .cta-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .cta-body {
+      padding: 16px;
+    }
+    .cta-tag {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--bronce);
+    }
+    .cta-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      color: var(--grafito);
+      margin-top: 6px;
+    }
+    .cta-company {
+      font-size: 12px;
+      color: var(--gris-frio);
+      margin-top: 4px;
+    }
+    .cta-btn {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 8px 20px;
+      background: #0A66C2;
+      color: white;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    /* Empty state */
+    .empty-state {
+      padding: 60px 40px;
+      text-align: center;
+      color: var(--gris-frio);
+    }
+    .empty-icon { font-size: 48px; margin-bottom: 16px; opacity: 0.4; }
+    .empty-state p { font-size: 14px; max-width: 240px; margin: 0 auto; }
+
+    /* Footer */
+    footer {
+      background: var(--negro-profundo);
+      text-align: center;
+      padding: 24px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="logo">
+    <img src="/go-logo.png" alt="GO">
+    <span>Diego Arias</span>
+  </a>
+  <a href="/" class="back">← Volver al sitio</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>LinkedIn <span>Preview</span></h1>
+  <p>Visualiza cómo se verá tu próximo post antes de publicarlo. Editor en tiempo real, preview en el formato exacto de LinkedIn.</p>
+</section>
+
+<!-- MAIN -->
+<main class="main-container">
+
+  <!-- EDITOR -->
+  <div class="editor-panel">
+    <h2 class="panel-title">Configurar tu post</h2>
+
+    <!-- Tipo de post -->
+    <div class="field">
+      <label>Formato del post</label>
+      <div class="post-type-tabs">
+        <div class="post-type-tab active" data-type="text" onclick="setPostType('text', this)">📝 Texto</div>
+        <div class="post-type-tab" data-type="image" onclick="setPostType('image', this)">🖼️ Imagen</div>
+        <div class="post-type-tab" data-type="carousel" onclick="setPostType('carousel', this)">🎠 Carrusel</div>
+        <div class="post-type-tab" data-type="article" onclick="setPostType('article', this)">📄 Artículo</div>
+      </div>
+    </div>
+
+    <!-- Autor -->
+    <div class="field">
+      <label>Nombre</label>
+      <input type="text" id="authorName" value="Diego Arias" placeholder="Nombre del autor">
+    </div>
+    <div class="field">
+      <label>Título / Cargo</label>
+      <input type="text" id="authorTitle" value="Socio Fundador · Desafío Latam" placeholder="Título profesional">
+    </div>
+
+    <!-- Contenido -->
+    <div class="field" id="textField">
+      <label>Contenido del post</label>
+      <textarea id="postText" placeholder="Escribe tu post aquí...">Hoy cerramos un deal de $290M con Accenture Nodo — uno de los más grandes del año en Chile.
+
+El equipo de Desafío Latam llevaba 8 semanas trabajando en esta oportunidad. Conversaciones, propuestas, ajustes, más conversaciones.
+
+El secreto nunca es el precio. Es la confianza.
+
+Después de 12 años haciendo esto, tengo claro algo: los negocios se construyen en las reuniones que no aparecen en ningún reporte.
+
+¿En qué estás trabajando hoy? 👇</textarea>
+    </div>
+
+    <!-- Imagen -->
+    <div class="field" id="imageField" style="display:none">
+      <label>Imagen del post</label>
+      <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+        <input type="file" id="fileInput" accept="image/*" onchange="handleFile(this)">
+        <div class="upload-icon">📷</div>
+        <div class="upload-text">Arrastra una imagen o <strong>haz clic para seleccionar</strong></div>
+        <div class="upload-hint">PNG, JPG, WEBP · Se recortará a 1080×1080</div>
+        <img id="previewThumb" class="preview-thumb" alt="Preview">
+        <div class="remove-img" id="removeImg" onclick="removeImage(event)">✕ Eliminar imagen</div>
+      </div>
+    </div>
+
+    <!-- Carrusel slides -->
+    <div class="field" id="carouselField" style="display:none">
+      <label>Carrusel — slides</label>
+      <div id="carouselSlides"></div>
+      <button onclick="addCarouselSlide()" style="margin-top:8px;padding:8px 16px;border:1.5px solid var(--borde);border-radius:8px;background:var(--crema);font-size:13px;cursor:pointer;">+ Agregar slide</button>
+    </div>
+
+    <!-- Artículo -->
+    <div class="field" id="articleField" style="display:none">
+      <label>Título del artículo</label>
+      <input type="text" id="articleTitle" value="Cómo construí una empresa que empleó a 5,000 personas sin financiamiento externo">
+      <label style="margin-top:12px;">Descripción</label>
+      <input type="text" id="articleDesc" value="12 años de lecciones aprendidas">
+    </div>
+
+    <!-- Hashtags -->
+    <div class="field">
+      <label>Hashtags</label>
+      <div class="hashtag-input" id="hashtagInput" onclick="document.getElementById('hashtagTagInput').focus()">
+        <div id="hashtagTags"></div>
+        <input type="text" id="hashtagTagInput" placeholder="# 添加 hashtag" onkeydown="handleHashtagInput(event)">
+      </div>
+    </div>
+
+    <!-- Engagement -->
+    <div class="field">
+      <label>Métricas (para preview)</label>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+        <div>
+          <div style="font-size:11px;color:var(--gris-frio);margin-bottom:4px">Reacciones</div>
+          <input type="number" id="reactions" value="847" style="width:100%">
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--gris-frio);margin-bottom:4px">Comentarios</div>
+          <input type="number" id="comments" value="62" style="width:100%">
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--gris-frio);margin-bottom:4px">Reposts</div>
+          <input type="number" id="reposts" value="23" style="width:100%">
+        </div>
+      </div>
+    </div>
+
+    <button class="generate-btn" onclick="renderPreview()">🔍 Actualizar preview</button>
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="preview-panel">
+    <div class="preview-device">
+      <div class="device-header">
+        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        <div class="url-bar">linkedin.com/feed</div>
+        <div class="li-icon">in</div>
+      </div>
+      <div class="phone-frame" id="previewFrame">
+        <div class="empty-state">
+          <div class="empty-icon">📱</div>
+          <p>Configura tu post a la izquierda y presiona "Actualizar preview"</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  godiegoarias.com — Built with ❤️ by Maya AI
+</footer>
+
+<script>
+let postType = 'text';
+let imageData = null;
+let carouselSlidesData = [];
+
+// ── Post type switcher ──
+function setPostType(type, el) {
+  postType = type;
+  document.querySelectorAll('.post-type-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('textField').style.display = type === 'article' ? 'none' : 'block';
+  document.getElementById('imageField').style.display = type === 'image' ? 'block' : 'none';
+  document.getElementById('carouselField').style.display = type === 'carousel' ? 'block' : 'none';
+  document.getElementById('articleField').style.display = type === 'article' ? 'block' : 'none';
+  if (type === 'carousel') initCarousel();
+}
+
+// ── Image upload ──
+function handleFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    imageData = e.target.result;
+    const thumb = document.getElementById('previewThumb');
+    thumb.src = imageData;
+    thumb.classList.add('visible');
+    document.getElementById('removeImg').classList.add('visible');
+  };
+  reader.readAsDataURL(file);
+}
+
+function removeImage(e) {
+  e.stopPropagation();
+  imageData = null;
+  document.getElementById('previewThumb').classList.remove('visible');
+  document.getElementById('removeImg').classList.remove('visible');
+  document.getElementById('fileInput').value = '';
+}
+
+// ── Drag & drop ──
+const uploadArea = document.getElementById('uploadArea');
+uploadArea.addEventListener('dragover', (e) => { e.preventDefault(); uploadArea.classList.add('dragover'); });
+uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('dragover'));
+uploadArea.addEventListener('drop', (e) => {
+  e.preventDefault();
+  uploadArea.classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file) { document.getElementById('fileInput').files = e.dataTransfer.files; handleFile(document.getElementById('fileInput')); }
+});
+
+// ── Hashtags ──
+let hashtags = ['#DesafioLatam', '#Chile', '#TalentoTech'];
+renderHashtags();
+
+function handleHashtagInput(e) {
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.value.trim()) {
+    const tag = e.target.value.trim().replace(/^#/, '').replace(/\s/g, '');
+    if (tag && !hashtags.includes('#' + tag)) {
+      hashtags.push('#' + tag);
+      renderHashtags();
+    }
+    e.target.value = '';
+  }
+  if (e.key === 'Backspace' && !e.target.value && hashtags.length) {
+    hashtags.pop();
+    renderHashtags();
+  }
+}
+
+function removeHashtag(tag) {
+  hashtags = hashtags.filter(h => h !== tag);
+  renderHashtags();
+}
+
+function renderHashtags() {
+  const container = document.getElementById('hashtagTags');
+  container.innerHTML = hashtags.map(h =>
+    `<span class="hashtag-tag"><button onclick="removeHashtag('${h}')">✕</button>${h}</span>`
+  ).join('');
+}
+
+// ── Carousel ──
+function initCarousel() {
+  if (!carouselSlidesData.length) addCarouselSlide();
+}
+
+function addCarouselSlide() {
+  const idx = carouselSlidesData.length + 1;
+  carouselSlidesData.push({ title: `Slide ${idx}`, desc: 'Descripción del slide' });
+  renderCarouselSlides();
+}
+
+function renderCarouselSlides() {
+  const container = document.getElementById('carouselSlides');
+  container.innerHTML = carouselSlidesData.map((s, i) => `
+    <div style="border:1px solid var(--borde);border-radius:8px;padding:12px;margin-bottom:8px;background:var(--crema)">
+      <div style="display:grid;grid-template-columns:1fr auto;align-items:center;margin-bottom:8px">
+        <span style="font-size:12px;font-weight:600">Slide ${i+1}</span>
+        <button onclick="removeSlide(${i})" style="background:none;border:none;color:#e53e3e;cursor:pointer;font-size:14px">✕</button>
+      </div>
+      <input type="text" value="${s.title}" placeholder="Título del slide"
+        style="width:100%;padding:6px 10px;border:1px solid var(--borde);border-radius:6px;font-size:13px;margin-bottom:6px;background:white"
+        onchange="carouselSlidesData[${i}].title=this.value">
+      <input type="text" value="${s.desc}" placeholder="Descripción"
+        style="width:100%;padding:6px 10px;border:1px solid var(--borde);border-radius:6px;font-size:13px;background:white"
+        onchange="carouselSlidesData[${i}].desc=this.value">
+    </div>
+  `).join('');
+}
+
+function removeSlide(idx) {
+  carouselSlidesData.splice(idx, 1);
+  renderCarouselSlides();
+}
+
+// ── Render preview ──
+function renderPreview() {
+  const name = document.getElementById('authorName').value || 'Diego Arias';
+  const title = document.getElementById('authorTitle').value || 'Socio Fundador · Desafío Latam';
+  const text = document.getElementById('postText').value || '';
+  const reactions = document.getElementById('reactions').value || '0';
+  const comments = document.getElementById('comments').value || '0';
+  const reposts = document.getElementById('reposts').value || '0';
+  const hashtagsText = hashtags.join(' ');
+
+  const reactionsLabel = reactions > 999 ? (reactions/1000).toFixed(1) + 'K' : reactions;
+  const commentsLabel = comments > 999 ? (comments/1000).toFixed(1) + 'K' : comments;
+
+  const header = `
+  <div class="post-header">
+    <img class="post-avatar" src="/diego-foto.jpg" alt="${name}" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=C9A66B&color=0D0D0D&size=96'">
+    <div class="post-meta">
+      <div class="post-author">${name}</div>
+      <div class="post-title">${title}</div>
+      <div class="post-time">2h · 🌐</div>
+    </div>
+  </div>`;
+
+  const content = text ? `<div class="post-content">${escapeHtml(text)}${hashtagsText ? '<br><br>' + hashtagsText : ''}</div>` : '';
+
+  const reactionsBar = `
+  <div class="post-reactions">
+    <div class="reactions-icons">
+      <span class="emoji-count first">👍</span>
+      <span class="emoji-count second">❤️</span>
+      <span class="emoji-count third">👏</span>
+      <span style="margin-left:6px;font-size:12px">${reactionsLabel}</span>
+    </div>
+    <div>${commentsLabel} comentarios · ${reposts} repost</div>
+  </div>`;
+
+  const actions = `
+  <div class="post-actions">
+    <button class="action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12C2 12 5 8 9 8s7 4 13 4-7 4-13 4S2 12 2 12z"/><circle cx="9" cy="12" r="2"/><circle cx="15" cy="12" r="2"/></svg>Like</button>
+    <button class="action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Comment</button>
+    <button class="action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>Repost</button>
+    <button class="action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>Send</button>
+  </div>`;
+
+  let cardBody = '';
+
+  if (postType === 'text') {
+    cardBody = header + content + reactionsBar + actions;
+
+  } else if (postType === 'image') {
+    const imgHtml = imageData
+      ? `<div class="post-image"><img src="${imageData}" alt="Post image"></div>`
+      : `<div style="background:linear-gradient(135deg,#0D0D0D,#363636);height:260px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.3);font-size:40px">📷</div>`;
+    cardBody = header + content + imgHtml + reactionsBar + actions;
+
+  } else if (postType === 'carousel') {
+    const slideCount = carouselSlidesData.length || 1;
+    const dotsHtml = Array.from({length: slideCount}, (_, i) =>
+      `<div class="carousel-dot ${i===0?'active':''}"></div>`
+    ).join('');
+    const defaultImg = imageData || '';
+    const slideBg = defaultImg
+      ? `<img src="${defaultImg}" style="width:100%;height:180px;object-fit:cover;display:block">`
+      : `<div style="background:linear-gradient(135deg,#0D0D0D,#C9A66B);height:180px;display:flex;align-items:center;justify-content:center;color:white;font-family:'Playfair Display',serif;font-size:18px">${carouselSlidesData[0]?.title||'Carrusel'}</div>`;
+    cardBody = header + content + slideBg + `<div class="carousel-indicator">${dotsHtml}</div>` + reactionsBar + actions;
+
+  } else if (postType === 'article') {
+    const artTitle = document.getElementById('articleTitle').value;
+    const artDesc = document.getElementById('articleDesc').value;
+    const artImg = imageData || '';
+    const artImgHtml = artImg
+      ? `<img class="article-thumb" src="${artImg}" alt="Article">`
+      : `<div style="width:140px;height:140px;background:linear-gradient(135deg,#0D0D0D,#C9A66B);display:flex;align-items:center;justify-content:center;color:white;font-size:28px">📄</div>`;
+    cardBody = `
+    <div class="article-card">
+      ${artImgHtml}
+      <div class="article-info">
+        <div>
+          <div class="article-tag">Artículo</div>
+          <div class="article-title">${escapeHtml(artTitle)}</div>
+        </div>
+        <div class="article-meta">${escapeHtml(artDesc)} · 3 min read</div>
+      </div>
+    </div>` + header + reactionsBar + `<div style="padding:0 14px 12px"><div style="font-size:13px;color:var(--azul-tech);font-weight:600;cursor:pointer">Visitar artículo →</div></div>`;
+  }
+
+  document.getElementById('previewFrame').innerHTML = `<div class="post-card">${cardBody}</div>`;
+}
+
+function escapeHtml(text) {
+  return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// Init
+renderHashtags();
+renderPreview();
+</script>
+
+</body>
+</html>

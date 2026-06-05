@@ -1,329 +1,346 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Oportunidad País — Podcast | Diego Arias</title>
-  <meta name="description" content="Podcast Oportunidad País por Desafío Latam y Diego Arias. Conversaciones sin filtro sobre las oportunidades y desafíos de Chile.">
-  <link rel="icon" type="image/png" href="/static/favicon.png">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    :root { --bronce: #C9A66B; --charcoal: #363636; --negro-profundo: #0D0D0D; --azul-op: #1a6faf; --blanco: #FFFFFF; --crema: #F5F0E8; --gris-frio: #6B7280; --grafito: #1A1A1A; }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; overflow-x: hidden; }
-    body { font-family: 'Inter', -apple-system, sans-serif; background: var(--crema); color: var(--grafito); line-height: 1.7; max-width: 100vw; }
-    img { max-width: 100%; height: auto; display: block; }
-    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-    nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(13,13,13,0.95); backdrop-filter: blur(10px); z-index: 1000; padding: 16px 0; border-bottom: 1px solid rgba(201,166,107,0.15); }
-    nav .container { display: flex; justify-content: space-between; align-items: center; }
-    .logo img { height: 56px; width: auto; }
-    .nav-links { display: flex; gap: 28px; list-style: none; }
-    .nav-links a { color: var(--blanco); text-decoration: none; font-size: 0.88rem; opacity: 0.75; transition: all 0.3s; letter-spacing: 0.3px; }
-    .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--bronce); }
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 6px; }
-    .hamburger span { display: block; width: 24px; height: 2px; background: var(--blanco); border-radius: 2px; }
-    .hero { background: linear-gradient(135deg, var(--azul-op) 0%, #0d3d6b 100%); color: var(--blanco); padding: 140px 0 64px; position: relative; overflow: hidden; }
-    .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); opacity: 0.5; }
-    .hero .container { display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; position: relative; }
-    .hero-badge { display: inline-block; background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.85); font-size: 0.72rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; padding: 5px 16px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); margin-bottom: 20px; }
-    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 700; margin-bottom: 14px; line-height: 1.1; }
-    .hero h1 span { color: var(--bronce); }
-    .hero-sub { font-size: 1.05rem; color: rgba(255,255,255,0.65); max-width: 580px; margin-bottom: 28px; line-height: 1.65; }
-    .hero-meta { display: flex; gap: 28px; flex-wrap: wrap; margin-bottom: 28px; }
-    .hero-meta-item { display: flex; align-items: center; gap: 8px; font-size: 0.88rem; color: rgba(255,255,255,0.45); }
-    .hero-meta-item strong { color: var(--bronce); font-family: 'JetBrains Mono', monospace; font-size: 1.05rem; }
-    .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
-    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 26px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease; }
-    .btn-primary { background: var(--bronce); color: var(--negro-profundo); }
-    .btn-primary:hover { background: #d4b57a; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(201,166,107,0.3); }
-    .btn-secondary { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.25); }
-    .btn-secondary:hover { border-color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.05); }
-    .hero-about { display: flex; gap: 10px; align-items: center; margin-top: 22px; flex-wrap: wrap; }
-    .host-tag { display: inline-block; padding: 4px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.65); border: 1px solid rgba(255,255,255,0.12); }
-    .podcast-icon { background: rgba(255,255,255,0.06); border: 2px solid rgba(255,255,255,0.15); border-radius: 24px; padding: 28px 22px; text-align: center; flex-shrink: 0; }
-    .podcast-icon .icon { font-size: 3rem; margin-bottom: 6px; }
-    .podcast-icon .label { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--bronce); line-height: 1.3; }
-    .podcast-icon .ep-label { font-size: 0.78rem; color: rgba(255,255,255,0.45); margin-top: 8px; }
-    .stats-bar { background: #0d3d6b; padding: 36px 0; }
-    .stats-bar .container { display: flex; justify-content: center; gap: 56px; flex-wrap: wrap; }
-    .stat-item { text-align: center; }
-    .stat-number { font-family: 'JetBrains Mono', monospace; font-size: 2rem; font-weight: 700; color: var(--bronce); display: block; }
-    .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-top: 3px; letter-spacing: 0.5px; }
-    .episodes-section { padding: 80px 0; background: var(--blanco); }
-    .section-header { margin-bottom: 44px; }
-    .section-header h2 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--charcoal); margin-bottom: 10px; }
-    .section-header h2 span { color: var(--azul-op); }
-    .section-header p { color: var(--gris-frio); font-size: 0.95rem; max-width: 550px; }
-    .episodes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-    .ep-card { background: var(--crema); border-radius: 16px; overflow: hidden; border: 1px solid rgba(0,0,0,0.06); transition: all 0.35s ease; }
-    .ep-card:hover { transform: translateY(-5px); box-shadow: 0 20px 48px rgba(0,0,0,0.1); }
-    .ep-thumb { position: relative; height: 150px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-    .ep-thumb-bg { position: absolute; inset: 0; }
-    .ep-num { font-family: 'JetBrains Mono', monospace; font-size: 3.5rem; font-weight: 700; color: rgba(255,255,255,0.2); position: relative; z-index: 2; }
-    .ep-dur { position: absolute; bottom: 10px; right: 12px; background: rgba(0,0,0,0.55); color: white; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; padding: 3px 9px; border-radius: 4px; z-index: 2; }
-    .ep-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px; background: rgba(255,255,255,0.95); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 2; box-shadow: 0 4px 16px rgba(0,0,0,0.2); }
-    .ep-play svg { width: 20px; height: 20px; fill: var(--azul-op); }
-    .ep-info { padding: 22px 24px; }
-    .ep-meta-row { display: flex; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
-    .ep-num-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 600; background: var(--azul-op); color: white; padding: 3px 10px; border-radius: 4px; }
-    .ep-title { font-size: 1.05rem; font-weight: 600; color: var(--charcoal); margin-bottom: 5px; line-height: 1.4; }
-    .ep-guest { font-size: 0.8rem; color: var(--azul-op); font-weight: 600; margin-bottom: 8px; }
-    .ep-desc { font-size: 0.85rem; color: var(--gris-frio); line-height: 1.6; margin-bottom: 10px; }
-    .ep-guest-detail { font-size: 0.8rem; color: var(--azul-op); font-weight: 500; line-height: 1.55; margin-bottom: 16px; padding-left: 12px; border-left: 3px solid var(--azul-op); background: rgba(26,111,175,0.05); padding: 10px 12px; border-radius: 0 6px 6px 0; }
-    .ep-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-    .btn-ep-yt { display: inline-flex; align-items: center; gap: 5px; padding: 7px 14px; border-radius: 6px; text-decoration: none; font-size: 0.78rem; font-weight: 600; background: #FF0000; color: white; transition: all 0.2s; }
-    .btn-ep-yt:hover { opacity: 0.85; }
-    .btn-ep-spotify { display: inline-flex; align-items: center; gap: 5px; padding: 7px 14px; border-radius: 6px; text-decoration: none; font-size: 0.78rem; font-weight: 600; background: #1DB954; color: white; transition: all 0.2s; }
-    .btn-ep-spotify:hover { opacity: 0.85; }
-    .platforms { padding: 60px 0; background: var(--crema); text-align: center; }
-    .platforms p { font-size: 0.85rem; color: var(--gris-frio); margin-bottom: 20px; }
-    .platform-links { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
-    .plat-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.88rem; transition: all 0.2s; }
-    .plat-yt { background: #FF0000; color: white; }
-    .plat-yt:hover { opacity: 0.85; transform: translateY(-2px); }
-    .plat-spotify { background: #1DB954; color: white; }
-    .plat-spotify:hover { opacity: 0.85; transform: translateY(-2px); }
-    footer { background: var(--grafito); color: var(--gris-frio); padding: 36px 0; text-align: center; font-size: 0.85rem; }
-    footer a { color: var(--bronce); text-decoration: none; }
-    @media (max-width: 900px) {
-      .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--negro-profundo); padding: 16px 0; z-index: 999; border-top: 1px solid rgba(255,255,255,0.1); }
-      .nav-links.open { display: flex; }
-      .nav-links li a { display: block; padding: 12px 24px; font-size: 1rem; }
-      .hamburger { display: flex !important; }
-      .hero .container { grid-template-columns: 1fr; }
-      .podcast-icon { display: none; }
-      .episodes-grid { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 600px) {
-      .hero { padding: 120px 0 50px; }
-      .hero h1 { font-size: 1.9rem; }
-      .hero-cta { flex-direction: column; }
-      .stats-bar .container { gap: 20px; }
-    }
-  </style>
-</head>
-<body>
-<nav>
-  <div class="container">
-    <a href="/" class="logo"><img src="/static/go-logo.png" alt="Diego Arias"></a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="/#about">Sobre Mí</a></li>
-      <li><a href="/#modelo">Modelo</a></li>
-      <li><a href="/#casos">Casos</a></li>
-      <li><a href="/es-la-hora-de-aprender/">Podcast</a></li>
-      <li><a href="/oportunidad-pais/" class="active">Oportunidad País</a></li>
-      <li><a href="/#contact">Contacto</a></li>
-      <li><a href="/recursos-que-yo-uso-de-ia/">Recursos IA</a></li>
-      <li><a href="https://linkedin.com/in/godiegoarias" target="_blank">LinkedIn</a></li>
-    </ul>
-    <button class="hamburger" id="hamburger" onclick="toggleNav()">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
-<script>function toggleNav(){document.getElementById('navLinks').classList.toggle('open');}</script>
-
-<section class="hero">
-  <div class="container">
-    <div>
-      <div class="hero-badge">🌎 Podcast de Desafío Latam</div>
-      <h1>Oportunidad <span>País</span></h1>
-      <p class="hero-sub">Conversaciones sin filtro sobre las oportunidades y los desafíos que tiene Chile. Junto a líderes, emprendedores y expertos, exploramos qué funciona, qué no, y cómo avanzar.</p>
-      <div class="hero-meta">
-        <div class="hero-meta-item"><strong>4</strong> capítulos</div>
-        <div class="hero-meta-item"><strong>2026</strong></div>
-        <div class="hero-meta-item"><strong>Desafío Latam</strong></div>
-      </div>
-      <div class="hero-cta">
-        <a href="https://open.spotify.com/show/2nGzjakwUUOf7AAqui0TnQ" target="_blank" class="btn btn-primary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2z"/></svg>
-          Escuchar en Spotify
-        </a>
-        <a href="https://www.youtube.com/playlist?list=PLFgaQL-UJJiVNDg8Ro7NBEq6opW1amO33" target="_blank" class="btn btn-secondary">
-          <svg width="16" height="11" viewBox="0 0 68 48" fill="currentColor"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"/></svg>
-          Ver en YouTube
-        </a>
-      </div>
-      <div class="hero-about">
-        <span class="host-tag">Diego Arias — Conductor</span>
-        <span class="host-tag">Desafío Latam</span>
-      </div>
-    </div>
-    <div class="podcast-icon">
-      <div class="icon">🌎</div>
-      <div class="label">Oportunidad</div>
-      <div class="label">País</div>
-      <div class="ep-label">4 capítulos</div>
-    </div>
-  </div>
-</section>
-
-<div class="stats-bar">
-  <div class="container">
-    <div class="stat-item"><span class="stat-number">4</span><span class="stat-label">Capítulos</span></div>
-    <div class="stat-item"><span class="stat-number">2026</span><span class="stat-label">En curso</span></div>
-    <div class="stat-item"><span class="stat-number">4</span><span class="stat-label">Invitados</span></div>
-    <div class="stat-item"><span class="stat-number">DL</span><span class="stat-label">Desafío Latam</span></div>
-  </div>
-</div>
-
-<section class="episodes-section">
-  <div class="container">
-    <div class="section-header">
-      <h2>Todos los <span>Capítulos</span></h2>
-      <p>Conversaciones con líderes y expertos sobre tecnología, productividad, talento y el futuro de Chile.</p>
-    </div>
-    <div class="episodes-grid">
-
-            <!-- CAPITULO 1 -->
-      <div class="ep-card">
-        <div class="ep-thumb">
-          <div class="ep-thumb-bg" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);"></div>
-          <div class="ep-num">01</div>
-          <span class="ep-dur">Mar 2026</span>
-          <a href="https://www.youtube.com/watch?v=aYCqxOal1uk" target="_blank" class="ep-play">
-            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-          </a>
-        </div>
-        <div class="ep-info">
-          <div class="ep-meta-row">
-            <span class="ep-num-tag">Capítulo 1</span>
-          </div>
-          <div class="ep-title">Oportunidad País — Capítulo 1</div>
-          <div class="ep-guest">🎙️ Justo Vargas — Client Partner, Globant</div>
-          <div class="ep-desc">Primer capítulo del podcast Oportunidad País. Conversación sin filtro sobre las oportunidades que tiene Chile y lo que deben trabajar tanto empresas como gobierno. Se aborda el panorama tecnológico, la penetración de herramientas digitales y el rol de las empresas de tecnología en el desarrollo del país.</div>
-          <div class="ep-guest-detail">Experto en transformación digital y tecnología con más de 30 años de experiencia en la industria. Representa a Globant y es co-fundador de Unlearni.</div>
-          <div class="ep-actions">
-            <a href="https://www.youtube.com/watch?v=aYCqxOal1uk" target="_blank" class="btn-ep-yt">
-              <svg width="12" height="9" viewBox="0 0 68 48" fill="currentColor"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"/></svg>
-              YouTube
-            </a>
-            <a href="https://open.spotify.com/show/2nGzjakwUUOf7AAqui0TnQ" target="_blank" class="btn-ep-spotify">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2z"/></svg>
-              Spotify
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPITULO 2 -->
-      <div class="ep-card">
-        <div class="ep-thumb">
-          <div class="ep-thumb-bg" style="background: linear-gradient(135deg, #1a6faf 0%, #0d3d6b 100%);"></div>
-          <div class="ep-num">02</div>
-          <span class="ep-dur">Mar 2026</span>
-          <a href="https://www.youtube.com/watch?v=GbMk7umUWig" target="_blank" class="ep-play">
-            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-          </a>
-        </div>
-        <div class="ep-info">
-          <div class="ep-meta-row">
-            <span class="ep-num-tag">Capítulo 2</span>
-          </div>
-          <div class="ep-title">Oportunidad País — Capítulo 2</div>
-          <div class="ep-guest">🎙️ Jeannette Escudero — Dirección Ejecutiva, Talento Digital para Chile</div>
-          <div class="ep-desc">Segundo capítulo del podcast de Desafío Latam. Continuamos la conversación sobre las oportunidades país, profundizando en temáticas específicas del panorama económico y empresarial chileno. Se habla de las brechas tecnológicas, el ecosistema de innovación y lo que hace falta para que Chile avance en serio en su transformación digital.</div>
-          <div class="ep-guest-detail">Directora Ejecutiva de Talento Digital para Chile, institución clave en la formación y desarrollo del talento tecnológico nacional. Ha liderado iniciativas para cerrar la brecha de habilidades digitales y posicionar a Chile como hub tecnológico de Latinoamérica.</div>
-          <div class="ep-actions">
-            <a href="https://www.youtube.com/watch?v=GbMk7umUWig" target="_blank" class="btn-ep-yt">
-              <svg width="12" height="9" viewBox="0 0 68 48" fill="currentColor"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"/></svg>
-              YouTube
-            </a>
-            <a href="https://open.spotify.com/show/2nGzjakwUUOf7AAqui0TnQ" target="_blank" class="btn-ep-spotify">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2z"/></svg>
-              Spotify
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPITULO 3 -->
-      <div class="ep-card">
-        <div class="ep-thumb">
-          <div class="ep-thumb-bg" style="background: linear-gradient(135deg, #27ae60 0%, #1a7a42 100%);"></div>
-          <div class="ep-num">03</div>
-          <span class="ep-dur">Abr 2026</span>
-          <a href="https://www.youtube.com/watch?v=-jepRqm50g4" target="_blank" class="ep-play">
-            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-          </a>
-        </div>
-        <div class="ep-info">
-          <div class="ep-meta-row">
-            <span class="ep-num-tag">Capítulo 3</span>
-          </div>
-          <div class="ep-title">Chile debe potenciar tecnología, dice Director Ejecutivo de Chiletec</div>
-          <div class="ep-guest">🎙️ Francisco Mardones — Director Ejecutivo, Chiletec</div>
-          <div class="ep-desc">En este episodio conversamos con Francisco Mardones, Director Ejecutivo de Chiletec, sobre el rol clave de la tecnología en el desarrollo económico de Chile. Se habla de cómo la industria digital puede transformar el país, generar oportunidades de empleo de calidad y por qué Chile debe multiplicar sus exportaciones de servicios tecnológicos en los próximos años.</div>
-          <div class="ep-guest-detail">Líder de la Mesa de Exportación de Servicios de Chiletec. Ha impulsado iniciativas para posicionar a Chile como hub de servicios digitales en Latinoamérica. Si Chile crece al 20% anual en exportaciones tech, puede quintuplicar su sector digital en una década.</div>
-          <div class="ep-actions">
-            <a href="https://www.youtube.com/watch?v=-jepRqm50g4" target="_blank" class="btn-ep-yt">
-              <svg width="12" height="9" viewBox="0 0 68 48" fill="currentColor"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"/></svg>
-              YouTube
-            </a>
-            <a href="https://open.spotify.com/show/2nGzjakwUUOf7AAqui0TnQ" target="_blank" class="btn-ep-spotify">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2z"/></svg>
-              Spotify
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPITULO 4 -->
-      <div class="ep-card">
-        <div class="ep-thumb">
-          <div class="ep-thumb-bg" style="background: linear-gradient(135deg, #8e44ad 0%, #5b2c6f 100%);"></div>
-          <div class="ep-num">04</div>
-          <span class="ep-dur">Abr 2026</span>
-          <a href="https://www.youtube.com/watch?v=V-RCd010Bck" target="_blank" class="ep-play">
-            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-          </a>
-        </div>
-        <div class="ep-info">
-          <div class="ep-meta-row">
-            <span class="ep-num-tag">Capítulo 4</span>
-          </div>
-          <div class="ep-title">Ciencia, Innovación y Productividad: Desafíos y Oportunidades para Chile</div>
-          <div class="ep-guest">🎙️ Luz María García — Gerente General, ACTI</div>
-          <div class="ep-desc">Conversatorio organizado por Desafío Latam y Libertad y Desarrollo (LYD) sobre los principales desafíos del ecosistema de innovación en Chile. Se aborda la pregunta central: ¿cómo salir del estancamiento de la productividad? ¿Más de lo mismo extractivista pero mejor, o una nueva ruta? Análisis profundo sobre ciencia, innovación, políticas públicas y el futuro productivo de Chile.</div>
-          <div class="ep-guest-detail">Gerente General de ACTI (Asociación Chilena de Empresas de Tecnología de Información y Comunicación). Representa a las principales empresas de tecnología e innovación del país, defendiendo el rol del sector tech como motor de desarrollo económico y transformación productiva.</div>
-          <div class="ep-actions">
-            <a href="https://www.youtube.com/watch?v=V-RCd010Bck" target="_blank" class="btn-ep-yt">
-              <svg width="12" height="9" viewBox="0 0 68 48" fill="currentColor"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"/></svg>
-              YouTube
-            </a>
-            <a href="https://open.spotify.com/show/2nGzjakwUUOf7AAqui0TnQ" target="_blank" class="btn-ep-spotify">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2z"/></svg>
-              Spotify
-            </a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<section class="platforms">
-  <div class="container">
-    <p>También disponible en tu plataforma favorita:</p>
-    <div class="platform-links">
-      <a href="https://www.youtube.com/playlist?list=PLFgaQL-UJJiVNDg8Ro7NBEq6opW1amO33" target="_blank" class="plat-btn plat-yt">
-        <svg width="14" height="10" viewBox="0 0 68 48" fill="currentColor"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"/></svg>
-        YouTube
-      </a>
-      <a href="https://open.spotify.com/show/2nGzjakwUUOf7AAqui0TnQ" target="_blank" class="plat-btn plat-spotify">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2z"/></svg>
-        Spotify
-      </a>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="container">
-    <p>Podcast <a href="/oportunidad-pais/">Oportunidad País</a> — Un proyecto de <a href="https://desafiolatam.com" target="_blank">Desafío Latam</a> y <a href="https://godiegoarias.com" target="_blank">Diego Arias</a></p>
-  </div>
-</footer>
-
-</body>
-</html>
+     1|     1|     1|<!DOCTYPE html>
+     2|     2|     2|<html lang="es">
+     3|     3|     3|<head>
+     4|     4|     4|  <meta charset="UTF-8">
+     5|     5|     5|  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     6|     6|     6|  <title>Oportunidad País — Podcast | Diego Arias</title>
+     7|     7|     7|  <meta name="description" content="Podcast Oportunidad País por Desafío Latam y Diego Arias. Conversaciones sin filtro sobre las oportunidades y desafíos de Chile.">
+     8|     8|     8|  <link rel="icon" type="image/png" href="/static/favicon.png">
+     9|     9|     9|  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    10|    10|    10|  <style>
+    11|    11|    11|    :root {
+    12|    12|    12|      --negro: #0D0D0D;
+    13|    13|    13|      --grafito: #1A1A1A;
+    14|    14|    14|      --grafito-2: #242424;
+    15|    15|    15|      --bronce: #C9A66B;
+    16|    16|    16|      --bronce-oscuro: #B8943F;
+    17|    17|    17|      --azul-acento: #1a6faf;
+    18|    18|    18|      --charcoal: #363636;
+    19|    19|    19|      --negro-profundo: #0D0D0D;
+    20|    20|    20|      --azul-op: #1a6faf;
+    21|    21|    21|      --blanco: #FFFFFF;
+    22|    22|    22|      --crema: #F5F0E8;
+    23|    23|    23|      --gris-frio: #6B7280;
+    24|    24|    24|    }
+    25|    25|    25|    * { margin: 0; padding: 0; box-sizing: border-box; }
+    26|    26|    26|    html { scroll-behavior: smooth; overflow-x: hidden; }
+    27|    27|    27|    body { font-family: 'Inter', -apple-system, sans-serif; background: var(--negro); color: var(--blanco); line-height: 1.7; max-width: 100vw; }
+    28|    28|    28|    img { max-width: 100%; height: auto; display: block; }
+    29|    29|    29|    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    30|    30|    30|    nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(13,13,13,0.95); backdrop-filter: blur(10px); z-index: 1000; padding: 16px 0; border-bottom: 1px solid rgba(201,166,107,0.15); }
+    31|    31|    31|    nav .container { display: flex; justify-content: space-between; align-items: center; }
+    32|    32|    32|    .logo img { height: 56px; width: auto; }
+    33|    33|    33|    .nav-links { display: flex; gap: 28px; list-style: none; }
+    34|    34|    34|    .nav-links a { color: var(--blanco); text-decoration: none; font-size: 0.88rem; opacity: 0.75; transition: all 0.3s; letter-spacing: 0.3px; }
+    35|    35|    35|    .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--bronce); }
+    36|    36|    36|    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 6px; }
+    37|    37|    37|    .hamburger span { display: block; width: 24px; height: 2px; background: var(--blanco); border-radius: 2px; }
+    38|    38|    38|    .hero { background: linear-gradient(135deg, var(--azul-op) 0%, #0d3d6b 100%); color: var(--blanco); padding: 140px 0 64px; position: relative; overflow: hidden; }
+    39|    39|    39|    .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); opacity: 0.5; }
+    40|    40|    40|    .hero .container { display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; position: relative; }
+    41|    41|    41|    .hero-badge { display: inline-block; background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.85); font-size: 0.72rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; padding: 5px 16px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); margin-bottom: 20px; }
+    42|    42|    42|    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 700; margin-bottom: 14px; line-height: 1.1; }
+    43|    43|    43|    .hero h1 span { color: var(--bronce); }
+    44|    44|    44|    .hero-sub { font-size: 1.05rem; color: rgba(255,255,255,0.65); max-width: 580px; margin-bottom: 28px; line-height: 1.65; }
+    45|    45|    45|    .hero-meta { display: flex; gap: 28px; flex-wrap: wrap; margin-bottom: 28px; }
+    46|    46|    46|    .hero-meta-item { display: flex; align-items: center; gap: 8px; font-size: 0.88rem; color: rgba(255,255,255,0.45); }
+    47|    47|    47|    .hero-meta-item strong { color: var(--bronce); font-family: 'JetBrains Mono', monospace; font-size: 1.05rem; }
+    48|    48|    48|    .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+    49|    49|    49|    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 26px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease; }
+    50|    50|    50|    .btn-primary { background: var(--bronce); color: var(--negro-profundo); }
+    51|    51|    51|    .btn-primary:hover { background: #d4b57a; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(201,166,107,0.3); }
+    52|    52|    52|    .btn-secondary { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.25); }
+    53|    53|    53|    .btn-secondary:hover { border-color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.05); }
+    54|    54|    54|    .hero-about { display: flex; gap: 10px; align-items: center; margin-top: 22px; flex-wrap: wrap; }
+    55|    55|    55|    .host-tag { display: inline-block; padding: 4px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.65); border: 1px solid rgba(255,255,255,0.12); }
+    56|    56|    56|    .podcast-icon { background: rgba(255,255,255,0.06); border: 2px solid rgba(255,255,255,0.15); border-radius: 24px; padding: 28px 22px; text-align: center; flex-shrink: 0; }
+    57|    57|    57|    .podcast-icon .icon { font-size: 3rem; margin-bottom: 6px; }
+    58|    58|    58|    .podcast-icon .label { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--bronce); line-height: 1.3; }
+    59|    59|    59|    .podcast-icon .ep-label { font-size: 0.78rem; color: rgba(255,255,255,0.45); margin-top: 8px; }
+    60|    60|    60|    .stats-bar { background: #0d3d6b; padding: 36px 0; }
+    61|    61|    61|    .stats-bar .container { display: flex; justify-content: center; gap: 56px; flex-wrap: wrap; }
+    62|    62|    62|    .stat-item { text-align: center; }
+    63|    63|    63|    .stat-number { font-family: 'JetBrains Mono', monospace; font-size: 2rem; font-weight: 700; color: var(--bronce); display: block; }
+    64|    64|    64|    .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-top: 3px; letter-spacing: 0.5px; }
+    65|    65|    65|.episodes-section { padding: 80px 0; background: var(--grafito); }
+    66|    66|    66|    .section-header { margin-bottom: 44px; }
+    67|    67|    67|    .section-header h2 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--blanco); margin-bottom: 10px; }
+    68|    68|    68|    .section-header h2 span { color: var(--bronce); }
+    69|    69|    69|    .section-header p { color: rgba(255,255,255,0.5); font-size: 0.95rem; max-width: 550px; }
+    70|    70|    70|    .episodes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    71|    71|    71|    .ep-card { background: var(--grafito-2); border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.07); transition: all 0.35s ease; }
+    72|    72|    72|    .ep-card:hover { transform: translateY(-5px); box-shadow: 0 20px 48px rgba(0,0,0,0.4); border-color: rgba(201,166,107,0.25); }
+    73|    73|    73|    .ep-info { padding: 22px 24px; }
+    74|    74|    74|    .ep-title { font-size: 1.05rem; font-weight: 600; color: var(--blanco); margin-bottom: 5px; line-height: 1.4; }
+    75|    75|    75|    .ep-guest { font-size: 0.8rem; color: var(--bronce); font-weight: 600; margin-bottom: 8px; }
+    76|    76|    76|    .ep-desc { font-size: 0.85rem; color: rgba(255,255,255,0.55); line-height: 1.6; margin-bottom: 10px; }
+    77|    77|    77|    .ep-guest-detail { font-size: 0.8rem; color: rgba(255,255,255,0.6); font-weight: 500; line-height: 1.55; margin-bottom: 16px; padding-left: 12px; border-left: 3px solid var(--bronce); background: rgba(201,166,107,0.06); padding: 10px 12px; border-radius: 0 6px 6px 0; }
+    78|    78|    78|    .platforms { padding: 60px 0; background: var(--grafito); text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+    79|    79|    79|    .platforms p { font-size: 0.85rem; color: rgba(255,255,255,0.45); margin-bottom: 20px; }
+    80|    80|    80|    .ep-meta-row { display: flex; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+    81|    81|    81|    .ep-num-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 600; background: var(--azul-op); color: white; padding: 3px 10px; border-radius: 4px; }
+    82|    82|    82|    .
+    83|
+    84|    83|    83|    .
+    85|
+    86|    84|    84|    .
+    87|
+    88|    85|    85|    .
+    89|
+    90|    86|    86|    .ep-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    91|    87|    87|    .btn-ep-yt { display: inline-flex; align-items: center; gap: 5px; padding: 7px 14px; border-radius: 6px; text-decoration: none; font-size: 0.78rem; font-weight: 600; background: #FF0000; color: white; transition: all 0.2s; }
+    92|    88|    88|    .btn-ep-yt:hover { opacity: 0.85; }
+    93|    89|    89|    .btn-ep-spotify { display: inline-flex; align-items: center; gap: 5px; padding: 7px 14px; border-radius: 6px; text-decoration: none; font-size: 0.78rem; font-weight: 600; background: #1DB954; color: white; transition: all 0.2s; }
+    94|    90|    90|    .btn-ep-spotify:hover { opacity: 0.85; }
+    95|    91|    91|    .platforms { padding: 60px 0; background: var(--crema); text-align: center; }
+    96|    92|    92|    .platforms p { font-size: 0.85rem; color: var(--gris-frio); margin-bottom: 20px; }
+    97|    93|    93|    .platform-links { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+    98|    94|    94|    .plat-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.88rem; transition: all 0.2s; }
+    99|    95|    95|    .plat-yt { background: #FF0000; color: white; }
+   100|    96|    96|    .plat-yt:hover { opacity: 0.85; transform: translateY(-2px); }
+   101|    97|    97|    .plat-spotify { background: #1DB954; color: white; }
+   102|    98|    98|    .plat-spotify:hover { opacity: 0.85; transform: translateY(-2px); }
+   103|    99|    99|    footer { background: var(--grafito); color: var(--gris-frio); padding: 36px 0; text-align: center; font-size: 0.85rem; }
+   104|   100|   100|    footer a { color: var(--bronce); text-decoration: none; }
+   105|   101|   101|    @media (max-width: 900px) {
+   106|   102|   102|      .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--negro-profundo); padding: 16px 0; z-index: 999; border-top: 1px solid rgba(255,255,255,0.1); }
+   107|   103|   103|      .nav-links.open { display: flex; }
+   108|   104|   104|      .nav-links li a { display: block; padding: 12px 24px; font-size: 1rem; }
+   109|   105|   105|      .hamburger { display: flex !important; }
+   110|   106|   106|      .hero .container { grid-template-columns: 1fr; }
+   111|   107|   107|      .podcast-icon { display: none; }
+   112|   108|   108|      .episodes-grid { grid-template-columns: 1fr; }
+   113|   109|   109|    }
+   114|   110|   110|    @media (max-width: 600px) {
+   115|   111|   111|      .hero { padding: 120px 0 50px; }
+   116|   112|   112|      .hero h1 { font-size: 1.9rem; }
+   117|   113|   113|      .hero-cta { flex-direction: column; }
+   118|   114|   114|      .stats-bar .container { gap: 20px; }
+   119|   115|   115|    }
+   120|   116|   116|  </style>
+   121|   117|   117|</head>
+   122|   118|   118|<body>
+   123|   119|   119|<nav>
+   124|   120|   120|  <div class="container">
+   125|   121|   121|    <a href="/" class="logo"><img src="/static/go-logo.png" alt="Diego Arias"></a>
+   126|   122|   122|    <ul class="nav-links" id="navLinks">
+   127|   123|   123|      <li><a href="/#about">Sobre Mí</a></li>
+   128|   124|   124|      <li><a href="/#modelo">Modelo</a></li>
+   129|   125|   125|      <li><a href="/#casos">Casos</a></li>
+   130|   126|   126|      <li><a href="/es-la-hora-de-aprender/">Podcast</a></li>
+   131|   127|   127|      <li><a href="/oportunidad-pais/" class="active">Oportunidad País</a></li>
+   132|   128|   128|      <li><a href="/#contact">Contacto</a></li>
+   133|   129|   129|      <li><a href="/recursos-que-yo-uso-de-ia/">Recursos IA</a></li>
+   134|   130|   130|      <li><a href="https://linkedin.com/in/godiegoarias" target="_blank">LinkedIn</a></li>
+   135|   131|   131|    </ul>
+   136|   132|   132|    <button class="hamburger" id="hamburger" onclick="toggleNav()">
+   137|   133|   133|      <span></span><span></span><span></span>
+   138|   134|   134|    </button>
+   139|   135|   135|  </div>
+   140|   136|   136|</nav>
+   141|   137|   137|<script>function toggleNav(){document.getElementById('navLinks').classList.toggle('open');}</script>
+   142|   138|   138|
+   143|   139|   139|<section class="hero">
+   144|   140|   140|  <div class="container">
+   145|   141|   141|    <div>
+   146|   142|   142|      <div class="hero-badge">🌎 Podcast de Desafío Latam</div>
+   147|   143|   143|      <h1>Oportunidad <span>País</span></h1>
+   148|   144|   144|      <p class="hero-sub">Conversaciones sin filtro sobre las oportunidades y los desafíos que tiene Chile. Junto a líderes, emprendedores y expertos, exploramos qué funciona, qué no, y cómo avanzar.</p>
+   149|   145|   145|      <div class="hero-meta">
+   150|   146|   146|        <div class="hero-meta-item"><strong>4</strong> capítulos</div>
+   151|   147|   147|        <div class="hero-meta-item"><strong>2026</strong></div>
+   152|   148|   148|        <div class="hero-meta-item"><strong>Desafío Latam</strong></div>
+   153|   149|   149|      </div>
+   154|   150|   150|      <div class="hero-cta">
+   155|   151|   151|        <a href="https://open.spotify.com/show/2nGzjakwUUOf7AAqui0TnQ" target="_blank" class="btn btn-primary">
+   156|   152|   152|          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2z"/></svg>
+   157|   153|   153|          Escuchar en Spotify
+   158|   154|   154|        </a>
+   159|   155|   155|        <a href="https://www.youtube.com/playlist?list=PLFgaQL-UJJiVNDg8Ro7NBEq6opW1amO33" target="_blank" class="btn btn-secondary">
+   160|   156|   156|          <svg width="16" height="11" viewBox="0 0 68 48" fill="currentColor"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"/></svg>
+   161|   157|   157|          Ver en YouTube
+   162|   158|   158|        </a>
+   163|   159|   159|      </div>
+   164|   160|   160|      <div class="hero-about">
+   165|   161|   161|        <span class="host-tag">Diego Arias — Conductor</span>
+   166|   162|   162|        <span class="host-tag">Desafío Latam</span>
+   167|   163|   163|      </div>
+   168|   164|   164|    </div>
+   169|   165|   165|    <div class="podcast-icon">
+   170|   166|   166|      <div class="icon">🌎</div>
+   171|   167|   167|      <div class="label">Oportunidad</div>
+   172|   168|   168|      <div class="label">País</div>
+   173|   169|   169|      <div class="ep-label">4 capítulos</div>
+   174|   170|   170|    </div>
+   175|   171|   171|  </div>
+   176|   172|   172|</section>
+   177|   173|   173|
+   178|   174|   174|<div class="stats-bar">
+   179|   175|   175|  <div class="container">
+   180|   176|   176|    <div class="stat-item"><span class="stat-number">4</span><span class="stat-label">Capítulos</span></div>
+   181|   177|   177|    <div class="stat-item"><span class="stat-number">2026</span><span class="stat-label">En curso</span></div>
+   182|   178|   178|    <div class="stat-item"><span class="stat-number">4</span><span class="stat-label">Invitados</span></div>
+   183|   179|   179|    <div class="stat-item"><span class="stat-number">DL</span><span class="stat-label">Desafío Latam</span></div>
+   184|   180|   180|  </div>
+   185|   181|   181|</div>
+   186|   182|   182|
+   187|   183|   183|<section class="episodes-section">
+   188|   184|   184|  <div class="container">
+   189|   185|   185|    <div class="section-header">
+   190|   186|   186|      <h2>Todos los <span>Capítulos</span></h2>
+   191|   187|   187|      <p>Conversaciones con líderes y expertos sobre tecnología, productividad, talento y el futuro de Chile.</p>
+   192|   188|   188|    </div>
+   193|   189|   189|    <div class="episodes-grid">
+   194|   190|   190|
+   195|   191|   191|            <!-- CAPITULO 1 -->
+   196|   192|   192|      <div class="ep-card">
+   197|   193|   193|        <div class="ep-thumb">
+   198|   194|   194|          <div class="ep-thumb-bg" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);"></div>
+   199|   195|   195|          <div class="ep-num">01</div>
+   200|   196|   196|          <span class="ep-dur">Mar 2026</span>
+   201|   197|   197|          <a href="https://www.youtube.com/watch?v=aYCqxOal1uk" target="_blank" class="ep-play">
+   202|   198|   198|            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+   203|   199|   199|          </a>
+   204|   200|   200|        </div>
+   205|   201|   201|        <div class="ep-info">
+   206|   202|   202|          <div class="ep-meta-row">
+   207|   203|   203|            <span class="ep-num-tag">Capítulo 1</span>
+   208|   204|   204|          </div>
+   209|   205|   205|          <div class="ep-title">Oportunidad País — Capítulo 1</div>
+   210|   206|   206|          <div class="ep-guest">🎙️ Justo Vargas — Client Partner, Globant</div>
+   211|   207|   207|          <div class="ep-desc">Primer capítulo del podcast Oportunidad País. Conversación sin filtro sobre las oportunidades que tiene Chile y lo que deben trabajar tanto empresas como gobierno. Se aborda el panorama tecnológico, la penetración de herramientas digitales y el rol de las empresas de tecnología en el desarrollo del país.</div>
+   212|   208|   208|          <div class="ep-guest-detail">Experto en transformación digital y tecnología con más de 30 años de experiencia en la industria. Representa a Globant y es co-fundador de Unlearni.</div>
+   213|   209|   209|          <div class="ep-actions">
+   214|   210|   210|            <a href="https://www.youtube.com/watch?v=aYCqxOal1uk" target="_blank" class="btn-ep-yt">
+   215|   211|   211|              <svg width="12" height="9" viewBox="0 0 68 48" fill="currentColor"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"/></svg>
+   216|   212|   212|              YouTube
+   217|   213|   213|            </a>
+   218|   214|   214|            <a href="https://open.spotify.com/show/2nGzjakwUUOf7AAqui0TnQ" target="_blank" class="btn-ep-spotify">
+   219|   215|   215|              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2z"/></svg>
+   220|   216|   216|              Spotify
+   221|   217|   217|            </a>
+   222|   218|   218|          </div>
+   223|   219|   219|        </div>
+   224|   220|   220|      </div>
+   225|   221|   221|
+   226|   222|   222|      <!-- CAPITULO 2 -->
+   227|   223|   223|      <div class="ep-card">
+   228|   224|   224|        <div class="ep-thumb">
+   229|   225|   225|          <div class="ep-thumb-bg" style="background: linear-gradient(135deg, #1a6faf 0%, #0d3d6b 100%);"></div>
+   230|   226|   226|          <div class="ep-num">02</div>
+   231|   227|   227|          <span class="ep-dur">Mar 2026</span>
+   232|   228|   228|          <a href="https://www.youtube.com/watch?v=GbMk7umUWig" target="_blank" class="ep-play">
+   233|   229|   229|            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+   234|   230|   230|          </a>
+   235|   231|   231|        </div>
+   236|   232|   232|        <div class="ep-info">
+   237|   233|   233|          <div class="ep-meta-row">
+   238|   234|   234|            <span class="ep-num-tag">Capítulo 2</span>
+   239|   235|   235|          </div>
+   240|   236|   236|          <div class="ep-title">Oportunidad País — Capítulo 2</div>
+   241|   237|   237|          <div class="ep-guest">🎙️ Jeannette Escudero — Dirección Ejecutiva, Talento Digital para Chile</div>
+   242|   238|   238|          <div class="ep-desc">Segundo capítulo del podcast de Desafío Latam. Continuamos la conversación sobre las oportunidades país, profundizando en temáticas específicas del panorama económico y empresarial chileno. Se habla de las brechas tecnológicas, el ecosistema de innovación y lo que hace falta para que Chile avance en serio en su transformación digital.</div>
+   243|   239|   239|          <div class="ep-guest-detail">Directora Ejecutiva de Talento Digital para Chile, institución clave en la formación y desarrollo del talento tecnológico nacional. Ha liderado iniciativas para cerrar la brecha de habilidades digitales y posicionar a Chile como hub tecnológico de Latinoamérica.</div>
+   244|   240|   240|          <div class="ep-actions">
+   245|   241|   241|            <a href="https://www.youtube.com/watch?v=GbMk7umUWig" target="_blank" class="btn-ep-yt">
+   246|   242|   242|              <svg width="12" height="9" viewBox="0 0 68 48" fill="currentColor"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"/></svg>
+   247|   243|   243|              YouTube
+   248|   244|   244|            </a>
+   249|   245|   245|            <a href="https://open.spotify.com/show/2nGzjakwUUOf7AAqui0TnQ" target="_blank" class="btn-ep-spotify">
+   250|   246|   246|              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2z"/></svg>
+   251|   247|   247|              Spotify
+   252|   248|   248|            </a>
+   253|   249|   249|          </div>
+   254|   250|   250|        </div>
+   255|   251|   251|      </div>
+   256|   252|   252|
+   257|   253|   253|      <!-- CAPITULO 3 -->
+   258|   254|   254|      <div class="ep-card">
+   259|   255|   255|        <div class="ep-thumb">
+   260|   256|   256|          <div class="ep-thumb-bg" style="background: linear-gradient(135deg, #27ae60 0%, #1a7a42 100%);"></div>
+   261|   257|   257|          <div class="ep-num">03</div>
+   262|   258|   258|          <span class="ep-dur">Abr 2026</span>
+   263|   259|   259|          <a href="https://www.youtube.com/watch?v=-jepRqm50g4" target="_blank" class="ep-play">
+   264|   260|   260|            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+   265|   261|   261|          </a>
+   266|   262|   262|        </div>
+   267|   263|   263|        <div class="ep-info">
+   268|   264|   264|          <div class="ep-meta-row">
+   269|   265|   265|            <span class="ep-num-tag">Capítulo 3</span>
+   270|   266|   266|          </div>
+   271|   267|   267|          <div class="ep-title">Chile debe potenciar tecnología, dice Director Ejecutivo de Chiletec</div>
+   272|   268|   268|          <div class="ep-guest">🎙️ Francisco Mardones — Director Ejecutivo, Chiletec</div>
+   273|   269|   269|          <div class="ep-desc">En este episodio conversamos con Francisco Mardones, Director Ejecutivo de Chiletec, sobre el rol clave de la tecnología en el desarrollo económico de Chile. Se habla de cómo la industria digital puede transformar el país, generar oportunidades de empleo de calidad y por qué Chile debe multiplicar sus exportaciones de servicios tecnológicos en los próximos años.</div>
+   274|   270|   270|          <div class="ep-guest-detail">Líder de la Mesa de Exportación de Servicios de Chiletec. Ha impulsado iniciativas para posicionar a Chile como hub de servicios digitales en Latinoamérica. Si Chile crece al 20% anual en exportaciones tech, puede quintuplicar su sector digital en una década.</div>
+   275|   271|   271|          <div class="ep-actions">
+   276|   272|   272|            <a href="https://www.youtube.com/watch?v=-jepRqm50g4" target="_blank" class="btn-ep-yt">
+   277|   273|   273|              <svg width="12" height="9" viewBox="0 0 68 48" fill="currentColor"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"/></svg>
+   278|   274|   274|              YouTube
+   279|   275|   275|            </a>
+   280|   276|   276|            <a href="https://open.spotify.com/show/2nGzjakwUUOf7AAqui0TnQ" target="_blank" class="btn-ep-spotify">
+   281|   277|   277|              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2z"/></svg>
+   282|   278|   278|              Spotify
+   283|   279|   279|            </a>
+   284|   280|   280|          </div>
+   285|   281|   281|        </div>
+   286|   282|   282|      </div>
+   287|   283|   283|
+   288|   284|   284|      <!-- CAPITULO 4 -->
+   289|   285|   285|      <div class="ep-card">
+   290|   286|   286|        <div class="ep-thumb">
+   291|   287|   287|          <div class="ep-thumb-bg" style="background: linear-gradient(135deg, #8e44ad 0%, #5b2c6f 100%);"></div>
+   292|   288|   288|          <div class="ep-num">04</div>
+   293|   289|   289|          <span class="ep-dur">Abr 2026</span>
+   294|   290|   290|          <a href="https://www.youtube.com/watch?v=V-RCd010Bck" target="_blank" class="ep-play">
+   295|   291|   291|            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+   296|   292|   292|          </a>
+   297|   293|   293|        </div>
+   298|   294|   294|        <div class="ep-info">
+   299|   295|   295|          <div class="ep-meta-row">
+   300|   296|   296|            <span class="ep-num-tag">Capítulo 4</span>
+   301|   297|   297|          </div>
+   302|   298|   298|          <div class="ep-title">Ciencia, Innovación y Productividad: Desafíos y Oportunidades para Chile</div>
+   303|   299|   299|          <div class="ep-guest">🎙️ Luz María García — Gerente General, ACTI</div>
+   304|   300|   300|          <div class="ep-desc">Conversatorio organizado por Desafío Latam y Libertad y Desarrollo (LYD) sobre los principales desafíos del ecosistema de innovación en Chile. Se aborda la pregunta central: ¿cómo salir del estancamiento de la productividad? ¿Más de lo mismo extractivista pero mejor, o una nueva ruta? Análisis profundo sobre ciencia, innovación, políticas públicas y el futuro productivo de Chile.</div>
+   305|   301|   301|          <div class="ep-guest-detail">Gerente General de ACTI (Asociación Chilena de Empresas de Tecnología de Información y Comunicación). Representa a las principales empresas de tecnología e innovación del país, defendiendo el rol del sector tech como motor de desarrollo económico y transformación productiva.</div>
+   306|   302|   302|          <div class="ep-actions">
+   307|   303|   303|            <a href="https://www.youtube.com/watch?v=V-RCd010Bck" target="_blank" class="btn-ep-yt">
+   308|   304|   304|              <svg width="12" height="9" viewBox="0 0 68 48" fill="currentColor"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"/></svg>
+   309|   305|   305|              YouTube
+   310|   306|   306|            </a>
+   311|   307|   307|            <a href="https://open.spotify.com/show/2nGzjakwUUOf7AAqui0TnQ" target="_blank" class="btn-ep-spotify">
+   312|   308|   308|              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2z"/></svg>
+   313|   309|   309|              Spotify
+   314|   310|   310|            </a>
+   315|   311|   311|          </div>
+   316|   312|   312|        </div>
+   317|   313|   313|      </div>
+   318|   314|   314|
+   319|   315|   315|    </div>
+   320|   316|   316|  </div>
+   321|   317|   317|</section>
+   322|   318|   318|
+   323|   319|   319|<section class="platforms">
+   324|   320|   320|  <div class="container">
+   325|   321|   321|    <p>También disponible en tu plataforma favorita:</p>
+   326|   322|   322|    <div class="platform-links">
+   327|   323|   323|      <a href="https://www.youtube.com/playlist?list=PLFgaQL-UJJiVNDg8Ro7NBEq6opW1amO33" target="_blank" class="plat-btn plat-yt">
+   328|   324|   324|        <svg width="14" height="10" viewBox="0 0 68 48" fill="currentColor"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"/></svg>
+   329|   325|   325|        YouTube
+   330|   326|   326|      </a>
+   331|   327|   327|      <a href="https://open.spotify.com/show/2nGzjakwUUOf7AAqui0TnQ" target="_blank" class="plat-btn plat-spotify">
+   332|   328|   328|        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2z"/></svg>
+   333|   329|   329|        Spotify
+   334|   330|   330|      </a>
+   335|   331|   331|    </div>
+   336|   332|   332|  </div>
+   337|   333|   333|</section>
+   338|   334|   334|
+   339|   335|   335|<footer>
+   340|   336|   336|  <div class="container">
+   341|   337|   337|    <p>Podcast <a href="/oportunidad-pais/">Oportunidad País</a> — Un proyecto de <a href="https://desafiolatam.com" target="_blank">Desafío Latam</a> y <a href="https://godiegoarias.com" target="_blank">Diego Arias</a></p>
+   342|   338|   338|  </div>
+   343|   339|   339|</footer>
+   344|   340|   340|
+   345|   341|   341|</body>
+   346|   342|   342|</html>

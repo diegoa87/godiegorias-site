@@ -492,6 +492,32 @@
       text-decoration: none;
     }
 
+    /* Copy button */
+    .copy-post-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      width: 100%;
+      padding: 10px 16px;
+      margin-bottom: 8px;
+      background: var(--negro-profundo);
+      color: var(--bronce);
+      border: none;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      justify-content: center;
+    }
+    .copy-post-btn:hover { background: var(--charcoal); }
+    .copy-post-btn.copied {
+      background: #16a34a;
+      color: white;
+    }
+    .copy-post-btn svg { width: 16px; height: 16px; }
+
     /* Empty state */
     .empty-state {
       padding: 60px 40px;
@@ -631,7 +657,11 @@ Después de 12 años haciendo esto, tengo claro algo: los negocios se construyen
         <div class="li-icon">in</div>
       </div>
       <div class="phone-frame" id="previewFrame">
-        <div class="empty-state">
+        <button class="copy-post-btn" id="copyPostBtn" onclick="copyPostText()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copiar texto del post
+        </button>
+        <div class="empty-state" id="emptyState">
           <div class="empty-icon">📱</div>
           <p>Configura tu post a la izquierda y presiona "Actualizar preview"</p>
         </div>
@@ -733,6 +763,23 @@ function removeSlide(idx) {
   renderCarouselSlides();
 }
 
+// ── Copy post text ──
+async function copyPostText() {
+  const text = document.getElementById('postText').value;
+  const btn = document.getElementById('copyPostBtn');
+  try {
+    await navigator.clipboard.writeText(text);
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ¡Copiado!`;
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar texto del post`;
+      btn.classList.remove('copied');
+    }, 2000);
+  } catch (e) {
+    alert('No se pudo copiar al portapapeles');
+  }
+}
+
 // ── Render preview ──
 function renderPreview() {
   const name = document.getElementById('authorName').value || 'Diego Arias';
@@ -818,7 +865,12 @@ function renderPreview() {
     </div>` + header + reactionsBar + `<div style="padding:0 14px 12px"><div style="font-size:13px;color:var(--azul-tech);font-weight:600;cursor:pointer">Visitar artículo →</div></div>`;
   }
 
-  document.getElementById('previewFrame').innerHTML = `<div class="post-card">${cardBody}</div>`;
+  document.getElementById('previewFrame').innerHTML = `<div class="post-card">${cardBody}</div>` + `
+        <button class="copy-post-btn" id="copyPostBtn" onclick="copyPostText()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copiar texto del post
+        </button>`;
+  document.getElementById('emptyState')?.remove();
 }
 
 function escapeHtml(text) {

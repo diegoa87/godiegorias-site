@@ -238,12 +238,74 @@
       position: sticky;
       top: 76px;
     }
+    .preview-mode-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      padding: 4px;
+      background: var(--blanco);
+      border-radius: 10px;
+      border: 1px solid var(--borde);
+    }
+    .preview-mode-tab {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: 7px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gris-frio);
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .preview-mode-tab.active {
+      background: var(--negro-profundo);
+      color: var(--bronce);
+    }
+    .preview-mode-tab:hover:not(.active) {
+      background: var(--crema);
+    }
+    .preview-mode-tab .tab-sub {
+      display: block;
+      font-size: 10px;
+      font-weight: 400;
+      opacity: 0.7;
+      margin-top: 2px;
+    }
+    .preview-duo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 1100px) {
+      .preview-duo { grid-template-columns: 1fr; }
+    }
     .preview-device {
       background: var(--blanco);
       border-radius: 16px;
       overflow: hidden;
       border: 1px solid var(--borde);
       box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+    }
+    .preview-label {
+      background: var(--crema);
+      padding: 8px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--grafito);
+      border-bottom: 1px solid var(--borde);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .preview-label .label-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--bronce);
     }
     .device-header {
       background: var(--negro-profundo);
@@ -319,7 +381,7 @@
       margin-top: 2px;
     }
 
-    /* Post content */
+    /* Post content — vista expandida (completa) */
     .post-content {
       padding: 0 14px 12px;
       font-size: 14px;
@@ -327,6 +389,56 @@
       color: var(--grafito);
       white-space: pre-wrap;
     }
+
+    /* Post content — vista feed (truncada, como LinkedIn) */
+    .post-content-feed {
+      padding: 0 14px 8px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--grafito);
+      white-space: pre-wrap;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      max-height: calc(1.5em * 3);
+    }
+    .post-content-feed.truncated-long {
+      max-height: calc(1.5em * 4);
+      -webkit-line-clamp: 4;
+    }
+    .see-more {
+      padding: 0 14px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gris-frio);
+      cursor: pointer;
+      user-select: none;
+    }
+    .see-more::before {
+      content: '…';
+      margin-right: 2px;
+    }
+    .feed-counter {
+      padding: 0 14px 8px;
+      font-size: 11px;
+      color: var(--azul-tech);
+      font-weight: 600;
+    }
+    .feed-counter::before {
+      content: '👀 ';
+    }
+
+    /* Feed preview — chrome contextual */
+    .feed-context {
+      padding: 8px 14px 4px;
+      font-size: 11px;
+      color: var(--gris-frio);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .feed-context strong { color: var(--grafito); font-weight: 600; }
 
     /* Post image */
     .post-image {
@@ -363,6 +475,35 @@
     .reactions-icons .emoji-count.first { background: #0A66C2; color: white; font-size: 9px; }
     .reactions-icons .emoji-count.second { background: #DF704D; color: white; font-size: 9px; }
     .reactions-icons .emoji-count.third { background: #ECB359; color: white; font-size: 9px; }
+
+    /* Feed reactions — más compacto (sin contadores grandes) */
+    .post-reactions-feed {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px 8px;
+      font-size: 12px;
+      color: var(--gris-frio);
+    }
+    .post-reactions-feed .emoji-stack {
+      display: flex;
+      align-items: center;
+    }
+    .post-reactions-feed .emoji-stack .emoji-count {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      font-size: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: -4px;
+      border: 1.5px solid var(--blanco);
+    }
+    .post-reactions-feed .emoji-stack .emoji-count:first-child { margin-left: 0; }
+    .post-reactions-feed .emoji-stack .emoji-count.first { background: #0A66C2; color: white; font-size: 8px; }
+    .post-reactions-feed .emoji-stack .emoji-count.second { background: #DF704D; color: white; font-size: 8px; }
+    .post-reactions-feed .emoji-stack .emoji-count.third { background: #ECB359; color: white; font-size: 8px; }
 
     /* Action buttons */
     .post-actions {
@@ -650,23 +791,49 @@ Después de 12 años haciendo esto, tengo claro algo: los negocios se construyen
 
   <!-- PREVIEW -->
   <div class="preview-panel">
-    <div class="preview-device">
-      <div class="device-header">
-        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-        <div class="url-bar">linkedin.com/feed</div>
-        <div class="li-icon">in</div>
+    <div class="preview-mode-tabs">
+      <div class="preview-mode-tab active" data-mode="duo" onclick="setPreviewMode('duo', this)">
+        📱 Comparar
+        <span class="tab-sub">Feed + Expandido</span>
       </div>
-      <div class="phone-frame" id="previewFrame">
-        <button class="copy-post-btn" id="copyPostBtn" onclick="copyPostText()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          Copiar texto del post
-        </button>
-        <div class="empty-state" id="emptyState">
-          <div class="empty-icon">📱</div>
-          <p>Configura tu post a la izquierda y presiona "Actualizar preview"</p>
-        </div>
+      <div class="preview-mode-tab" data-mode="feed" onclick="setPreviewMode('feed', this)">
+        📰 Solo feed
+        <span class="tab-sub">Vista rápida</span>
+      </div>
+      <div class="preview-mode-tab" data-mode="expanded" onclick="setPreviewMode('expanded', this)">
+        📄 Expandido
+        <span class="tab-sub">Post completo</span>
       </div>
     </div>
+
+    <div class="preview-duo" id="previewDuo">
+      <!-- FEED (truncado, como se ve en el feed de LinkedIn) -->
+      <div class="preview-device">
+        <div class="preview-label"><span class="label-dot"></span>Feed · Cómo aparece antes del click</div>
+        <div class="device-header">
+          <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+          <div class="url-bar">linkedin.com/feed</div>
+          <div class="li-icon">in</div>
+        </div>
+        <div class="phone-frame" id="previewFrameFeed"></div>
+      </div>
+
+      <!-- EXPANDED (post completo, después del "ver más") -->
+      <div class="preview-device">
+        <div class="preview-label"><span class="label-dot"></span>Expandido · Después del "ver más"</div>
+        <div class="device-header">
+          <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+          <div class="url-bar">linkedin.com/posts/...</div>
+          <div class="li-icon">in</div>
+        </div>
+        <div class="phone-frame" id="previewFrameExpanded"></div>
+      </div>
+    </div>
+
+    <button class="copy-post-btn" id="copyPostBtn" onclick="copyPostText()" style="margin-top:12px">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copiar texto del post
+    </button>
   </div>
 
 </main>
@@ -781,59 +948,67 @@ async function copyPostText() {
 }
 
 // ── Render preview ──
+let previewMode = 'duo'; // 'duo' | 'feed' | 'expanded'
+
+function setPreviewMode(mode, el) {
+  previewMode = mode;
+  document.querySelectorAll('.preview-mode-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  const duo = document.getElementById('previewDuo');
+  const feedDevice = duo.children[0];
+  const expandedDevice = duo.children[1];
+  if (mode === 'duo') {
+    duo.style.gridTemplateColumns = '1fr 1fr';
+    feedDevice.style.display = '';
+    expandedDevice.style.display = '';
+  } else if (mode === 'feed') {
+    duo.style.gridTemplateColumns = '1fr';
+    feedDevice.style.display = '';
+    expandedDevice.style.display = 'none';
+  } else {
+    duo.style.gridTemplateColumns = '1fr';
+    feedDevice.style.display = 'none';
+    expandedDevice.style.display = '';
+  }
+}
+
 function renderPreview() {
   const name = document.getElementById('authorName').value || 'Diego Arias';
   const title = document.getElementById('authorTitle').value || 'Socio Fundador · Desafío Latam';
   const text = document.getElementById('postText').value || '';
-  const reactions = document.getElementById('reactions').value || '0';
-  const comments = document.getElementById('comments').value || '0';
-  const reposts = document.getElementById('reposts').value || '0';
+  const reactions = parseInt(document.getElementById('reactions').value) || 0;
+  const comments = parseInt(document.getElementById('comments').value) || 0;
+  const reposts = parseInt(document.getElementById('reposts').value) || 0;
 
-  const reactionsLabel = reactions > 999 ? (reactions/1000).toFixed(1) + 'K' : reactions;
-  const commentsLabel = comments > 999 ? (comments/1000).toFixed(1) + 'K' : comments;
+  const fmt = (n) => n > 999 ? (n/1000).toFixed(1).replace('.0','') + 'K' : n;
+  const reactionsLabel = fmt(reactions);
+  const commentsLabel = fmt(comments);
+  const repostsLabel = fmt(reposts);
 
-  const header = `
-  <div class="post-header">
-    <img class="post-avatar" src="/diego-foto.jpg" alt="${name}" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=C9A66B&color=0D0D0D&size=96'">
-    <div class="post-meta">
-      <div class="post-author">${name}</div>
-      <div class="post-title">${title}</div>
-      <div class="post-time">2h · 🌐</div>
-    </div>
-  </div>`;
+  // Avatar URL — corregido: apunta a /static/diego-foto.jpg
+  const avatarUrl = '/static/diego-foto.jpg';
+  const avatarFallback = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=C9A66B&color=0D0D0D&size=96`;
 
-  const content = text ? `<div class="post-content">${escapeHtml(text)}</div>` : '';
+  // ── Header (idéntico para feed y expandido) ──
+  const headerHtml = `
+    <div class="post-header">
+      <img class="post-avatar" src="${avatarUrl}" alt="${name}" onerror="this.src='${avatarFallback}'">
+      <div class="post-meta">
+        <div class="post-author">${name}</div>
+        <div class="post-title">${title}</div>
+        <div class="post-time">2h · 🌐</div>
+      </div>
+    </div>`;
 
-  const reactionsBar = `
-  <div class="post-reactions">
-    <div class="reactions-icons">
-      <span class="emoji-count first">👍</span>
-      <span class="emoji-count second">❤️</span>
-      <span class="emoji-count third">👏</span>
-      <span style="margin-left:6px;font-size:12px">${reactionsLabel}</span>
-    </div>
-    <div>${commentsLabel} comentarios · ${reposts} repost</div>
-  </div>`;
+  // ── Contenido (idéntico base) ──
+  const contentHtml = text ? `<div class="post-content">${escapeHtml(text)}</div>` : '';
 
-  const actions = `
-  <div class="post-actions">
-    <button class="action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12C2 12 5 8 9 8s7 4 13 4-7 4-13 4S2 12 2 12z"/><circle cx="9" cy="12" r="2"/><circle cx="15" cy="12" r="2"/></svg>Like</button>
-    <button class="action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Comment</button>
-    <button class="action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>Repost</button>
-    <button class="action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>Send</button>
-  </div>`;
-
-  let cardBody = '';
-
-  if (postType === 'text') {
-    cardBody = header + content + reactionsBar + actions;
-
-  } else if (postType === 'image') {
-    const imgHtml = imageData
+  // ── Imagen / Carrusel / Artículo (depende del postType) ──
+  let mediaHtml = '';
+  if (postType === 'image') {
+    mediaHtml = imageData
       ? `<div class="post-image"><img src="${imageData}" alt="Post image"></div>`
       : `<div style="background:linear-gradient(135deg,#0D0D0D,#363636);height:260px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.3);font-size:40px">📷</div>`;
-    cardBody = header + content + imgHtml + reactionsBar + actions;
-
   } else if (postType === 'carousel') {
     const slideCount = carouselSlidesData.length || 1;
     const dotsHtml = Array.from({length: slideCount}, (_, i) =>
@@ -842,9 +1017,8 @@ function renderPreview() {
     const defaultImg = imageData || '';
     const slideBg = defaultImg
       ? `<img src="${defaultImg}" style="width:100%;height:180px;object-fit:cover;display:block">`
-      : `<div style="background:linear-gradient(135deg,#0D0D0D,#C9A66B);height:180px;display:flex;align-items:center;justify-content:center;color:white;font-family:'Playfair Display',serif;font-size:18px">${carouselSlidesData[0]?.title||'Carrusel'}</div>`;
-    cardBody = header + content + slideBg + `<div class="carousel-indicator">${dotsHtml}</div>` + reactionsBar + actions;
-
+      : `<div style="background:linear-gradient(135deg,#0D0D0D,#C9A66B);height:180px;display:flex;align-items:center;justify-content:center;color:white;font-family:'Playfair Display',serif;font-size:18px">${escapeHtml(carouselSlidesData[0]?.title||'Carrusel')}</div>`;
+    mediaHtml = slideBg + `<div class="carousel-indicator">${dotsHtml}</div>`;
   } else if (postType === 'article') {
     const artTitle = document.getElementById('articleTitle').value;
     const artDesc = document.getElementById('articleDesc').value;
@@ -852,25 +1026,74 @@ function renderPreview() {
     const artImgHtml = artImg
       ? `<img class="article-thumb" src="${artImg}" alt="Article">`
       : `<div style="width:140px;height:140px;background:linear-gradient(135deg,#0D0D0D,#C9A66B);display:flex;align-items:center;justify-content:center;color:white;font-size:28px">📄</div>`;
-    cardBody = `
-    <div class="article-card">
-      ${artImgHtml}
-      <div class="article-info">
-        <div>
-          <div class="article-tag">Artículo</div>
-          <div class="article-title">${escapeHtml(artTitle)}</div>
+    mediaHtml = `
+      <div class="article-card">
+        ${artImgHtml}
+        <div class="article-info">
+          <div>
+            <div class="article-tag">Artículo</div>
+            <div class="article-title">${escapeHtml(artTitle)}</div>
+          </div>
+          <div class="article-meta">${escapeHtml(artDesc)} · 3 min read</div>
         </div>
-        <div class="article-meta">${escapeHtml(artDesc)} · 3 min read</div>
-      </div>
-    </div>` + header + reactionsBar + `<div style="padding:0 14px 12px"><div style="font-size:13px;color:var(--azul-tech);font-weight:600;cursor:pointer">Visitar artículo →</div></div>`;
+      </div>`;
   }
 
-  document.getElementById('previewFrame').innerHTML = `<div class="post-card">${cardBody}</div>` + `
-        <button class="copy-post-btn" id="copyPostBtn" onclick="copyPostText()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          Copiar texto del post
-        </button>`;
-  document.getElementById('emptyState')?.remove();
+  // ── Calcular si el texto se va a truncar (heurística ~210 caracteres = 3 líneas) ──
+  const textLength = text.length;
+  const willTruncate = textLength > 200;
+
+  // ── Versión FEED (truncada) ──
+  const feedContentHtml = text
+    ? `<div class="post-content-feed${willTruncate ? '' : ' truncated-long'}">${escapeHtml(text)}</div>
+       ${willTruncate ? '<div class="see-more">ver más</div>' : ''}`
+    : '';
+
+  const feedContext = `<div class="feed-context">📰 <strong>Tu feed</strong> · aparece entre posts de tu red</div>`;
+
+  const feedReactions = reactions > 0 ? `
+    <div class="post-reactions-feed">
+      <div class="emoji-stack">
+        <span class="emoji-count first">👍</span>
+        <span class="emoji-count second">❤️</span>
+        <span class="emoji-count third">👏</span>
+      </div>
+      <span>${reactionsLabel}</span>
+    </div>` : '';
+
+  const feedCounter = (willTruncate && textLength > 200)
+    ? `<div class="feed-counter">Click en "ver más" expande el post completo</div>`
+    : '';
+
+  // ── Versión EXPANDIDA (post completo) ──
+  const expandedReactionsBar = `
+    <div class="post-reactions">
+      <div class="reactions-icons">
+        <span class="emoji-count first">👍</span>
+        <span class="emoji-count second">❤️</span>
+        <span class="emoji-count third">👏</span>
+        <span style="margin-left:6px;font-size:12px">${reactionsLabel}</span>
+      </div>
+      <div>${commentsLabel} comentarios · ${repostsLabel} repost</div>
+    </div>`;
+
+  const expandedActions = `
+    <div class="post-actions">
+      <button class="action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12C2 12 5 8 9 8s7 4 13 4-7 4-13 4S2 12 2 12z"/><circle cx="9" cy="12" r="2"/><circle cx="15" cy="12" r="2"/></svg>Like</button>
+      <button class="action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Comment</button>
+      <button class="action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>Repost</button>
+      <button class="action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>Send</button>
+    </div>`;
+
+  // ── Renderizar ──
+  const feedCardBody = feedContext + headerHtml + feedContentHtml + feedCounter + feedReactions;
+  const expandedCardBody = headerHtml + contentHtml + mediaHtml + expandedReactionsBar + expandedActions;
+
+  const feedHtml = `<div class="post-card">${feedCardBody}</div>`;
+  const expandedHtml = `<div class="post-card">${expandedCardBody}</div>`;
+
+  document.getElementById('previewFrameFeed').innerHTML = feedHtml;
+  document.getElementById('previewFrameExpanded').innerHTML = expandedHtml;
 }
 
 function escapeHtml(text) {

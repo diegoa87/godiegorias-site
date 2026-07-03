@@ -33,6 +33,66 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
     html { scroll-behavior: smooth; }
+
+    /* ── ACCESIBILIDAD WCAG 2.1 AA ── */
+
+    /* Skip navigation — visible solo en foco (screen readers + keyboard) */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 16px;
+      background: var(--bronce);
+      color: var(--negro-profundo);
+      padding: 12px 24px;
+      border-radius: 0 0 8px 8px;
+      font-weight: 700;
+      text-decoration: none;
+      z-index: 10000;
+      transition: top 0.2s;
+    }
+    .skip-link:focus {
+      top: 0;
+      outline: 3px solid var(--negro-profundo);
+    }
+
+    /* Focus visible — keyboard navigation */
+    :focus-visible {
+      outline: 3px solid var(--bronce);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+
+    /* Focus para elementos que no usan outline por defecto */
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid var(--bronce);
+      outline-offset: 3px;
+    }
+
+    /* Reducir movimiento para usuarios que lo prefieren */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* Screen reader only — visually hidden pero accesible */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
     
     body {
       font-family: 'Inter', -apple-system, sans-serif;
@@ -541,7 +601,7 @@
       .container { padding: 0 16px !important; }
 
       /* Texto general más legible */
-      body { font-size: 15px; }
+      body { font-size: 1rem; }
     }
   </style>
 <!-- Google tag (gtag.js) -->
@@ -555,8 +615,11 @@
 </head>
 <body>
 
+<!-- Skip navigation — WCAG 2.4.1 -->
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
 <!-- Navigation -->
-<nav>
+<nav aria-label="Navegación principal">
   <div class="container">
     <a href="/" class="logo"><img src="/static/go-logo.png" alt="GO — Diego Arias"></a>
     <ul class="nav-links" id="navLinks">
@@ -568,8 +631,8 @@
       <li><a href="/es-la-hora-de-aprender/" onclick="closeNav()">Podcast</a></li>
       <li><a href="/oportunidad-pais/" onclick="closeNav()">Oportunidad País</a></li>
       <li><a href="/recursos-que-yo-uso-de-ia/" onclick="closeNav()">Recursos IA</a></li>
-      <li><a href="/manual-marca/" target="_blank" onclick="closeNav()">Manual de Marca</a></li>
-      <li><a href="https://linkedin.com/in/godiegoarias" target="_blank" onclick="closeNav()">LinkedIn</a></li>
+      <li><a href="/manual-marca/" target="_blank" rel="noopener" onclick="closeNav()">Manual de Marca</a></li>
+      <li><a href="https://linkedin.com/in/godiegoarias" target="_blank" rel="noopener" onclick="closeNav()">LinkedIn</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Menú" onclick="toggleNav()">
       <span></span><span></span><span></span>
@@ -586,20 +649,25 @@
 </script>
 
 <!-- Hero -->
-<section class="hero">
+<header>
+<section class="hero" id="hero">
   <div class="container">
     <div class="hero-content">
       <h1>Diego <span>Arias</span></h1>
       <p class="tagline">Transformando economías latinoamericanas a través del talento tech</p>
       <p class="bio">Fundador de Desafío Latam. Builder, conectador y constructeur de ecosistemas donde empresas, personas y Estado ganan juntos.</p>
       <div class="hero-cta">
-        <a href="https://wa.me/56990240620?text=CONVERSEMOS%20%F0%9F%91%8B%20Vi%20tu%20perfil%20y%20me%20interesa%20saber%20m%C3%A1s" target="_blank" class="btn btn-primary">Hablemos por WhatsApp</a>
+        <a href="https://wa.me/56990240620?text=CONVERSEMOS%20%F0%9F%91%8B%20Vi%20tu%20perfil%20y%20me%20interesa%20saber%20m%C3%A1s" target="_blank" rel="noopener" class="btn btn-primary">Hablemos por WhatsApp</a>
         <a href="#casos" class="btn btn-secondary">Ver Casos</a>
       </div>
     </div>
     <img src="/static/diego-foto.jpg" alt="Diego Arias" class="hero-image">
   </div>
 </section>
+</header>
+
+<!-- Main content -->
+<main id="main-content">
 
 <!-- Stats -->
 <section class="stats">
@@ -762,7 +830,7 @@
         <div style="font-size: 0.82rem; color: rgba(255,255,255,0.5);">Contexto regional</div>
       </div>
     </div>
-    <a href="https://chat.whatsapp.com/GOEvAs7j7fe5vbPguziR4R" target="_blank"
+    <a href="https://chat.whatsapp.com/GOEvAs7j7fe5vbPguziR4R" target="_blank" rel="noopener"
        style="display: inline-flex; align-items: center; gap: 12px; background: #25D366; color: #fff; font-weight: 700; font-size: 1rem; padding: 16px 36px; border-radius: 50px; text-decoration: none; transition: opacity 0.2s; box-shadow: 0 4px 24px rgba(37,211,102,0.3);">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       Unirme a la comunidad
@@ -776,26 +844,28 @@
     <h2>¿Hablamos?</h2>
     <p>Si necesitás cerrar la brecha de talento digital en tu organización, conversemos. Escríbeme directamente por WhatsApp.</p>
     <div class="contact-links">
-      <a href="https://wa.me/56990240620?text=CONVERSEMOS%20%F0%9F%91%8B%20Vi%20tu%20perfil%20y%20me%20interesa%20saber%20m%C3%A1s" target="_blank" class="contact-link" style="background:#25D366; color:#fff; border-color:#25D366;">
+      <a href="https://wa.me/56990240620?text=CONVERSEMOS%20%F0%9F%91%8B%20Vi%20tu%20perfil%20y%20me%20interesa%20saber%20m%C3%A1s" target="_blank" rel="noopener" class="contact-link" style="background:#25D366; color:#fff; border-color:#25D366;">
         💬 WhatsApp
       </a>
-      <a href="https://linkedin.com/in/godiegoarias" target="_blank" class="contact-link">
+      <a href="https://linkedin.com/in/godiegoarias" target="_blank" rel="noopener" class="contact-link">
         LinkedIn
       </a>
       <a href="mailto:diego@desafiolatam.com" class="contact-link">
         Email
       </a>
-      <a href="https://desafiolatam.com" target="_blank" class="contact-link">
+      <a href="https://desafiolatam.com" target="_blank" rel="noopener" class="contact-link">
         Desafío Latam
       </a>
     </div>
   </div>
 </section>
 
+</main>
+
 <!-- Footer -->
-<footer>
+<footer role="contentinfo">
   <div class="container">
-    <p>&copy; 2026 Diego Arias — <a href="https://desafiolatam.com">Desafío Latam</a> — diseñado con amor por Agente Maya AI</p>
+    <p>&copy; 2026 Diego Arias — <a href="https://desafiolatam.com" rel="noopener">Desafío Latam</a> — diseñado con amor por Agente Maya AI</p>
   </div>
 </footer>
 

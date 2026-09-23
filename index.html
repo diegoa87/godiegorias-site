@@ -121,14 +121,15 @@
     .voices-head{display:grid;grid-template-columns:.8fr 1.2fr;gap:9vw;margin-bottom:48px}
     .voices-head h2{margin-bottom:0}
     .voices-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-    .voice{position:relative;min-height:430px;overflow:hidden;color:white;text-decoration:none;background:var(--charcoal)}
-    .voice img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s ease;filter:saturate(.78)}
+    .voice{position:relative;aspect-ratio:5/3;min-height:0;overflow:hidden;color:white;text-decoration:none;background:#0e1b33}
+    .voice img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center top;transition:transform .5s ease;filter:saturate(.9)}
+    .voice.ia{background:#05050d}
     .voice:hover img{transform:scale(1.025)}
-    .voice::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.85))}
-    .voice-content{position:absolute;z-index:2;inset:auto 30px 28px}
+    .voice::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.2))}
+    .voice-content{position:absolute;z-index:2;inset:auto 0 0;padding:20px 28px 22px;background:linear-gradient(90deg,rgba(8,8,8,.96),rgba(8,8,8,.84))}
     .voice-tag{font:500 10px var(--mono);letter-spacing:.15em;text-transform:uppercase;color:#e2c88f}
-    .voice h3{font-size:clamp(2rem,4vw,3.4rem);line-height:1;margin:10px 0}
-    .voice p{margin:0;color:#d2cec7;max-width:48ch}
+    .voice h3{font-size:clamp(1.65rem,2.7vw,2.35rem);line-height:1;margin:6px 0 8px}
+    .voice p{margin:0;color:#d2cec7;max-width:58ch;font-size:.88rem}
 
     .community{background:var(--paper)}
     .community-grid{display:grid;grid-template-columns:1fr .82fr;gap:10vw;align-items:center}
@@ -197,8 +198,8 @@
       .principle{grid-template-columns:34px 1fr;gap:12px}
       .principle h3{font-size:1.35rem}
       .case,.case.primary{min-height:360px;padding:24px}
-      .voice{min-height:360px}
-      .voice-content{inset:auto 22px 22px}
+      .voice{aspect-ratio:auto;min-height:340px;width:100%}
+      .voice-content{inset:auto 0 0;padding:20px 22px}
       .community-action{padding:28px 22px}
       .contact-grid>*{min-width:0}
       .contact h2{font-size:clamp(2.5rem,13vw,3.4rem);max-width:100%;overflow-wrap:anywhere}
@@ -291,11 +292,11 @@
         </div>
         <div class="voices-grid">
           <a class="voice reveal" href="/oportunidad-pais/">
-            <img src="/static/oportunidad-pais-logo.png" alt="Oportunidad País, Podcast Impacto" width="1000" height="700" loading="lazy">
+            <img src="/static/podcast-impacto-cover.png" alt="Portada oficial de Oportunidad País, Podcast Impacto" width="1200" height="630" loading="lazy">
             <div class="voice-content"><span class="voice-tag">Podcast Impacto</span><h3>Oportunidad País</h3><p>Personas, empresas e instituciones que están aportando a la productividad de Chile.</p></div>
           </a>
-          <a class="voice reveal" href="/es-la-hora-de-aprender/">
-            <img src="/static/podcast-studio.jpg" alt="Estudio de Es la Hora de Aprender, Podcast IA" width="1000" height="700" loading="lazy">
+          <a class="voice ia reveal" href="/es-la-hora-de-aprender/">
+            <img src="/static/podcast-ia-hosts.jpg" alt="Portada oficial de Es la Hora de Aprender con sus tres conductores" width="1200" height="630" loading="lazy">
             <div class="voice-content"><span class="voice-tag">Podcast IA</span><h3>Es la Hora de Aprender</h3><p>IA, agentes y automatización analizados por personas que están construyendo con estas herramientas.</p></div>
           </a>
         </div>

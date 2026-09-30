@@ -1,0 +1,33 @@
+/* Ajustes de lectura opcionales, sin sustituir la accesibilidad de base. */
+#accessibility-toggle{position:fixed;z-index:90;right:16px;bottom:16px;display:flex;align-items:center;gap:9px;min-height:48px;padding:9px 16px;border:2px solid #f5f0e8;border-radius:8px;background:#0d0d0d;color:#fff;font:600 14px/1.3 Inter,system-ui,sans-serif;box-shadow:0 4px 20px #0006;cursor:pointer}
+#accessibility-toggle span{color:#c9a66b;font-size:19px}.nav-open #accessibility-toggle{visibility:hidden}
+#display-panel{position:fixed;inset:12px 12px 12px auto;margin:0;width:min(440px,calc(100% - 24px));max-width:calc(100% - 24px);max-height:calc(100dvh - 24px);overflow:auto;padding:24px;background:#f5f0e8;color:#1a1a1a;border:2px solid #363636;border-radius:12px;font:400 16px/1.6 Inter,system-ui,sans-serif;box-shadow:0 10px 50px #0005}
+#display-panel::backdrop{background:#0d0d0dcc}.display-panel-open{overflow:hidden}
+#display-panel .display-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}#display-panel h2{font:600 26px/1.2 Playfair Display,Georgia,serif;margin:0;overflow-wrap:anywhere}
+#display-panel p{font-size:14px;color:inherit;margin:14px 0}#display-panel button{min-height:48px;padding:10px 12px;border:1px solid #363636;border-radius:6px;background:white;color:#1a1a1a;font:600 15px/1.4 Inter,system-ui,sans-serif;text-align:left;overflow-wrap:anywhere;cursor:pointer}
+#display-panel #display-close{min-width:44px;min-height:44px;padding:0;text-align:center;font-size:26px}.display-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0}#display-panel button[aria-pressed=true]{background:#1a1a1a;color:white}#display-panel #display-reset{width:100%}#display-panel a{display:flex;align-items:center;min-height:44px;color:#1a1a1a;text-decoration:underline;text-underline-offset:4px}#display-panel .display-note{font-size:12px}.display-status:empty{display:none}
+#display-panel :focus-visible,#accessibility-toggle:focus-visible{outline:3px solid #5b8def;outline-offset:3px}
+.display-links main a,.display-links footer a{text-decoration:underline!important;text-decoration-thickness:2px!important;text-underline-offset:4px!important}
+.display-spacing main :is(p,a,li,h1,h2,h3,figcaption,button){letter-spacing:.08em!important;word-spacing:.12em!important}
+.display-spacing main :is(h1,h2,h3){letter-spacing:.02em!important;word-spacing:normal!important}
+.display-font main *,.display-font footer *{font-family:Arial,sans-serif!important}
+.display-line main :is(p,li,figcaption,button){line-height:1.9!important}
+.display-align main *{text-align:left!important}
+.display-motion,.display-motion *,.display-motion *::before,.display-motion *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+.display-saturation main img{filter:grayscale(1)!important}
+:is(.display-size,.display-spacing,.display-line) main *{min-width:0;overflow-wrap:anywhere!important}
+:is(.display-size,.display-spacing,.display-line) .hero-grid{grid-template-columns:minmax(0,1fr) minmax(0,.65fr)!important;gap:clamp(20px,4vw,64px)!important}
+:is(.display-size,.display-spacing,.display-line) .hero-actions{flex-wrap:wrap}
+.display-contrast body{background:#fff!important;color:#111!important}
+.display-contrast main :is(section,article,aside,div,figure,figcaption,p,h1,h2,h3,span,strong,em,li){background-color:#fff!important;color:#111!important;border-color:#111!important}
+.display-contrast main :is(.hero,.impact,.community,.contact){background-image:none!important}
+.display-contrast main :is(.hero,.impact,.community,.contact)::before{background:none!important}
+.display-contrast main :is(a,.button),.display-contrast footer a{background:#fff!important;color:#003b80!important;text-decoration:underline!important;border:2px solid #111!important}
+.display-contrast header,.display-contrast header *{background:#111!important;color:#fff!important}
+.display-contrast header .nav-links{background:#111!important}
+.display-contrast .proof,.display-contrast .proof *,.display-contrast footer,.display-contrast footer *{background:#fff!important;color:#111!important;border-color:#111!important}
+.display-contrast #accessibility-toggle,.display-contrast #accessibility-toggle span{background:#111!important;color:#fff!important}
+.display-contrast :focus-visible{outline:3px solid #003b80!important;outline-offset:4px!important}
+@media(max-width:900px){:is(.display-size,.display-spacing,.display-line) .hero-grid{grid-template-columns:1fr!important}}
+@media(max-width:600px){#display-panel{padding:18px}.display-options{grid-template-columns:1fr}#accessibility-toggle{right:10px;bottom:10px;font-size:12px;padding:8px 12px}}
+@media print{#accessibility-toggle,#display-panel{display:none!important}}

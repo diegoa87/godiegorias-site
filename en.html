@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Diego Arias | Digital skills, AI and impact across Latin America</title>
+  <meta name="description" content="Diego Arias, founder of Desafío Latam. Partnerships, technology training and applied AI that open up real opportunities at scale.">
+  <meta name="theme-color" content="#0D0D0D">
+  <meta property="og:title" content="Diego Arias | Digital skills, measurable impact">
+  <meta property="og:description" content="Partnerships, technology training and applied AI that open up real opportunities at scale.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://godiegoarias.com/en.html">
+  <meta property="og:image" content="https://godiegoarias.com/static/diego-foto.jpg">
+  <link rel="canonical" href="https://godiegoarias.com/en.html">
+  <link rel="alternate" hreflang="es" href="https://godiegoarias.com/">
+  <link rel="alternate" hreflang="en" href="https://godiegoarias.com/en.html">
+  <link rel="alternate" hreflang="x-default" href="https://godiegoarias.com/">
+  <link rel="icon" type="image/png" href="/static/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink:#11110f;
+      --charcoal:#222220;
+      --cream:#f4efe5;
+      --paper:#fffdf8;
+      --gold:#c9a66b;
+      --gold-strong:#795720;
+      --muted:#67645e;
+      --line:rgba(17,17,15,.15);
+      --line-dark:rgba(255,255,255,.17);
+      --green:#227a46;
+      --serif:'Playfair Display',Georgia,serif;
+      --sans:'Inter',system-ui,sans-serif;
+      --mono:'JetBrains Mono',monospace;
+      --max:1180px;
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:90px}
+    body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--sans);line-height:1.65;-webkit-font-smoothing:antialiased}
+    body.nav-open{overflow:hidden}
+    img{display:block;max-width:100%;height:auto}
+    a{color:inherit;text-underline-offset:4px}
+    button{font:inherit}
+    :focus-visible,a:focus,button:focus{outline:3px solid white;outline-offset:3px;box-shadow:0 0 0 6px var(--ink)}
+    .skip{position:fixed;left:18px;top:-80px;z-index:100;background:var(--gold);color:var(--ink);padding:12px 18px;font-weight:700;text-decoration:none}
+    .skip:focus{top:12px}
+    .shell{width:min(var(--max),calc(100% - 48px));margin-inline:auto}
+    .eyebrow{font:500 11px/1.4 var(--mono);letter-spacing:.17em;text-transform:uppercase;color:var(--gold-strong)}
+    .eyebrow.light{color:var(--gold)}
+    h1,h2,h3,p{margin-top:0}
+    h1,h2,h3{font-family:var(--serif);font-weight:600;letter-spacing:-.035em;text-wrap:balance}
+    h2{font-size:clamp(2.25rem,5vw,4.7rem);line-height:1.02;margin-bottom:24px}
+    .lede{font-size:clamp(1.05rem,1.5vw,1.22rem);color:var(--muted);max-width:62ch}
+    .button{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:12px 21px;border:1px solid transparent;text-decoration:none;font-weight:700;font-size:.9rem;transition:transform .2s,background .2s,color .2s,border-color .2s}
+    .button:hover{transform:translateY(-2px)}
+    .button.gold{background:var(--gold);color:var(--ink)}
+    .button.gold:hover{background:#d6b779}
+    .button.ghost{border-color:var(--line-dark);color:white;background:transparent}
+    .button.ghost:hover{background:white;color:var(--ink)}
+    .text-link{display:inline-flex;align-items:center;min-height:44px;font-weight:700;text-decoration:none;border-bottom:1px solid currentColor}
+
+    header{position:fixed;inset:0 0 auto;z-index:50;background:rgba(13,13,13,.94);border-bottom:1px solid rgba(255,255,255,.09);backdrop-filter:blur(14px)}
+    .nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:28px}
+    .brand{display:flex;align-items:center;text-decoration:none;flex:none}
+    .brand img{width:118px;height:auto;max-height:54px;object-fit:contain}
+    .nav-controls{display:flex;align-items:center;gap:12px;flex:none}
+    .language-switch{display:flex;align-items:center;gap:2px;border:1px solid rgba(255,255,255,.32);border-radius:4px;padding:2px;color:white;font:600 12px/1 var(--sans)}
+    .language-switch a,.language-switch span{display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:4px;color:white;text-decoration:none}
+    .language-switch [aria-current=page]{background:var(--gold);color:var(--ink)}
+    .language-switch a:hover{background:rgba(255,255,255,.16)}
+    .nav-links{display:flex;align-items:center;gap:28px;list-style:none;padding:0;margin:0}
+    .nav-links li{color:#ddd9d1}
+    .nav-links a{color:#ddd9d1;text-decoration:none;font-size:.86rem;font-weight:600;transition:color .2s}
+    .nav-links a:hover{color:white}
+    .nav-cta{border:1px solid var(--gold)!important;color:var(--gold)!important;padding:9px 15px}
+    .menu{display:none;width:46px;height:46px;border:1px solid rgba(255,255,255,.2);background:transparent;color:white;cursor:pointer;box-shadow:0 0 0 0 transparent}
+    .menu span{display:block;width:20px;height:2px;background:currentColor;margin:4px auto;transition:transform .2s,opacity .2s}
+
+    .hero{min-height:680px;padding:112px 0 55px;background:var(--ink);color:white;overflow:hidden;position:relative}
+    .hero::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 0 67%,rgba(201,166,107,.08) 67% 100%);pointer-events:none}
+    .hero-grid{position:relative;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(340px,.75fr);gap:64px;align-items:center}
+    .hero-copy{padding-top:0}
+    .hero h1{font-size:clamp(4rem,6vw,4.875rem);line-height:1.02;letter-spacing:-.035em;max-width:850px;margin:20px 0 22px}
+    .hero h1 em{display:block;color:var(--gold);font-weight:500}
+    .hero .lede{color:#c8c4bc;max-width:610px;font-size:1.1875rem;line-height:1.58}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+    .portrait-wrap{position:relative;align-self:end}
+    .portrait{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 18%;filter:saturate(.82);border-radius:2px}
+    .portrait-note{position:absolute;left:-38px;bottom:26px;background:var(--cream);color:var(--ink);padding:16px 18px;width:210px;border-top:3px solid var(--gold)}
+    .portrait-note strong{display:block;font-family:var(--serif);font-size:1.2rem;line-height:1.2}
+    .portrait-note span{font-size:.75rem;color:var(--muted)}
+
+    .proof{background:#080808;color:white;border-top:1px solid var(--line-dark)}
+    .proof-grid{display:grid;grid-template-columns:1.25fr repeat(3,1fr)}
+    .proof-intro,.proof-item{padding:31px 28px;border-right:1px solid var(--line-dark)}
+    .proof-intro{padding-left:0;color:#aaa69f;font-size:.83rem;display:flex;align-items:center}
+    .proof-item:last-child{border-right:0}
+    .proof-item strong{font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);color:var(--gold);line-height:1;display:block}
+    .proof-item span{display:block;margin-top:8px;color:#aaa69f;font-size:.78rem}
+
+    section{padding:110px 0}
+    .problem{background:var(--paper)}
+    .problem-grid{display:grid;grid-template-columns:.72fr 1.28fr;gap:10vw}
+    .problem-copy h2{max-width:760px}
+    .problem-copy .lede{font-size:clamp(1.12rem,1.8vw,1.35rem)}
+    .principles{margin-top:62px;border-top:1px solid var(--line)}
+    .principle{display:grid;grid-template-columns:70px .75fr 1.25fr;gap:30px;padding:30px 0;border-bottom:1px solid var(--line);align-items:start}
+    .principle .num{font:500 11px var(--mono);color:var(--gold-strong);padding-top:8px}
+    .principle h3{font-size:1.6rem;margin:0}
+    .principle p{margin:0;color:var(--muted);max-width:60ch}
+
+    .impact{background:var(--ink);color:white}
+    .impact-head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:58px}
+    .impact-head h2{max-width:650px;margin-bottom:0}
+    .impact-head p{max-width:390px;color:#aaa69f;margin:0}
+    .cases{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
+    .case{min-height:320px;padding:32px;border:1px solid var(--line-dark);display:flex;flex-direction:column;justify-content:space-between;background:#171715}
+    .case.primary{grid-row:span 2;min-height:658px;background:linear-gradient(180deg,rgba(201,166,107,.12),transparent 45%),#171715}
+    .case-label{font:500 10px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+    .case strong{font-family:var(--serif);font-size:clamp(3.2rem,7vw,7rem);line-height:.9;color:var(--gold);font-weight:500;display:block}
+    .case:not(.primary) strong{font-size:clamp(2.4rem,4vw,4rem)}
+    .case h3{font-size:clamp(1.4rem,2vw,2rem);margin:15px 0 10px}
+    .case p{color:#aaa69f;margin:0;max-width:47ch}
+
+    .voices{background:var(--cream)}
+    .voices-head{display:grid;grid-template-columns:.8fr 1.2fr;gap:9vw;margin-bottom:48px}
+    .voices-head h2{margin-bottom:0}
+    .voices-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .voice{position:relative;aspect-ratio:5/3;min-height:0;overflow:hidden;color:white;text-decoration:none;background:#0e1b33}
+    .voice img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center top;transition:transform .5s ease;filter:saturate(.9)}
+    .voice.ia{background:#05050d}
+    .voice:hover img{transform:scale(1.025)}
+    .voice::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.2))}
+    .voice-content{position:absolute;z-index:2;inset:auto 0 0;padding:20px 28px 22px;background:linear-gradient(90deg,rgba(8,8,8,.96),rgba(8,8,8,.84))}
+    .voice-tag{font:500 10px var(--mono);letter-spacing:.15em;text-transform:uppercase;color:#e2c88f}
+    .voice h3{font-size:clamp(1.65rem,2.7vw,2.35rem);line-height:1;margin:6px 0 8px}
+    .voice p{margin:0;color:#d2cec7;max-width:58ch;font-size:.88rem}
+
+    .community{background:var(--paper)}
+    .community-grid{display:grid;grid-template-columns:1fr .82fr;gap:10vw;align-items:center}
+    .community h2{max-width:760px}
+    .community-list{border-top:1px solid var(--line)}
+    .community-list div{display:flex;justify-content:space-between;gap:20px;padding:18px 0;border-bottom:1px solid var(--line)}
+    .community-list strong{font-size:.95rem}
+    .community-list span{color:var(--muted);font-size:.86rem;text-align:right}
+    .community-action{background:var(--ink);color:white;padding:42px}
+    .community-action p{color:#b7b3ac}
+    .community-action .button{width:100%;margin-top:16px}
+
+    .contact{background:var(--gold);padding:88px 0}
+    .contact-grid{display:grid;grid-template-columns:1fr auto;align-items:end;gap:40px}
+    .contact h2{font-size:clamp(3rem,7vw,6.6rem);margin:0;max-width:850px}
+    .contact-links{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    .contact .button{background:var(--ink);color:white}
+    .contact .button.secondary{background:transparent;color:var(--ink);border-color:rgba(17,17,15,.35)}
+
+    footer{background:var(--ink);color:#8f8b84;padding:28px 0;font-size:.78rem}
+    .footer-grid{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+    .footer-links{display:flex;gap:20px;flex-wrap:wrap}
+    footer a{color:#cfcac1;text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
+
+    .reveal{opacity:1;transform:none}
+    @media(min-width:901px) and (max-width:1150px){.nav{gap:14px}.nav-links{gap:14px}.nav-links a{font-size:.78rem}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.voice img,.button{transition:none}}
+
+    @media(max-width:900px){
+      .shell{width:min(100% - 32px,var(--max))}
+      .menu{display:block}
+      .nav-links{position:fixed;top:76px;right:0;bottom:auto;left:0;width:100%;height:calc(100dvh - 76px);min-height:calc(100vh - 76px);background:var(--ink);display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:0;padding:24px 16px max(24px,env(safe-area-inset-bottom));overflow-y:auto;overscroll-behavior:contain;transform:translateX(100%);transition:transform .25s ease}
+      .nav-links.open{transform:translateX(0)}
+      .nav-links li{border-bottom:1px solid var(--line-dark)}
+      .nav-links a{display:flex;align-items:center;min-height:56px;font-size:1rem}
+      .nav-cta{border:0!important;padding:0}
+      .hero{padding-top:118px}
+      .hero::before{display:none}
+      .hero-grid{grid-template-columns:1fr;gap:55px}
+      .portrait-wrap{max-width:520px;margin-left:auto}
+      .portrait-note{left:-15px}
+      .proof-grid{grid-template-columns:repeat(3,1fr)}
+      .proof-intro{display:none}
+      .proof-item{padding:25px 12px;text-align:center}
+      .problem-grid,.voices-head,.community-grid{grid-template-columns:1fr;gap:32px}
+      .principle{grid-template-columns:45px 1fr}
+      .principle p{grid-column:2}
+      .impact-head{display:block}
+      .impact-head p{margin-top:20px}
+      .cases{grid-template-columns:1fr}
+      .case.primary{grid-row:auto;min-height:440px}
+      .voices-grid{grid-template-columns:1fr}
+      .contact-grid{grid-template-columns:1fr}
+      .contact-links{justify-content:flex-start}
+    }
+    @media(max-width:560px){
+      .nav{gap:8px}
+      .nav-controls{gap:6px}
+      .shell{width:calc(100% - 32px)}
+      section{padding:76px 0}
+      .hero{min-height:auto;padding-bottom:56px}
+      .hero h1{font-size:clamp(3rem,15vw,4.8rem)}
+      .hero-actions{display:grid}
+      .button{width:100%}
+      .portrait-wrap{margin-left:22px}
+      .portrait-note{left:-22px;bottom:16px;width:185px;padding:13px}
+      .proof-item strong{font-size:1.8rem}
+      .proof-item span{font-size:.69rem}
+      .principle{grid-template-columns:34px 1fr;gap:12px}
+      .principle h3{font-size:1.35rem}
+      .case,.case.primary{min-height:360px;padding:24px}
+      .voice{aspect-ratio:auto;min-height:340px;width:100%}
+      .voice-content{inset:auto 0 0;padding:20px 22px}
+      .community-action{padding:28px 22px}
+      .contact-grid>*{min-width:0}
+      .contact h2{font-size:clamp(2.5rem,13vw,3.4rem);max-width:100%;overflow-wrap:anywhere}
+      .contact-links{display:grid;width:100%}
+      .footer-grid{display:block}.footer-links{margin-top:12px}
+    }
+  </style>
+  <link rel="stylesheet" href="/accessibility.css">
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header>
+    <nav class="nav shell" aria-label="Main navigation">
+      <a href="/en.html" class="brand" aria-label="Diego Arias, home"><img src="/static/go-logo-nav.png" alt="Diego Arias" width="960" height="518"></a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#trabajo">Work</a></li>
+        <li><a href="#impacto">Impact</a></li>
+        <li><a href="#podcasts">Podcasts</a></li>
+        <li><a href="#comunidad">Community</a></li>
+        <li><a href="/recursos-que-yo-uso-de-ia/" hreflang="es">AI resources (ES)</a></li>
+        <li><a class="nav-cta" href="#contacto">Get in touch</a></li>
+      </ul>
+      <div class="nav-controls">
+        <div class="language-switch" aria-label="Language"><a href="/" lang="es" hreflang="es" aria-label="Español">ES</a><span lang="en" aria-current="page" aria-label="English">EN</span></div>
+        <button class="menu" type="button" tabindex="-1" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="hero-grid shell">
+        <div class="hero-copy reveal">
+          <div class="eyebrow light">Founder of Desafío Latam</div>
+          <h1>Digital skills.<em>Real impact.</em></h1>
+          <p class="lede">I bring companies, people and government together to train tech talent at scale, put AI to work on real problems and create better opportunities across Latin America.</p>
+          <div class="hero-actions">
+            <a class="button gold" href="https://wa.me/56990240620?text=Hi%20Diego%2C%20I%20saw%20your%20website%20and%20would%20like%20to%20talk" target="_blank" rel="noopener">Message me on WhatsApp</a>
+            <a class="button ghost" href="#impacto">See the impact</a>
+          </div>
+        </div>
+        <figure class="portrait-wrap reveal">
+          <img class="portrait" src="/static/diego-foto.jpg" alt="Portrait of Diego Arias" width="800" height="1000">
+          <figcaption class="portrait-note"><strong>Diego Arias</strong><span>Founder, builder and connector</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <aside class="proof" aria-label="Impact figures">
+      <div class="proof-grid shell">
+        <div class="proof-intro">A career built by doing the work.</div>
+        <div class="proof-item"><strong>+500K</strong><span>people reached</span></div>
+        <div class="proof-item"><strong>15</strong><span>countries</span></div>
+        <div class="proof-item"><strong>+12</strong><span>years of experience</span></div>
+      </div>
+    </aside>
+
+    <section class="problem" id="trabajo">
+      <div class="problem-grid shell">
+        <div>
+          <div class="eyebrow">The work</div>
+        </div>
+        <div class="problem-copy reveal">
+          <h2>Training matters when it connects to jobs and productivity.</h2>
+          <p class="lede">At Desafío Latam, I design and run end-to-end programs, from outreach and selection to training, support and pathways to real opportunities.</p>
+        </div>
+      </div>
+      <div class="principles shell">
+        <article class="principle reveal"><span class="num">01</span><h3>Training at scale</h3><p>Programs for hundreds or thousands of people, built around the skills employers actually need.</p></article>
+        <article class="principle reveal"><span class="num">02</span><h3>Applied AI</h3><p>AI used to improve processes, productivity and employability, with specific problems to solve and no miracle claims.</p></article>
+        <article class="principle reveal"><span class="num">03</span><h3>Partnerships that deliver</h3><p>Companies, industry associations, foundations and government working toward a shared goal with clear responsibilities.</p></article>
+      </div>
+    </section>
+
+    <section class="impact" id="impacto">
+      <div class="shell">
+        <div class="impact-head reveal">
+          <div><div class="eyebrow light">Selected results</div><h2>Scale with a purpose.</h2></div>
+          <p>Programs delivered with public and private partners. Behind each figure are people who gained access to training, tools or opportunities.</p>
+        </div>
+        <div class="cases">
+          <article class="case primary reveal"><div><span class="case-label">Regional impact</span><h3>Technology training across Latin America</h3><p>Technology and AI workshops and programs delivered across 15 countries.</p></div><strong>+500K</strong></article>
+          <article class="case reveal"><div><span class="case-label">Small businesses + Corfo</span><h3>Digital skills during the pandemic</h3><p>Live and self-paced training designed to help small businesses build digital skills.</p></div><strong>+100K</strong></article>
+          <article class="case reveal"><div><span class="case-label">BHP Foundation + País Digital</span><h3>Talent for mining</h3><p>People trained and prepared for opportunities in a strategic industry for Chile.</p></div><strong>+600</strong></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="voices" id="podcasts">
+      <div class="shell">
+        <div class="voices-head reveal">
+          <div><div class="eyebrow">Conversations</div><h2>Two podcasts. Different conversations.</h2></div>
+          <p class="lede">One talks with people working to improve Chile’s productivity. The other looks at how AI is changing the way we work. Episodes and archives are in Spanish.</p>
+        </div>
+        <div class="voices-grid">
+          <a class="voice reveal" href="/oportunidad-pais/">
+            <img src="/static/podcast-impacto-cover.png" alt="Cover of Oportunidad País, Podcast Impacto" width="1200" height="630" loading="lazy">
+            <div class="voice-content"><span class="voice-tag">Impact podcast · Spanish</span><h3>Oportunidad País</h3><p>People, companies and institutions contributing to Chile’s productivity.</p></div>
+          </a>
+          <a class="voice ia reveal" href="/es-la-hora-de-aprender/">
+            <img src="/static/podcast-ia-hosts.jpg" alt="Cover of Es la Hora de Aprender with its three hosts" width="1200" height="630" loading="lazy">
+            <div class="voice-content"><span class="voice-tag">AI podcast · Spanish</span><h3>Es la Hora de Aprender</h3><p>AI, agents and automation discussed by people building with these tools.</p></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="community" id="comunidad">
+      <div class="community-grid shell">
+        <div class="reveal">
+          <div class="eyebrow">Community</div>
+          <h2>Learn together, without the hype.</h2>
+          <p class="lede">A Spanish-speaking WhatsApp community for sharing practical examples, tools and lessons about AI agents in Latin America.</p>
+          <div class="community-list">
+            <div><strong>AI agents</strong><span>Use cases and tutorials</span></div>
+            <div><strong>Resources</strong><span>Tools and prompts</span></div>
+            <div><strong>Regional context</strong><span>What is happening across Latin America</span></div>
+          </div>
+        </div>
+        <aside class="community-action reveal">
+          <div class="eyebrow light">Open community · Spanish</div>
+          <h3>Practical conversations about AI.</h3>
+          <p>For people who want to learn what works, what does not and how to put it into practice.</p>
+          <a class="button gold" href="https://chat.whatsapp.com/GOEvAs7j7fe5vbPguziR4R" target="_blank" rel="noopener">Join the community</a>
+        </aside>
+      </div>
+    </section>
+
+    <section class="contact" id="contacto">
+      <div class="contact-grid shell reveal">
+        <div><div class="eyebrow">Contact</div><h2>Want to build something that matters?</h2></div>
+        <div class="contact-links">
+          <a class="button" href="https://wa.me/56990240620?text=Hi%20Diego%2C%20I%20saw%20your%20website%20and%20would%20like%20to%20talk" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="button secondary" href="mailto:diego@desafiolatam.com">Email</a>
+          <a class="button secondary" href="https://linkedin.com/in/godiegoarias" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-grid shell">
+      <span>© 2026 Diego Arias</span>
+      <div class="footer-links"><a href="https://desafiolatam.com" target="_blank" rel="noopener">Desafío Latam</a><a href="/manual-marca/">Brand guide (Spanish)</a><a href="/recursos-que-yo-uso-de-ia/">AI resources (Spanish)</a></div>
+    </div>
+  </footer>
+
+  <script>
+    const menu=document.querySelector('.menu');
+    const links=document.querySelector('.nav-links');
+    const mobileNav=matchMedia('(max-width: 900px)');
+    function closeMenu(){links.classList.remove('open');links.inert=mobileNav.matches;document.body.classList.remove('nav-open');menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Open menu')}
+    function syncMenu(){menu.tabIndex=mobileNav.matches?0:-1;if(!mobileNav.matches)closeMenu();links.inert=mobileNav.matches&&!links.classList.contains('open')}
+    syncMenu();mobileNav.addEventListener('change',syncMenu);
+    menu.addEventListener('click',()=>{const open=!links.classList.contains('open');links.classList.toggle('open',open);links.inert=!open;document.body.classList.toggle('nav-open',open);menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'Close menu':'Open menu');if(open)links.querySelector('a')?.focus()});
+    links.addEventListener('click',e=>{if(e.target.closest('a'))closeMenu()});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&links.classList.contains('open')){closeMenu();menu.focus()}});
+  </script>
+  <script src="/accessibility.js" defer></script>
+</body>
+</html>

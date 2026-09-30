@@ -1,5 +1,7 @@
 /* Preferencias de visualización locales. Sin llamadas de red ni datos personales. */
 (() => {
+  const en = document.documentElement.lang === 'en';
+  const t = (es,english) => en ? english : es;
   const key = 'godiego-display-v1';
   const defaults = {size:0,contrast:false,links:false,spacing:false,motion:false,font:false,line:false,align:false,saturation:false};
   let prefs = {...defaults};
@@ -15,13 +17,13 @@
   launcher.setAttribute('aria-haspopup','dialog');
   launcher.setAttribute('aria-controls','display-panel');
   launcher.setAttribute('aria-expanded','false');
-  launcher.innerHTML = '<span aria-hidden="true">Aa</span> Accesibilidad';
+  launcher.innerHTML = '<span aria-hidden="true">Aa</span> '+t('Accesibilidad','Accessibility');
   const panel = document.createElement('dialog');
   panel.id = 'display-panel';
   panel.setAttribute('aria-labelledby','display-title');
   panel.setAttribute('aria-describedby','display-description');
-  panel.innerHTML = `<div class="display-heading"><h2 id="display-title">Accesibilidad</h2><button type="button" id="display-close" aria-label="Cerrar ajustes">×</button></div><p id="display-description">Ajusta la lectura a tu manera. Preferencias guardadas solo en este navegador.</p><div class="display-options"></div><button type="button" id="display-reset">Restablecer ajustes</button><p class="display-note">Estas ayudas no sustituyen la accesibilidad del sitio ni garantizan conformidad WCAG.</p><a href="#contacto" id="display-statement">Informar una barrera de accesibilidad</a><p class="display-status" role="status" aria-live="polite"></p>`;
-  const labels = {size:'Texto de lectura (no títulos)',contrast:'Alto contraste',links:'Resaltar enlaces',spacing:'Espaciado de texto',motion:'Reducir movimiento',font:'Fuente sencilla (Arial)',line:'Mayor altura de línea',align:'Alinear texto a la izquierda',saturation:'Imágenes en escala de grises'};
+  panel.innerHTML = `<div class="display-heading"><h2 id="display-title">${t('Accesibilidad','Accessibility')}</h2><button type="button" id="display-close" aria-label="${t('Cerrar ajustes','Close settings')}">×</button></div><p id="display-description">${t('Ajusta la lectura a tu manera. Preferencias guardadas solo en este navegador.','Adjust reading to suit you. Preferences are saved only in this browser.')}</p><div class="display-options"></div><button type="button" id="display-reset">${t('Restablecer ajustes','Reset settings')}</button><p class="display-note">${t('Estas ayudas no sustituyen la accesibilidad del sitio ni garantizan conformidad WCAG.','These options do not replace accessible design or guarantee WCAG conformance.')}</p><a href="#contacto" id="display-statement">${t('Informar una barrera de accesibilidad','Report an accessibility barrier')}</a><p class="display-status" role="status" aria-live="polite"></p>`;
+  const labels = {size:t('Texto de lectura (no títulos)','Reading text (not headings)'),contrast:t('Alto contraste','High contrast'),links:t('Resaltar enlaces','Highlight links'),spacing:t('Espaciado de texto','Text spacing'),motion:t('Reducir movimiento','Reduce motion'),font:t('Fuente sencilla (Arial)','Simple font (Arial)'),line:t('Mayor altura de línea','Increased line height'),align:t('Alinear texto a la izquierda','Left-align text'),saturation:t('Imágenes en escala de grises','Grayscale images')};
   for (const k of Object.keys(defaults)) {
     const b = document.createElement('button');
     b.type = 'button'; b.dataset.preference = k;
@@ -42,12 +44,12 @@
     }
     for (const [e,size] of sizes) e.style.setProperty('font-size',`${size*(1+prefs.size*.25)}px`,'important');
   }
-  function announce(label) { panel.querySelector('.display-status').textContent = label+' — ajuste actualizado'; }
+  function announce(label) { panel.querySelector('.display-status').textContent = label+' — '+t('ajuste actualizado','setting updated'); }
   function apply() {
     for (const k of Object.keys(defaults)) document.documentElement.classList.toggle('display-'+k,!!prefs[k]);
     for (const b of panel.querySelectorAll('[data-preference]')) {
       const k = b.dataset.preference;
-      b.textContent = labels[k]+' · '+(k === 'size' ? `${100+prefs.size*25}%` : prefs[k] ? 'Activado' : 'Desactivado');
+      b.textContent = labels[k]+' · '+(k === 'size' ? `${100+prefs.size*25}%` : prefs[k] ? t('Activado','On') : t('Desactivado','Off'));
       if (k !== 'size') b.setAttribute('aria-pressed',String(prefs[k]));
     }
     scale();
@@ -73,7 +75,7 @@
   panel.querySelector('#display-reset').addEventListener('click',() => {
     prefs = {...defaults}; apply();
     try { localStorage.removeItem(key); } catch {}
-    announce('Ajustes restablecidos');
+    announce(t('Ajustes restablecidos','Settings reset'));
   });
   panel.querySelector('#display-statement').addEventListener('click',() => { focusContact = true; panel.close(); });
   panel.addEventListener('keydown',event => {

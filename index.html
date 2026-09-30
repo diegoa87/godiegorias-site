@@ -12,6 +12,9 @@
   <meta property="og:url" content="https://godiegoarias.com/">
   <meta property="og:image" content="https://godiegoarias.com/static/diego-foto.jpg">
   <link rel="canonical" href="https://godiegoarias.com/">
+  <link rel="alternate" hreflang="es" href="https://godiegoarias.com/">
+  <link rel="alternate" hreflang="en" href="https://godiegoarias.com/en.html">
+  <link rel="alternate" hreflang="x-default" href="https://godiegoarias.com/">
   <link rel="icon" type="image/png" href="/static/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -63,6 +66,11 @@
     .nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:28px}
     .brand{display:flex;align-items:center;text-decoration:none;flex:none}
     .brand img{width:118px;height:auto;max-height:54px;object-fit:contain}
+    .nav-controls{display:flex;align-items:center;gap:12px;flex:none}
+    .language-switch{display:flex;align-items:center;gap:2px;border:1px solid rgba(255,255,255,.32);border-radius:4px;padding:2px;color:white;font:600 12px/1 var(--sans)}
+    .language-switch a,.language-switch span{display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:4px;color:white;text-decoration:none}
+    .language-switch [aria-current=page]{background:var(--gold);color:var(--ink)}
+    .language-switch a:hover{background:rgba(255,255,255,.16)}
     .nav-links{display:flex;align-items:center;gap:28px;list-style:none;padding:0;margin:0}
     .nav-links li{color:#ddd9d1}
     .nav-links a{color:#ddd9d1;text-decoration:none;font-size:.86rem;font-weight:600;transition:color .2s}
@@ -155,6 +163,7 @@
     footer a{color:#cfcac1;text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
 
     .reveal{opacity:1;transform:none}
+    @media(min-width:901px) and (max-width:1150px){.nav{gap:14px}.nav-links{gap:14px}.nav-links a{font-size:.78rem}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.voice img,.button{transition:none}}
 
     @media(max-width:900px){
@@ -185,6 +194,8 @@
       .contact-links{justify-content:flex-start}
     }
     @media(max-width:560px){
+      .nav{gap:8px}
+      .nav-controls{gap:6px}
       .shell{width:calc(100% - 32px)}
       section{padding:76px 0}
       .hero{min-height:auto;padding-bottom:56px}
@@ -214,7 +225,6 @@
   <header>
     <nav class="nav shell" aria-label="Navegación principal">
       <a href="/" class="brand" aria-label="Diego Arias, inicio"><img src="/static/go-logo-nav.png" alt="Diego Arias" width="960" height="518"></a>
-      <button class="menu" type="button" tabindex="-1" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
       <ul class="nav-links" id="nav-links">
         <li><a href="#trabajo">Trabajo</a></li>
         <li><a href="#impacto">Impacto</a></li>
@@ -223,6 +233,10 @@
         <li><a href="/recursos-que-yo-uso-de-ia/">Recursos IA</a></li>
         <li><a class="nav-cta" href="#contacto">Conversemos</a></li>
       </ul>
+      <div class="nav-controls">
+        <div class="language-switch" aria-label="Idioma"><span lang="es" aria-current="page" aria-label="Español">ES</span><a href="/en.html" lang="en" hreflang="en" aria-label="English">EN</a></div>
+        <button class="menu" type="button" tabindex="-1" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
+      </div>
     </nav>
   </header>
 
@@ -348,12 +362,12 @@
     const menu=document.querySelector('.menu');
     const links=document.querySelector('.nav-links');
     const mobileNav=matchMedia('(max-width: 900px)');
-    function closeMenu(){links.classList.remove('open');document.body.classList.remove('nav-open');menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Abrir menú')}
-    function syncMenu(){menu.tabIndex=mobileNav.matches?0:-1;if(!mobileNav.matches)closeMenu()}
+    function closeMenu(){links.classList.remove('open');links.inert=mobileNav.matches;document.body.classList.remove('nav-open');menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Abrir menú')}
+    function syncMenu(){menu.tabIndex=mobileNav.matches?0:-1;if(!mobileNav.matches)closeMenu();links.inert=mobileNav.matches&&!links.classList.contains('open')}
     syncMenu();mobileNav.addEventListener('change',syncMenu);
-    menu.addEventListener('click',()=>{const open=!links.classList.contains('open');links.classList.toggle('open',open);document.body.classList.toggle('nav-open',open);menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'Cerrar menú':'Abrir menú')});
+    menu.addEventListener('click',()=>{const open=!links.classList.contains('open');links.classList.toggle('open',open);links.inert=!open;document.body.classList.toggle('nav-open',open);menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'Cerrar menú':'Abrir menú');if(open)links.querySelector('a')?.focus()});
     links.addEventListener('click',e=>{if(e.target.closest('a'))closeMenu()});
-    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&links.classList.contains('open')){closeMenu();menu.focus()}});
   </script>
   <script src="/accessibility.js" defer></script>
 </body>

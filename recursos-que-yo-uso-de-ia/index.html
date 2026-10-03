@@ -2,137 +2,139 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Recursos de IA que uso — Diego Arias</title>
-  <meta name="description" content="Las herramientas de inteligencia artificial que uso a diario para trabajar, crear y construir.">
-  <link rel="icon" type="image/png" href="/favicon.png">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Recursos de IA | Diego Arias</title>
+  <meta name="description" content="Guías, herramientas y aprendizajes prácticos sobre inteligencia artificial y agentes para empresas.">
+  <meta name="theme-color" content="#0D0D0D">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Recursos de IA | Diego Arias">
+  <meta property="og:description" content="Guías y recursos prácticos sobre inteligencia artificial y agentes para empresas.">
+  <meta property="og:url" content="https://godiegoarias.com/recursos-que-yo-uso-de-ia/">
+  <link rel="canonical" href="https://godiegoarias.com/recursos-que-yo-uso-de-ia/">
+  <link rel="icon" type="image/png" href="/static/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bronce: #C9A66B;
-      --charcoal: #363636;
-      --negro-profundo: #0D0D0D;
-      --azul-tech: #5B8DEF;
-      --blanco: #FFFFFF;
-      --crema: #F5F0E8;
-      --gris-frio: #6B7280;
-      --grafito: #1A1A1A;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', -apple-system, sans-serif; background: var(--crema); color: var(--grafito); line-height: 1.7; }
-    .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
-    nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(13,13,13,0.95); backdrop-filter: blur(10px); z-index: 1000; padding: 16px 0; }
-    nav .container { display: flex; justify-content: space-between; align-items: center; }
-    .logo { text-decoration: none; display: flex; align-items: center; }
-    .logo img { height: 56px; width: auto; }
-    .nav-links { display: flex; gap: 32px; list-style: none; }
-    .nav-links a { color: var(--blanco); text-decoration: none; font-size: 0.9rem; opacity: 0.8; transition: opacity 0.3s; }
-    .nav-links a:hover { opacity: 1; }
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 6px; }
-    .hamburger span { display: block; width: 24px; height: 2px; background: var(--blanco); border-radius: 2px; }
-    .page-header { background: linear-gradient(135deg, var(--negro-profundo) 0%, var(--charcoal) 100%); color: var(--blanco); padding: 120px 0 60px; text-align: center; }
-    .page-header h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; margin-bottom: 16px; letter-spacing: -1px; }
-    .page-header h1 span { color: var(--bronce); }
-    .page-header p { font-size: 1.1rem; opacity: 0.8; max-width: 600px; margin: 0 auto; }
-    .content { padding: 80px 0; }
-    .tool-card { background: var(--blanco); border-radius: 16px; padding: 32px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border-left: 4px solid var(--bronce); transition: transform 0.3s; }
-    .tool-card:hover { transform: translateX(4px); }
-    .tool-card .tag { display: inline-block; background: rgba(201,166,107,0.15); color: var(--bronce); font-size: 0.75rem; font-weight: 600; padding: 4px 12px; border-radius: 20px; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
-    .tool-card h2 { font-size: 1.4rem; margin-bottom: 8px; color: var(--charcoal); }
-    .tool-card p { color: var(--gris-frio); font-size: 1rem; }
-    .tool-card .use-case { margin-top: 12px; font-size: 0.9rem; color: var(--azul-tech); font-weight: 500; }
-    .intro-text { background: var(--blanco); border-radius: 16px; padding: 32px; margin-bottom: 40px; text-align: center; }
-    .intro-text p { color: var(--gris-frio); font-size: 1.05rem; }
-    footer { background: var(--grafito); color: var(--gris-frio); padding: 40px 0; text-align: center; font-size: 0.9rem; }
-    footer a { color: var(--bronce); text-decoration: none; }
-    @media (max-width: 768px) {
-      .nav-links { display: none; flex-direction: column; gap: 0; position: absolute; top: 64px; left: 0; right: 0; background: var(--negro-profundo); padding: 16px 0; z-index: 999; }
-      .nav-links.open { display: flex; }
-      .nav-links li a { display: block; padding: 12px 24px; font-size: 1rem; }
-      .hamburger { display: flex !important; }
-      .page-header h1 { font-size: 2rem; }
-    }
+    :root{--bronce:#C9A66B;--bronce-light:#D4B57A;--negro:#0D0D0D;--charcoal:#363636;--crema:#F5F0E8;--blanco:#FFFFFF;--grafito:#1A1A1A;--gris:#6B7280;--azul:#5B8DEF;--line:#E9E3D6;--line-dark:rgba(255,255,255,.14);--serif:'Playfair Display',Georgia,serif;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',monospace;--max:1180px}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--crema);color:var(--grafito);font-family:var(--sans);line-height:1.65;-webkit-font-smoothing:antialiased}
+    body.menu-open{overflow:hidden}
+    img{display:block;max-width:100%;height:auto}
+    button,input{font:inherit}
+    a{color:inherit}
+    :focus-visible{outline:3px solid var(--bronce);outline-offset:4px}
+    .skip{position:fixed;top:-80px;left:18px;z-index:100;background:var(--bronce);color:var(--negro);padding:10px 16px;font-weight:700;text-decoration:none}.skip:focus{top:12px}
+    .shell{width:min(var(--max),calc(100% - 48px));margin-inline:auto}
+    header{position:fixed;inset:0 0 auto;z-index:50;background:rgba(13,13,13,.97);border-bottom:1px solid var(--line-dark);backdrop-filter:blur(12px)}
+    .nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;min-height:44px;text-decoration:none}.brand img{width:118px;max-height:54px;object-fit:contain}.nav-links{display:flex;align-items:center;gap:26px;list-style:none;margin:0;padding:0}.nav-links a{color:#D7D3CB;text-decoration:none;font-size:.86rem;font-weight:600;min-height:44px;display:flex;align-items:center}.nav-links a:hover,.nav-links a[aria-current="page"]{color:#fff}.nav-cta{border:1px solid var(--bronce);color:var(--bronce)!important;padding:0 15px}.menu{display:none;position:relative;width:46px;height:46px;border:1px solid rgba(255,255,255,.28);background:transparent;color:#fff;cursor:pointer}.menu span{position:absolute;left:12px;width:20px;height:2px;background:currentColor;transition:.2s}.menu span:nth-child(1){top:16px}.menu span:nth-child(2){top:22px}.menu span:nth-child(3){top:28px}
+    .hero{padding:148px 0 86px;background:var(--negro);color:#fff;position:relative;overflow:hidden}.hero::after{content:'';position:absolute;inset:0 0 0 auto;width:31%;background:var(--charcoal);opacity:.55}.hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(240px,.55fr);gap:8vw;align-items:end}.eyebrow{font:500 11px/1.5 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--bronce)}h1,h2,h3,p{margin-top:0}h1,h2{font-family:var(--serif);letter-spacing:-.035em;text-wrap:balance}h1{font-size:clamp(3.4rem,7.6vw,7.4rem);line-height:.9;margin:20px 0 28px;font-weight:600}h1 em{color:var(--bronce);font-style:normal}.hero-lede{max-width:700px;color:#CAC6BE;font-size:clamp(1.05rem,1.7vw,1.3rem);margin:0}.hero-note{border-top:1px solid rgba(255,255,255,.25);padding-top:24px;color:#B8B3AA;font-size:.9rem}.hero-note strong{display:block;color:#fff;font:500 2.8rem/1 var(--serif);margin-bottom:8px}.hero-note span{font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--bronce)}
+    .catalog{padding:92px 0 108px}.catalog-head{display:grid;grid-template-columns:.68fr 1.32fr;gap:8vw;align-items:end;margin-bottom:42px}.catalog-head h2,.stack-head h2{font-size:clamp(2.5rem,5vw,5rem);line-height:.98;margin:12px 0 0}.catalog-head p{color:var(--gris);max-width:640px;margin:0;font-size:1.05rem}.controls{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:34px}.search{position:relative}.search label{position:absolute;clip:rect(0 0 0 0);clip-path:inset(50%);width:1px;height:1px;overflow:hidden}.search input{width:100%;min-height:50px;border:1px solid #D8D1C5;background:#FFFDF8;color:var(--grafito);padding:11px 15px}.search input:focus{border-color:var(--bronce);outline:3px solid rgba(201,166,107,.28)}.count{font:500 .72rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--gris);white-space:nowrap}.resource-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:22px}.resource-card{grid-column:span 7;background:#FFFDF8;border:1px solid var(--line);display:grid;grid-template-columns:minmax(180px,.7fr) minmax(0,1.3fr);min-height:380px}.resource-cover{height:100%;width:100%;object-fit:cover;object-position:center top;background:var(--negro)}.resource-copy{padding:clamp(26px,3.4vw,42px);display:flex;flex-direction:column}.resource-meta{display:flex;flex-wrap:wrap;gap:8px 16px;color:var(--gris);font:500 .68rem var(--mono);text-transform:uppercase;letter-spacing:.1em}.resource-copy h3{font-family:var(--serif);font-size:clamp(1.9rem,3vw,3.25rem);line-height:1.02;margin:24px 0 16px;letter-spacing:-.03em}.resource-copy p{color:var(--gris);margin-bottom:28px}.resource-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:auto}.button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:10px 17px;border:1px solid var(--negro);font-size:.84rem;font-weight:700;text-decoration:none;transition:.2s}.button.primary{background:var(--negro);color:#fff}.button.secondary{border-color:#C8BFAF}.button:hover{transform:translateY(-2px);border-color:var(--bronce)}.catalog-aside{grid-column:span 5;background:var(--charcoal);color:#fff;padding:clamp(28px,4vw,48px);display:flex;flex-direction:column;justify-content:space-between}.catalog-aside .mono{font:500 .68rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--bronce)}.catalog-aside h3{font-family:var(--serif);font-size:clamp(2rem,3.6vw,3.6rem);line-height:1.04;margin:18px 0 24px}.catalog-aside p{color:#C9C5BD}.catalog-aside a{color:var(--bronce-light);text-underline-offset:5px;font-weight:600}.empty{display:none;grid-column:1/-1;border:1px solid var(--line);padding:32px;color:var(--gris)}
+    .stack{background:var(--blanco);padding:100px 0}.stack-head{display:grid;grid-template-columns:.7fr 1.3fr;gap:8vw;margin-bottom:44px}.stack-head p{color:var(--gris);max-width:630px;margin:12px 0 0}.tools{border-top:1px solid var(--line)}.tool{display:grid;grid-template-columns:180px .7fr 1.3fr;gap:28px;padding:28px 0;border-bottom:1px solid var(--line);align-items:start}.tool .tag{font:500 .68rem var(--mono);text-transform:uppercase;letter-spacing:.1em;color:#876A36;padding-top:7px}.tool h3{font-size:1.15rem;margin:0}.tool-copy p{color:var(--gris);margin:0}.tool-copy .use{color:#3D65B5;font-weight:600;font-size:.88rem;margin-top:9px}
+    .closing{background:var(--bronce);padding:72px 0}.closing-in{display:flex;align-items:end;justify-content:space-between;gap:40px}.closing h2{font-size:clamp(2.6rem,5.8vw,5.8rem);line-height:.92;margin:0;max-width:820px}.closing .button{background:var(--negro);color:#fff;min-width:210px}
+    footer{background:var(--negro);color:#97938B;padding:28px 0;font-size:.78rem}.foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}.foot a{color:#D5D0C8;text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
+    [hidden]{display:none!important}
+    @media(max-width:900px){.shell{width:min(100% - 36px,var(--max))}.menu{display:block}.nav-links{display:none;position:absolute;top:76px;left:0;right:0;height:calc(100dvh - 76px);background:var(--negro);padding:24px 18px 50px;flex-direction:column;align-items:stretch;gap:0;overflow:auto}.nav-links.open{display:flex}.nav-links li{border-bottom:1px solid var(--line-dark)}.nav-links a{min-height:58px;padding:0 max(8px,calc((100vw - min(100vw - 36px,var(--max)))/2));font-size:1rem}.nav-cta{border:0;padding:0 max(8px,calc((100vw - min(100vw - 36px,var(--max)))/2))}.menu[aria-expanded="true"] span:nth-child(1){top:22px;transform:rotate(45deg)}.menu[aria-expanded="true"] span:nth-child(2){opacity:0}.menu[aria-expanded="true"] span:nth-child(3){top:22px;transform:rotate(-45deg)}.hero-grid,.catalog-head,.stack-head{grid-template-columns:1fr}.hero-note{max-width:320px}.resource-card{grid-column:1/-1}.catalog-aside{grid-column:1/-1;min-height:300px}.tool{grid-template-columns:130px 1fr}.tool-copy{grid-column:2}.closing-in{display:block}.closing .button{margin-top:30px}.closing{padding:62px 0}}
+    @media(max-width:620px){.shell{width:calc(100% - 32px)}.hero{padding:122px 0 68px}.hero::after{width:42%}h1{font-size:clamp(3.05rem,16vw,4.65rem)}.hero-grid{gap:48px}.catalog{padding:68px 0}.controls{grid-template-columns:1fr}.count{white-space:normal}.resource-card{grid-template-columns:1fr}.resource-cover{height:auto;aspect-ratio:16/10;object-position:center 18%}.resource-copy{padding:26px 22px}.resource-actions{display:grid}.button{width:100%}.stack{padding:72px 0}.tool{grid-template-columns:1fr;gap:8px}.tool-copy{grid-column:1}.closing h2{font-size:clamp(2.7rem,14vw,4.5rem)}.foot{display:block}.foot a{margin-top:8px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.button,.menu span{transition:none}}
   </style>
 </head>
 <body>
-<nav>
-  <div class="container">
-    <a href="/" class="logo"><img src="/static/go-logo.png" alt="GO — Diego Arias"></a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="/#about" onclick="closeNav()">Sobre Mí</a></li>
-      <li><a href="/#modelo" onclick="closeNav()">Modelo</a></li>
-      <li><a href="/#casos" onclick="closeNav()">Casos</a></li>
-      <li><a href="/#comunidad" onclick="closeNav()">Comunidad</a></li>
-      <li><a href="/#contact" onclick="closeNav()">Contacto</a></li>
-      <li><a href="/recursos-que-yo-uso-de-ia/" style="opacity:1;color:var(--bronce)">Recursos IA</a></li>
-    </ul>
-    <button class="hamburger" id="hamburger" aria-label="Menú" onclick="toggleNav()"><span></span><span></span><span></span></button>
-  </div>
-</nav>
-<script>function toggleNav(){document.getElementById('navLinks').classList.toggle('open');}function closeNav(){document.getElementById('navLinks').classList.remove('open');}</script>
+  <a class="skip" href="#recursos">Saltar a los recursos</a>
+  <header>
+    <nav class="nav shell" aria-label="Navegación principal">
+      <a class="brand" href="/" aria-label="Diego Arias, inicio"><img src="/static/go-logo-nav.png" width="118" height="54" alt="GO Diego Arias"></a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="/">Inicio</a></li>
+        <li><a href="#recursos" aria-current="page">Recursos IA</a></li>
+        <li><a href="#herramientas">Herramientas</a></li>
+        <li><a class="nav-cta" href="/#contact">Contacto</a></li>
+      </ul>
+      <button class="menu" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
+    </nav>
+  </header>
 
-<header class="page-header">
-  <div class="container">
-    <h1>Recursos de <span>IA</span> que uso</h1>
-    <p>Estas son las herramientas de inteligencia artificial que uso a diario para trabajar, crear y construir.</p>
-  </div>
-</header>
+  <main>
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div>
+          <p class="eyebrow">Biblioteca abierta</p>
+          <h1>Recursos de <em>IA</em></h1>
+          <p class="hero-lede">Guías y herramientas que uso para trabajar con inteligencia artificial. Esta biblioteca crecerá a medida que publique nuevos recursos.</p>
+        </div>
+        <div class="hero-note"><strong id="resource-total">1</strong><span>recurso publicado</span><p>Los nuevos contenidos quedarán ordenados aquí para que sea fácil encontrarlos después.</p></div>
+      </div>
+    </section>
 
-<section class="content">
-  <div class="container">
-    <div class="intro-text">
-      <p>Un stack de IA enfocado en productividad real. Cada herramienta tiene un propósito específico — el poder está en saber cuál usar en cada momento.</p>
-    </div>
+    <section class="catalog" id="recursos" aria-labelledby="catalog-title">
+      <div class="shell">
+        <div class="catalog-head">
+          <div><p class="eyebrow">Guías y publicaciones</p><h2 id="catalog-title">Para usar, no para acumular.</h2></div>
+          <p>Cada recurso parte de una pregunta concreta. Puedes leerlo en línea, descargarlo y compartirlo con tu equipo.</p>
+        </div>
+        <div class="controls">
+          <div class="search"><label for="resource-search">Buscar recursos</label><input id="resource-search" type="search" placeholder="Buscar por tema, formato o palabra" autocomplete="off"></div>
+          <div class="count" id="visible-count" aria-live="polite">1 recurso disponible</div>
+        </div>
+        <div class="resource-grid" id="resource-grid">
+          <article class="resource-card" data-resource data-search="agentes inteligencia artificial empresa pyme guía pdf implementación automatización">
+            <img class="resource-cover" src="/recursos/guiadeagentesempresas/portada-agentes-ia.jpg" width="1072" height="1516" loading="eager" alt="Portada de la guía Agentes de IA para la empresa">
+            <div class="resource-copy">
+              <div class="resource-meta"><span>Guía práctica</span><span>PDF</span><span>2026</span></div>
+              <h3>Agentes de IA para la empresa</h3>
+              <p>Qué es un agente, dónde conviene ejecutarlo, cómo coordinar varios y un catálogo de 100 casos para empresas.</p>
+              <div class="resource-actions">
+                <a class="button primary" href="/recursos/guiadeagentesempresas/">Ver recurso</a>
+                <a class="button secondary" href="/recursos/guiadeagentesempresas/agentes-de-ia-para-la-empresa.pdf" download>Descargar PDF</a>
+              </div>
+            </div>
+          </article>
+          <aside class="catalog-aside">
+            <div><span class="mono">Archivo en crecimiento</span><h3>Un lugar para volver.</h3><p>Guías, plantillas y casos que iré publicando a medida que los termine y los pruebe.</p></div>
+            <a href="/#comunidad">Seguir las próximas publicaciones</a>
+          </aside>
+          <p class="empty" id="empty-state">No encontré recursos con esa búsqueda.</p>
+        </div>
+      </div>
+    </section>
 
-    <div class="tool-card">
-      <span class="tag">Agent / Asistente IA</span>
-      <h2>Agent Hermes (Maya)</h2>
-      <p>Mi agente IA personalizado. Me ayuda con investigación, planificación, gestión de tareas, redacción y automatización. Contexto completo de mi negocio y forma de trabajar.</p>
-      <p class="use-case">→ Gestión integral, investigación, automatización y soporte estratégico.</p>
-    </div>
+    <section class="stack" id="herramientas" aria-labelledby="stack-title">
+      <div class="shell">
+        <div class="stack-head"><div><p class="eyebrow">Mi stack actual</p><h2 id="stack-title">Herramientas que uso.</h2></div><p>Las uso para tareas distintas. Lo importante es saber cuál sirve para cada trabajo y revisar siempre el resultado.</p></div>
+        <div class="tools">
+          <article class="tool"><span class="tag">Agente personal</span><h3>Hermes Agent</h3><div class="tool-copy"><p>Mi agente personalizado para investigación, planificación, redacción, automatización y seguimiento.</p><p class="use">Gestión diaria, investigación y automatización.</p></div></article>
+          <article class="tool"><span class="tag">Búsqueda</span><h3>Perplexity</h3><div class="tool-copy"><p>Lo uso para buscar información en la web y llegar rápido a fuentes que después puedo revisar.</p><p class="use">Tendencias, mercado y validación inicial.</p></div></article>
+          <article class="tool"><span class="tag">Investigación</span><h3>Gemini</h3><div class="tool-copy"><p>Me sirve para analizar documentos extensos y trabajar con el entorno de Google.</p><p class="use">Documentos largos e investigación.</p></div></article>
+          <article class="tool"><span class="tag">Ideas</span><h3>ChatGPT</h3><div class="tool-copy"><p>Lo uso para explorar enfoques, preparar primeras versiones y probar formas de explicar una idea.</p><p class="use">Borradores, ideas y prototipos de mensajes.</p></div></article>
+          <article class="tool"><span class="tag">Documentos</span><h3>Claude</h3><div class="tool-copy"><p>Para propuestas, análisis y documentos que necesitan más contexto y una redacción cuidada.</p><p class="use">Propuestas comerciales y documentos extensos.</p></div></article>
+          <article class="tool"><span class="tag">Video</span><h3>HeyGen</h3><div class="tool-copy"><p>Para producir videos con mi imagen y voz cuando el formato necesita repetirse a escala.</p><p class="use">Videos personalizados y contenido de marca.</p></div></article>
+        </div>
+      </div>
+    </section>
 
-    <div class="tool-card">
-      <span class="tag">Búsqueda</span>
-      <h2>Perplexity</h2>
-      <p>Para búsquedas web inteligentes. Me da respuestas con fuentes citeadas en vez de solo links. Ideal para investigar tendencias, validar datos y explorar temas rápido.</p>
-      <p class="use-case">→ Búsquedas informadas, investigación de mercado, validación de información.</p>
-    </div>
+    <section class="closing"><div class="shell closing-in"><h2>Empieza por una guía que puedas aplicar.</h2><a class="button" href="/recursos/guiadeagentesempresas/">Ver la guía de agentes</a></div></section>
+  </main>
 
-    <div class="tool-card">
-      <span class="tag">Investigación profunda</span>
-      <h2>Gemini</h2>
-      <p>Para investigaciones más profundas y análisis complejos. Buena capacidad de contexto largo y conexión con el ecosistema Google. Lo uso cuando necesito explorar un tema a fondo.</p>
-      <p class="use-case">→ Investigaciones largas, análisis de documentos extensos, conexiones complejas.</p>
-    </div>
+  <footer><div class="shell foot"><span>© 2026 Diego Arias</span><a href="/">Volver a godiegoarias.com</a></div></footer>
 
-    <div class="tool-card">
-      <span class="tag">Creatividad y contenido rápido</span>
-      <h2>ChatGPT</h2>
-      <p>Mi herramienta para creatividad y contenido rápido. Lo uso para brainstorms, primeras versiones de textos, ideas y exploración de conceptos.</p>
-      <p class="use-case">→ Brainstorming, contenido rápido, exploración de ideas, prototipado de mensajes.</p>
-    </div>
+  <script>
+    const menu=document.querySelector('.menu');
+    const links=document.querySelector('.nav-links');
+    function closeMenu(){menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Abrir menú');links.classList.remove('open');document.body.classList.remove('menu-open')}
+    menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')==='true';if(open){closeMenu()}else{menu.setAttribute('aria-expanded','true');menu.setAttribute('aria-label','Cerrar menú');links.classList.add('open');document.body.classList.add('menu-open')}});
+    links.addEventListener('click',e=>{if(e.target.closest('a'))closeMenu()});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()});
+    addEventListener('resize',()=>{if(innerWidth>900)closeMenu()});
 
-    <div class="tool-card">
-      <span class="tag">Trabajo profundo y propuestas</span>
-      <h2>Claude</h2>
-      <p>Para propuestas más elaboradas, documentos largos y trabajo que requiere profundidad analítica. Excelente writing. Lo uso para strategy, propuestas comerciales y documentos formales.</p>
-      <p class="use-case">→ Propuestas comerciales, documentos estratégicos, análisis profundo, redacción cuidada.</p>
-    </div>
-
-    <div class="tool-card">
-      <span class="tag">Clonación de imagen y voz</span>
-      <h2>HeyGen</h2>
-      <p>Para crear contenido con mi imagen y voz clonadas. Lo uso para generar videos personalizados a escala — ideal para contenido de marca, outreach y comunicación en masa.</p>
-      <p class="use-case">→ Videos personalizados, contenido de marca, comunicación escalable.</p>
-    </div>
-
-  </div>
-</section>
-
-<footer>
-  <div class="container">
-    <p>&copy; 2026 Diego Arias — <a href="https://desafiolatam.com">Desafío Latam</a> — hecho por Maya agente de IA</p>
-  </div>
-</footer>
+    const search=document.getElementById('resource-search');
+    const cards=[...document.querySelectorAll('[data-resource]')];
+    const count=document.getElementById('visible-count');
+    const total=document.getElementById('resource-total');
+    const empty=document.getElementById('empty-state');
+    total.textContent=cards.length;
+    function filterResources(){const q=search.value.trim().toLocaleLowerCase('es');let visible=0;cards.forEach(card=>{const text=(card.dataset.search+' '+card.textContent).toLocaleLowerCase('es');const show=!q||text.includes(q);card.hidden=!show;if(show)visible++});count.textContent=visible+(visible===1?' recurso disponible':' recursos disponibles');empty.style.display=visible?'none':'block'}
+    search.addEventListener('input',filterResources);
+  </script>
 </body>
 </html>

@@ -1,0 +1,31 @@
+/* Shared ES/EN color treatment: cream-led, with the original bronze identity.
+   Podcast artwork and the original transparent GO logo remain unchanged. */
+:root{
+  --ink:#1A1A1A;
+  --cream:#F5F0E8;
+  --gold:#C9A66B;
+  --gold-strong:#795720;
+  --blue-tech:#5B8DEF;
+}
+header,footer{background:#0D0D0D}
+.hero{background:var(--cream);color:var(--ink)}
+.hero::before{background:none}
+.hero h1 em,.hero .eyebrow.light{color:var(--gold-strong)}
+.hero .lede{color:var(--muted)}
+.hero .button.ghost{border-color:var(--gold-strong);color:var(--ink)}
+.hero .button.ghost:hover{background:var(--ink);color:var(--cream)}
+.proof{background:var(--cream);color:var(--ink);border-color:var(--line)}
+.proof-intro,.proof-item{border-color:var(--line)}
+.proof-intro,.proof-item span{color:var(--muted)}
+.proof-item strong{color:var(--gold-strong)}
+.community-action{background:var(--cream);color:var(--ink);border-top:3px solid var(--gold)}
+.community-action p{color:var(--muted)}
+.community-action .eyebrow.light{color:var(--gold-strong)}
+.contact{background:var(--cream);border-top:1px solid var(--line)}
+.contact .button{background:var(--gold);color:var(--ink)}
+.contact .button:hover{background:#d6b779}
+.contact .button.secondary{background:transparent;color:var(--ink);border-color:var(--gold-strong)}
+.contact .button.secondary:hover{background:var(--ink);color:var(--cream)}
+.nav-links a[href="/recursos-que-yo-uso-de-ia/"],footer a[href="/recursos-que-yo-uso-de-ia/"]{color:var(--blue-tech)}
+.nav-links a[href="/recursos-que-yo-uso-de-ia/"]:hover,footer a[href="/recursos-que-yo-uso-de-ia/"]:hover{color:#a9c4fa}
+@media(max-width:900px){.nav-links{position:absolute}}
